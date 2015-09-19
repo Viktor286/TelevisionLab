@@ -42,7 +42,7 @@ $yCol = round($xCol/ 1.78);
 // FastList video addition
 // TvLab wiki or another library
 // History column
-// Studio Maps (or list, or somewhat to display hall of fame and get picture of the industry) x1
+// Studio Maps (or list, or somewhat to display hall of fame and get picture of the industry)
 
 
 //------------------------------------ SNIPPET <HTML> STARTS -->
