@@ -1,0 +1,6 @@
+
+DirectoryIndex board.php
+
+RewriteRule ^([A-z0-9]{1,20})/?$ board.php?user=$1 [L]
+
+RewriteRule ^([A-z0-9]{1,20})/([A-z0-9]{1,20})/?$ board.php?user=$1&section=$2 [L]

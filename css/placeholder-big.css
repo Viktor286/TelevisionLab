@@ -1,0 +1,4 @@
+::-webkit-input-placeholder {font-weight: 300; font-style: normal; font-size: 18px; padding-left: 23px;}
+::-moz-placeholder          {font-weight: 300; font-style: normal; font-size: 18px; padding-left: 23px;}/* Firefox 19+ */
+:-moz-placeholder           {font-weight: 300; font-style: normal; font-size: 18px; padding-left: 23px;}/* Firefox 18- */
+:-ms-input-placeholder      {font-weight: 300; font-style: normal; font-size: 18px; padding-left: 23px;}

@@ -1,0 +1,10 @@
+.idea/
+.git/
+
+config/
+lib/config/
+vimeo/cache/
+
+test.php
+test.html
+

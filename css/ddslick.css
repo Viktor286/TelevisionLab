@@ -1,0 +1,45 @@
+.dd-container {}
+.dd-select, .dd-option {  border:1px solid #313131 !important;}
+
+/* background:#181818 !important; */
+
+.dd-option, .dd-select {background:#181818 !important;}
+
+.dd-option:hover {
+background: #303132 !important;
+color: #000;
+}
+
+.dd-option {
+padding: 8px 5px 3px 5px;
+border: 1px #313131 solid !important;
+border-top: none !important;
+-webkit-transition: all 0.25s ease-in-out;
+-moz-transition: all 0.25s ease-in-out;
+-o-transition: all 0.25s ease-in-out;
+-ms-transition: all 0.25s ease-in-out;
+}
+
+
+.dd-selected { padding:8px 5px 3px 5px;}
+
+.dd-options { border: none; background:none; box-shadow: 0px 0px 10px #000 !important;}
+
+.dd-option { padding:8px 5px 3px 5px; border: 1px #313131 solid !important;  border-top:none !important;
+
+-webkit-transition: all 0.25s ease-in-out;
+-moz-transition: all 0.25s ease-in-out;
+-o-transition: all 0.25s ease-in-out;
+-ms-transition: all 0.25s ease-in-out;
+
+}
+.dd-option-selected { background:#252627 !important; border:1px solid #d17e2c !important;}
+
+
+.dd-option-image, .dd-selected-image {margin: -3px 10px 4px 4px !important; }
+.dd-option-text { font-style:normal !important; color: #dfdfdf !important;} 
+.dd-selected-text { font-style:normal !important; font-weight:normal !important; color: #dfdfdf !important; }
+.dd-option-description, .dd-selected-description { font-size:11px !important; color:#666 !important;}
+
+
+
