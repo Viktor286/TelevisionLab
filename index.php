@@ -3,7 +3,7 @@ header("Cache-Control: no-store");
 
 require_once("lib/core.php");
 $TvLab = new TvLab;
-
+$q = new TvLabQuery;
 
 /*---------------- Обработка входных данных */
 
@@ -43,7 +43,8 @@ $yCol = round($xCol/ 1.78);
 // TvLab wiki or another library
 // History column
 // Studio Maps (or list, or somewhat to display hall of fame and get picture of the industry)
-
+// Email post-video notification to authors of video
+// test
 
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
@@ -57,7 +58,6 @@ $HeadLayoutSet = array(
 );
 
 insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
-
 ?>
 
 <script type="text/javascript">
@@ -70,15 +70,6 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
 </script>
 
 <!--
-<section></section>
-<article></article>
-<header></header>
-<footer></footer>
-<aside></aside>
-<nav></nav>
-<div></div>
-div[class|="side"]
-<div class="a-side">
 p:first-child
 p:first-letter {}
 -->
@@ -120,7 +111,12 @@ p:first-letter {}
     <section id="MainOutput">
         <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
         <? $TvLab->showDebugCookie();  ?>
-        <div id="container"></div>
+
+        <? include 'nodes/VideoInfoPost.php'; ?>
+
+        <? include 'nodes/VideoInfoPost.php'; ?>
+
+        <!--<div id="container"></div>-->
     </section>
 </main>
 
