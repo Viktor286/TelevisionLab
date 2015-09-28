@@ -855,6 +855,61 @@ div.Team-Dashboard a.bt-LogOut-sml { display: block; width: 40px; height: 40px; 
 
 
 
+/*-------        Post Box        ------*/
+section#PostBox {
+	width: 984px;
+	margin: 0 0 20px 20px;
+	font-weight: 300;
+
+	padding: 0;
+}
+
+section#PostBox > div.DateTag {
+    width: 50px;
+    height: 93px;
+    background: url(../img/date-shdw.png) #202020 repeat-y right;
+    color: #aaaaaa;
+    float: left;
+    border: 1px solid #2c2c2c;
+    border-right: none;
+    text-align: center;
+    margin: 23px 0 0 0;
+}
+
+section#PostBox > div.DateTag > .Day {
+    font-size: 22px; font-weight: 600;
+    margin: 10px 0px 0px 0px;
+
+}
+section#PostBox > div.DateTag > .Hr {
+    width: 26px;
+    height: 1px;
+    border-bottom: 1px solid #8d8d8d;
+    margin: 5px auto;
+}
+
+section#PostBox > div.DateTag > .Month {font-size: 12px; font-weight: 400; text-transform: uppercase; line-height: 120%;}
+section#PostBox > div.DateTag > .Year {font-size: 10px; font-weight: 400; line-height: 120%;}
+
+section#PostBox > article {
+    margin: 0px 0px 0px 51px;
+    border: 1px solid #2f2f2f;
+    background: url(../img/black_denim_50.png) repeat;
+}
+
+section#PostBox > article > div.wrapper {
+    margin: 2%;
+}
+
+section#PostBox > article > div.wrapper > div.left {
+    width: 43%;
+    background: #00CCCC;
+}
+
+section#PostBox > article > div.wrapper > img {
+    width: 57%;
+    float: right;
+}
 
 
 
