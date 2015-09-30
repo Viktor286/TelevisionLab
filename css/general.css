@@ -413,7 +413,7 @@ div.NoResultAdvice span.tag a { text-decoration: none; color: #999; text-transfo
 div.NoResultAdvice span.tag a:hover { color: #fff;}
 div.NoResultAdvice span.Tags span.tag:hover { border-color: #6387cb; cursor: pointer; background-color: #292929;}
 
-span.Tags span.tag {
+span.Tags span.tag, a.tag {
 
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -856,11 +856,17 @@ div.Team-Dashboard a.bt-LogOut-sml { display: block; width: 40px; height: 40px; 
 
 
 /*-------        Post Box        ------*/
-section#PostBox {
-	width: 984px;
-	margin: 0 0 20px 20px;
-	font-weight: 300;
+section#PostBox a, div#InformationWindow a { text-decoration: none; color: #fff;}
+section#PostBox a:hover, div#InformationWindow a:hover {
+    color: #cdeaff; text-decoration: underline;
+}
 
+section#PostBox {
+	min-width: 870px;
+    max-width: 1300px;
+    width: 85%;
+	margin: 0 0 35px 5%;
+	font-weight: 300;
 	padding: 0;
 }
 
@@ -901,16 +907,25 @@ section#PostBox > article > div.wrapper {
     margin: 2%;
 }
 
-section#PostBox > article > div.wrapper > div.left {
-    width: 43%;
-    background: #00CCCC;
+section#PostBox > article > div.wrapper > div.info {
+    width: 44%;
+    border: 0px dashed red;
+	float: right;
+    padding-left: 15px;
 }
 
-section#PostBox > article > div.wrapper > img {
-    width: 57%;
-    float: right;
+section#PostBox > article > div.wrapper > div.thumb {
+    width: 55%;
+    background-color: #252728;
+    padding: 2px;
+    display: table-cell;
 }
 
+section#PostBox > article > div.wrapper > div.thumb > img {
+    width: 100%;
+    display: block;
+    margin: auto;
+}
 
 
 /*-------        InformationWindow        ------*/
@@ -938,11 +953,19 @@ div#InformationWindow > div#InformationWindow { border: none; background: none; 
     font-size: 14px;
 }
 
-div#InformationWindow > .left > div.Title {
-    font-size: 24px;
-    color: #a9a9a9;
-    _min-height:50px;
+div#InformationWindow > .left > div.Title,
+section#PostBox > article > div.wrapper > .info > h1 {
+	font-size: 24px;
+	color: #a9a9a9;
+	_min-height:50px;
+    display: block;
     margin: 0 0 0 20px;
+    line-height: 105%;
+}
+section#PostBox > article > div.wrapper > .info > h1 {
+    margin: 0;
+    font-size: 21px;
+
 }
 
 div#InformationWindow > .left > span.Tags {
@@ -950,58 +973,94 @@ div#InformationWindow > .left > span.Tags {
     margin: 25px 0 0 20px;
 }
 
-#InformationWindow > .left > div.Rating {
-	display: table;
-    width: 275px;
-    height: 28px;
-    margin: 30px 0 0 20px;
+section#PostBox > article > div.wrapper > .info > span.Tags {
+    display: block;
+    margin: 20px 0 0 0;
 }
 
-div#InformationWindow > .left > span.Tags > span.tag {
+#InformationWindow > .left > div.Rating,
+section#PostBox > article > div.wrapper > .info > div.Rating {
+	display: table;
+    width: 300px;
+    height: 28px;
+    margin: 30px 0 0 20px;
+    border: 0px dashed #ffee00;
+}
+section#PostBox > article > div.wrapper > .info > div.Rating { margin: 18px 0 0 0px; }
+
+
+
+div#InformationWindow > .left > span.Tags > a.tag,
+section#PostBox > article > div.wrapper > .info > span.Tags > a.tag {
     border-color: #525050;
     margin: 0 5px 0 0;
     background-color: #191919;
     text-transform: capitalize;
     font-size: 13px;
     line-height: 220%;
+    text-decoration: none;
+    color: #999;
+}
+div#InformationWindow > .left > span.Tags > a.tag:hover,
+section#PostBox > article > div.wrapper > .info > span.Tags > a.tag:hover {
+    border-color: #6387cb; cursor: pointer; background-color: #292929; color: #fff;
 }
 
-#InformationWindow > .right > .Authors {
+
+
+#InformationWindow > .right > .Authors,
+section#PostBox > article > div.wrapper > .info > .Authors {
 	line-height: 120%;
 	border: 0px yellow dashed;
 	display: table;
 	margin: 3px 0 0 0;
 }
+section#PostBox > article > div.wrapper > .info > .Authors {margin: 12px 0 0 0;}
 
-#InformationWindow > .right > .Authors > .IconCol { width: 22px; display: table-cell; vertical-align: middle; border: 0px red dashed;}
-#InformationWindow > .right > .Authors > .Names { display: table-cell; vertical-align: middle; padding: 0 10px 0 5px;  border: 0px blue dashed; font-size: 16px; color: #c6c6c6;}
-#InformationWindow > .right > .Authors > .IconCol img {}
+#InformationWindow > .right > .Authors > .IconCol,
+section#PostBox > article > div.wrapper > .info > .Authors > .IconCol { width: 22px; display: table-cell; vertical-align: middle; border: 0px red dashed;}
+
+#InformationWindow > .right > .Authors > .Names,
+section#PostBox > article > div.wrapper > .info > .Authors > .Names { display: table-cell; vertical-align: middle; padding: 0 10px 0 5px;  border: 0px blue dashed; font-size: 16px; color: #c6c6c6;}
+section#PostBox > article > div.wrapper > .info > .Authors > .Names { font-size: 14px; }
+
+#InformationWindow > .right > .Authors > .IconCol img,
+section#PostBox > article > div.wrapper > .info > .Authors > .IconCol {}
 
 
-#InformationWindow > .right > .Location {
+
+
+#InformationWindow > .right > .Location,
+section#PostBox > article > div.wrapper > .info > .Location {
     margin: 5px 0 0px 0;
 	padding: 0 10px 0 0;
 }
+section#PostBox > article > div.wrapper > .info > .Location { font-size: 12px;}
 
-#InformationWindow > .right > .Brand {
+#InformationWindow > .right > .Brand,
+section#PostBox > article > div.wrapper > .info > .Brand {
     margin: 15px 0 5px 0;
 }
 
-#InformationWindow > .right > .Tv_Channel {
+#InformationWindow > .right > .Tv_Channel,
+section#PostBox > article > div.wrapper > .info > .Tv_Channel {
     margin: 15px 0 0 0;
 }
 
-#InformationWindow > .right > .Motion_Type {
+#InformationWindow > .right > .Motion_Type,
+section#PostBox > article > div.wrapper > .info > .Motion_Type {
     margin: 10px 0 0 0;
 }
 
-#InformationWindow > .right > .Broadcast_Type {
+#InformationWindow > .right > .Broadcast_Type,
+section#PostBox > article > div.wrapper > .info > .Broadcast_Type{
     margin: 20px 0 0 0;
 	font-size: 12px;
 }
 
 
-#InformationWindow > .right > .Motion_Type img.min-icon {
+#InformationWindow > .right > .Motion_Type img.min-icon,
+section#PostBox > article > div.wrapper > .info > .Motion_Type img.min-icon {
     display:inline;
     width: 32px;
     height: 32px;
@@ -1011,18 +1070,19 @@ div#InformationWindow > .left > span.Tags > span.tag {
     top: 10px;
 }
 
-#InformationWindow  .min_cap {
+#InformationWindow  .min_cap,
+section#PostBox > article .min_cap{
     font-size:12px;
     color:#aaaaaa;
     display: inline;
 }
 
 
-#InformationWindow > .left > .Rating > .Num {
+#InformationWindow > .left > .Rating > .Num,
+section#PostBox > article > div.wrapper > .info > .Rating > .Num {
 	display: table-cell;
 	font-size: 11px;
 	height: 24px;
-	width: 35px;
 	margin: 0 0 0 5px;
 	background-color: #252627;
 	border: 1px #666666 solid;
@@ -1031,18 +1091,33 @@ div#InformationWindow > .left > span.Tags > span.tag {
 	letter-spacing: .2px;
 	color: #666;
 	vertical-align: top;
+    width: 35px;
 }
-#InformationWindow > .left > .Rating > .Num > div.RateText { margin: 7px 10px 0 ;}
-#InformationWindow > .left > .Rating > .Num > div.RateText:first-letter { font-size:14px; letter-spacing:.1px !important; color: #999;}
+
+#InformationWindow > .left > .Rating > .Num > div.RateText,
+section#PostBox > article > div.wrapper > .info > .Rating > .Num > div.RateText{ margin: 7px 10px 0 ;}
+
+#InformationWindow > .left > .Rating > .Num > div.RateText:first-letter,
+section#PostBox > article > div.wrapper > .info > .Rating > .Num > div.RateText:first-letter
+{ font-size:14px; letter-spacing:.1px !important; color: #999;}
 
 
-#InformationWindow > .left > .Rating > .AwesomeRate { border: 0px red dashed; margin: 0 0 0 10px;  position: relative; width: 240px; }
-#InformationWindow > .left > .Rating > .AwesomeRate .min_cap {  }
+#InformationWindow > .left > .Rating > .AwesomeRate,
+section#PostBox > article > div.wrapper > .info > .Rating > .AwesomeRate { border: 0px blue dashed; margin: 0 0 0 10px;  position: relative; }
 
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost, #InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist {
+
+#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
+section#PostBox > article > div.wrapper > .info > .Rating > .AwesomeRate > .MeterGhost,
+#InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
+section#PostBox > article > div.wrapper > .info > .Rating > .AwesomeRate > .MeterExist {
 	margin: 5px 0 0 0; height: 5px; width: 240px;
 	position: absolute;
 }
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost { background: url(../img/awesom-meter-sml-o.png) no-repeat; z-index: 1; }
 
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist { background: url(../img/awesom-meter-sml.png) no-repeat; z-index: 2; }
+#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
+section#PostBox > article > div.wrapper > .info > .Rating > .AwesomeRate > .MeterGhost
+{background: url(../img/awesom-meter-sml-o.png) no-repeat; z-index: 1; }
+
+#InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
+section#PostBox > article > div.wrapper > .info > .Rating > .AwesomeRate > .MeterExist
+{background: url(../img/awesom-meter-sml.png) no-repeat; z-index: 2; }

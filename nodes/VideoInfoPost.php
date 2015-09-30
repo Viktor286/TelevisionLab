@@ -1,6 +1,9 @@
 
 <?
-$q->getVideo(53532205, $isStack, "SetGlobals");
+$q->getVideo(109111165, $isStack, "SetGlobals");
+//--- Prepare tag line from data to $TagsArr
+prepareTagsArrVar();
+
 ?>
 
 <section id="PostBox">
@@ -12,29 +15,29 @@ $q->getVideo(53532205, $isStack, "SetGlobals");
     </div>
     <article>
         <div class="wrapper">
-            <img src="<?= $Img ?>" />
-            <div class="left">
-                <h1><?= $Title ?></h1>
+
+            <div class="info">
+                <h1><?= $Title ?> and more amazing workaround words</h1>
 
                 <div class="Authors">
                     <div class="IconCol"><img src="img/ShotInfo_iconUser.png" /></div>
                     <div class="Names"><?= $Authors ?></div>
                 </div>
 
-                <div class="Location"><? if ( !empty($Location)) { echo $Location.", ".$Year; } else { echo '<div class="min_cap">Year: </div>'.$Year; }?></div>
+                <div class="Location"><? if ( !empty($Location)) { echo '<a href="/?tags='.$Location.'">'.$Location.'</a>, <a href="/?tags='.$Year.'">'.$Year.'</a>'; } else { echo '<div class="min_cap">Year: </div><a href="/?tags='.$Year.'">'.$Year.'</a>'; }?></div>
 
-                <? if ( !strstr( $Authors, $Brand ) and !empty( $Brand ) ) { echo '<div class="Brand"><div class="min_cap">Brand: </div>'.$Brand.'</div>'; } ?>
+                <? if ( !strstr( $Authors, $Brand ) and !empty( $Brand ) ) { echo '<div class="Brand"><div class="min_cap">Brand: </div><a href="/?tags='.$Brand.'">'.$Brand.'</a></div>'; } ?>
 
-                <? if ( !empty ($Tv_Channel) ) { echo '<div class="Tv_Channel"><div class="min_cap">Tv channel: </div>'.$Tv_Channel.' </div>'; }
+                <? if ( !empty ($Tv_Channel) ) { echo '<div class="Tv_Channel"><div class="min_cap">Tv channel: </div><a href="/?tags='.$Tv_Channel.'">'.$Tv_Channel.'</a></div>'; }
 
                 foreach( explode(',',$Motion_Type) as $val){
                     switch ($val) {
-                        case "0": $mts .= '<img class="min-icon m_compositing" src="img/min-compositing.png" />'; break;
-                        case "1": $mts .= '<img class="min-icon m_graphics" src="img/min-graphics.png" />'; break;
-                        case "2": $mts .= '<img class="min-icon m_simulation" src="img/min-simulation.png" />'; break;
-                        case "3": $mts .= '<img class="min-icon m_animation" src="img/min-animation.png" />'; break;
-                        case "4": $mts .= '<img class="min-icon m_rd_stop_motion" src="img/min-rd_stop_motion.png" />'; break;
-                        case "5": $mts .= '<img class="min-icon m_rd_video" src="img/min-rd_video.png" />'; break;
+                        case "0": $mts .= '<a href="/?set=c1d0s0a0t0v0"><img class="min-icon m_compositing" src="img/min-compositing.png" /></a>'; break;
+                        case "1": $mts .= '<a href="/?set=c0d1s0a0t0v0"><img class="min-icon m_graphics" src="img/min-graphics.png" /></a>'; break;
+                        case "2": $mts .= '<a href="/?set=c0d0s1a0t0v0"><img class="min-icon m_simulation" src="img/min-simulation.png" /></a>'; break;
+                        case "3": $mts .= '<a href="/?set=c0d0s0a1t0v0"><img class="min-icon m_animation" src="img/min-animation.png" /></a>'; break;
+                        case "4": $mts .= '<a href="/?set=c0d0s0a0t1v0"><img class="min-icon m_rd_stop_motion" src="img/min-rd_stop_motion.png" /></a>'; break;
+                        case "5": $mts .= '<a href="/?set=c0d0s0a0t0v1"><img class="min-icon m_rd_video" src="img/min-rd_video.png" /></a>'; break;
                     }
                 }
                 ?>
@@ -63,10 +66,16 @@ $q->getVideo(53532205, $isStack, "SetGlobals");
                     </div>
                 </div>
 
-                <span class="Tags"><? foreach ($TagsArr as $Tag) { echo '<span class="tag">'.$Tag.'</span> '; } //$rate_math = round() ?></span>
+                <span class="Tags">
+                    <? foreach ($TagsArr as $Tag) { echo '<a class="tag" href="/?tags='.$Tag.'">'.$Tag.'</a> '; } ?>
+                </span>
 
-                <span class="Tags"><? foreach ($TagsArr as $Tag) { echo '<span class="tag">'.$Tag.'</span> '; } //$rate_math = round() ?></span>
             </div>
+
+            <div class="thumb">
+                <img src="<?= $Img ?>" />
+            </div>
+
             <div class="clear"></div>
         </div>
 
