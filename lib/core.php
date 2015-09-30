@@ -131,7 +131,7 @@ class TvLabQuery
 	public $Img;
 	public $Img_Small;
 	public $Authors;
-    public $Authors_Id;
+    public $Authors_Aliases;
 	public $Location;
 	public $Brand;
 	public $Tv_Channel;
@@ -153,21 +153,23 @@ class TvLabQuery
 	public $Width;
 	public $Height;
 	public $State;
-	
+    public $By_User;
+
+
  	public function __construct() {
 
 	}
 
-	
+
 	//Common query wrapper
 	public function Query($Query) {
 		$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		if($this->mysql->connect_errno > 0){
 			print ('Unable to connect to database [' . $this->mysql->connect_error . ']');
 		} else {$this->mysql->set_charset("utf8");}
-		
+
 		if(!$result = $this->mysql->query($Query)){die('Error [' . $this->mysql->error . ']');}
-		
+
 		return $result;
 		$result->close();
 	}
@@ -210,8 +212,8 @@ class TvLabQuery
 
 	}
 
-	
-	
+
+
 	public function putVideo($UserName, $isStack) {
 		global $UserAdded, $getTitle, $OutId, $OutHost, $Img, $ImgSmall, $getAuthors, $getLocation, $getBrand, $getTv_Channel, $Likes, $getRating, $getCost, $getMotion_Type, $getBroadcast_Type, $getTempo, $getTags_SA, $getTags_Fashion, $getTags_Arts, $getTags_Music, $getTags_Others, $CreateDate, $getYear, $Duration, $Width, $Height, $dateNow, $UserName;
 
@@ -224,65 +226,65 @@ class TvLabQuery
 		$insertQuery = "
 			INSERT INTO u186876_tvarts.contents".$isStack." (
 			Title, OutId, OutHost, Img, Img_Small, Authors, Location, Brand, Tv_Channel, Likes, Rating, Cost, Motion_Type, Broadcast_Type, Tempo, Tags_SA, Tags_Fashion, Tags_Arts, Tags_Music, Tags_Others, Date_Origin, Year, Duration, Width, Height, Date_Create, By_User) VALUES ('$getTitle', '$OutId', '$OutHost', '$Img', '$ImgSmall', '$getAuthors', '$getLocation', '$getBrand', '$getTv_Channel', '$Likes', '$getRating', '$getCost', '$getMotion_Type', '$getBroadcast_Type', '$getTempo', '$getTags_SA', '$getTags_Fashion', '$getTags_Arts', '$getTags_Music', '$getTags_Others', '$CreateDate', '$getYear', '$Duration', '$Width', '$Height', '$dateNow', '$UserName')";
-		
+
 		if ($this->Query($insertQuery)) {
-				
+
 				$_SESSION['user_added'] = ++$UserAdded;
 				$NewAddCountQuery = "UPDATE u186876_tvarts.users SET Added = ".$UserAdded." WHERE user_name = '".$UserName."'";
-				
+
 				$LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'create', '$UserName', 'Create New', '$dateNow')";
-				
+
 				if ($this->Query($NewAddCountQuery) and $this->Query($LogLineQuery)) {
-					
+
 					unset ($_GET); //destroy array
 					return true;
-					}	
+					}
 		}
 	}
-		
+
 	public function saveVideo() {
 		global $isStack, $getTitle, $getAuthors, $getLocation, $getBrand, $getTv_Channel, $getRating, $getMotion_Type, $getBroadcast_Type, $getTempo, $getTags_SA, $getTags_Fashion, $getTags_Arts, $getTags_Music, $getTags_Others, $getYear, $OutId, $UserName, $Log_Actions, $dateNow;
-		
+
 		$insertQuery = 'UPDATE u186876_tvarts.contents'.$isStack.' SET Title = "'.$getTitle.'", Authors = "'.$getAuthors.'", Location = "'.$getLocation.'", Brand = "'.$getBrand.'", Tv_Channel = "'.$getTv_Channel.'", Rating = "'.$getRating.'", Motion_Type = "'.$getMotion_Type.'", Broadcast_Type = "'.$getBroadcast_Type.'", Tempo = "'.$getTempo.'", Tags_SA = "'.strtolower($getTags_SA).'", Tags_Fashion = "'.strtolower($getTags_Fashion).'", Tags_Arts = "'.strtolower($getTags_Arts).'", Tags_Music = "'.strtolower($getTags_Music).'", Tags_Others = "'.strtolower($getTags_Others).'", Year = "'.$getYear.'" WHERE OutId = "'.$OutId.'" ';
-	
+
 		if($this->Query($insertQuery)) {
-			
+
 			//Detect changes to $Log_Actions textline
 			DetectVideoChanges ();
-			
+
 			$LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'edit', '$UserName', '$Log_Actions', '$dateNow')";
-			
+
 			if ($this->Query($LogLineQuery)){
-			
+
 				unset ($_GET); //destroy array
 				return true;
 				}
 			}
 	}
-	
-	
+
+
 	public function deleteVideo() {
 		global $OutId, $Title, $UserName, $isStack, $UserName, $dateNow;
-		
+
 		$deleteQuery = "UPDATE u186876_tvarts.contents".$isStack." SET State = 0 WHERE OutId = ".$OutId;
-			
+
 		if ($this->Query($deleteQuery)) {
-	
+
 				$LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$Title', 'delete', '$UserName', 'Delete This', '$dateNow')";
 				if ($this->Query($LogLineQuery)) {
-					
+
 					unset ($_GET); //destroy array
 					return true;
 				}
 			}
-		
+
 	}
-	
-	
+
+
 	public function getVideoFromVimeo($Vimeo_Id) {
-		global 
-		$OutId, 
-		$Title, 
+		global
+		$OutId,
+		$Title,
 		$OutHost,
 		$Title,
 		$Likes,
@@ -299,39 +301,39 @@ class TvLabQuery
 		$Height,
 		$MainUserLocation,
 		$Year;
-		
+
 		$vimeo = new phpVimeo('986bbb02678174efc5d7f107a8ab7d79f7b90626', '0fd2320a50be95e7743922b0f177f29aa8bc33a3');
 		$vimeo->setToken('e67a282a494a5325d905347c137be65c','e062ff9270737fc548676f31f49d858840c89f7e');
-		
+
 		//ВНИМАНИЕ Если API не найдет Video по ID, то скрипт остановится здесь. Как исправить ХЗ?
 		$result = $vimeo->call('vimeo.videos.getInfo', array('video_id' => $Vimeo_Id));
-		
+
 		//На случай исправления предыдущего пункта, проверка связи с vimeo
 		if($result->stat != 'ok') echo 'Нет подключения к vimeo, статус ('.$result->stat.')<br />';
-		
+
 		//В API возможно работать с категориями и тегами видео.
 		/*
 		Стоит обратить внимание на
 		https://developer.vimeo.com/apis/advanced/methods/vimeo.categories.getRelatedTags // Get a list of related tags for a category.
 		vimeo.videos.getCollections // Get all the Albums, Channels and Groups a video is a member of.
 		*/
-		
+
 		//Назначаем переменные
 		$OutId = $result->video[0]->id;
 		$OutHost = "vimeo"; //указываем флаг vimeo, для будущего расширения хостов с видео
-		
+
 		$Title = $result->video[0]->title;
 		$Likes = $result->video[0]->number_of_likes;
 		$Desc = $result->video[0]->description;
 		$CreateDate = $result->video[0]->upload_date; preg_match("/\d{4}/", $CreateDate, $Year); $Year = $Year[0];
-	
+
 		$Tags = $result->video[0]->tags->tag;
 		foreach ($Tags as $key => $value) {
 			$Tag = $Tags[$key]->_content;
 			$Tag = preg_replace("/[^\s\w\А-яЁе-]/u", "", $Tag); // фильтруем теги, только латинские и -
 			$TagList .= '<span class="tagInsertTags" data-num="'.$key.'">'.$Tag.'</span>, ';
 		}
-			
+
 		$Cast = $result->video[0]->cast->member; // [display_name]
 		if (!empty($Cast[display_name])) //если в массиве есть элемент с display_name, значит нет подмассивов и можно назначить $CastList как одно это значение
 		{
@@ -343,50 +345,50 @@ class TvLabQuery
 			$CastList .= $Cast[$key]->display_name.', ';
 			$UserId = $Cast[0]->id; //назначаем id первого участника
 			}
-			
+
 		}
-	
+
 		//убираем хвосты запятых
 		if( preg_match("/, $/", $TagList)) {$TagList = preg_replace("/, $/", "", $TagList);}
 		if( preg_match("/, $/", $CastList)) {$CastList = preg_replace("/, $/", "", $CastList);}
-		
+
 		$Duration = $result->video[0]->duration; //в секундах
 		$Brand = $result->video[0]->owner->display_name;
 		$ImgSmall = $result->video[0]->thumbnails->thumbnail[1]->_content;
 		$Img = $result->video[0]->thumbnails->thumbnail[2]->_content;
 		$Width = $result->video[0]->width;
 		$Height = $result->video[0]->height;
-	
+
 		//Сбор информаци о первом авторе
 		$result_user_info = $vimeo->call('vimeo.people.getInfo', array('user_id' => $UserId));
-		
+
 		//определение локации
 		$MainUserLocation = $result_user_info->person->location;
 	}
-	
-	
+
+
 	//Query thats gets Video info by Id with isStack setting, with flag VarState ([SetGlobals])
 public function getVideo($VideoId, $isStack, $VarState) {
-		
+
 		$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		if($this->mysql->connect_errno > 0){
 			print ('Unable to connect to database [' . $this->mysql->connect_error . ']');
 		} else {$this->mysql->set_charset("utf8");}
-		
+
 
 		$IdQuery = 'SELECT * FROM u186876_tvarts.contents'.$isStack.' WHERE OutId = '.$VideoId;
-		
+
 		if(!$result = $this->mysql->query($IdQuery)){die('Error [' . $this->mysql->error . ']');}
-		
+
 
 		//если не нашел видео в базе соотнтветствующей текущему борду, сделать попытку отыскать видео в другой базе
 		if ($result->num_rows < 1) {
 			if ($isStack == "") {$isStack = "_stack";} else {$isStack = "";}// переключаем настройки флагов
 			$IdQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE OutId = ".$VideoId; //перебиваем запрос
 			if(!$result = $this->mysql->query($IdQuery)){die('Error [' . $this->mysql->error . ']');} //переподключаемся
-		}	
-		
-		
+		}
+
+
 		while ($row = $result->fetch_object()) {
 			$this->Title = $row->Title;
 			$this->OutId = $row->OutId;
@@ -394,7 +396,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			$this->Img = $row->Img;
 			$this->Img_Small = $row->Img_Small;
 			$this->Authors = $row->Authors;
-			$this->Authors_Id = $row->Authors_Id;
+			$this->Authors_Aliases = $row->Authors_Aliases;
 			$this->Location = $row->Location;
 			$this->Brand = $row->Brand;
 			$this->Tv_Channel = $row->Tv_Channel;
@@ -419,7 +421,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			$this->State = $row->State;
 		}
 		$result->close();
-		
+
 		if ($VarState == "SetGlobals") {
 			global $Title; $Title = $this->Title;
 			global $OutId; $OutId = $this->OutId;
@@ -427,7 +429,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			global $Img; $Img = $this->Img;
 			global $Img_Small; $Img_Small = $this->Img_Small;
 			global $Authors; $Authors = $this->Authors;
-            global $Authors_Id; $Authors_Id = $this->Authors_Id;
+            global $Authors_Aliases; $Authors_Aliases = $this->Authors_Aliases;
 			global $Location; $Location = $this->Location;
 			global $Brand; $Brand = $this->Brand;
 			global $Tv_Channel; $Tv_Channel = $this->Tv_Channel;

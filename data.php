@@ -10,7 +10,6 @@ $q = new TvLabQuery;
 
 /*----------------Обработка входных данных */
 $Input = array(
-
     "getSet" => $_GET['set'],
     "Mode" => $_GET['md'],
     "tags" => $_GET['tags'],
@@ -150,84 +149,25 @@ $specificQuery .= ' ORDER BY id DESC';
 
 
 //Кол-во строк запроса $specificQuery для последующго разделения на порции
-
 $TotalRows = $q->Query(preg_replace("/SELECT \*/", "SELECT COUNT(*)", $specificQuery))->fetch_row();
 
-
 //Узнаем максимальное количество страниц на выдачу, устанавливаем лимит
-
 $inPage = 10;
 $MaxPages = ceil($TotalRows[0] / $inPage);
 if ($page == 0) {$PageIncr = 0;} else {$PageIncr = ($page -1) * 10;}
 
-
-
 //Финализируем запрос, добавляем лимит к запросу, для порционной выдачи (offset, number of rows)
-
 $specificQuery .= ' LIMIT '.$PageIncr.','.$inPage.';';
 
 
-//делаем запрос на 10 позиций
+//делаем запрос на $inPage (10) позиций
 $result = $q->Query($specificQuery);
-
-//echo $specificQuery;
-
 
 
 //Если в ответе что-то есть, формируем Json ответ
 if ($result->num_rows > 0){
 
-	echo '
-        {
-            "total": '.$TotalRows[0].',
-            "pages": '.$MaxPages.',
-            "page": '.$page.',
-            "result": [';
-
-        while ($row = $result->fetch_assoc()) {
-
-            $Rating = $row['Rating'] / 10000;
-            $Rating = round($Rating,1);
-
-            if ($video == $row['OutId']) { $CurrentClass = " here"; } else {$CurrentClass = "";}
-
-            $Collect_JSON_Attr .= '
-        {
-
-                "Title": "'.$row['Title'].'",
-                "Img": "'.$row['Img'].'",
-                "Authors": "'.$row['Authors'].'",
-                "Location": "'.$row['Location'].'",
-                "Brand": "'.$row['Brand'].'",
-                "Tv_Channel": "'.$row['Tv_Channel'].'",
-                "Likes": "'.$row['Likes'].'",
-                "Rating": "'.$Rating.'",
-                "Motion_Type": "'.$row['Motion_Type'].'",
-                "Broadcast_Type": "'.$row['Broadcast_Type'].'",
-                "Tempo": "'.$row['Tempo'].'",
-                "Tags_SA": "'.$row['Tags_SA'].'",
-                "Tags_Fashion": "'.$row['Tags_Fashion'].'",
-                "Tags_Arts": "'.$row['Tags_Arts'].'",
-                "Tags_Music": "'.$row['Tags_Music'].'",
-                "Tags_Others": "'.$row['Tags_Others'].'",
-                "Year": "'.$row['Year'].'",
-                "Img_Small": "'.$row['Img_Small'].'",
-                "Width": 640,
-                "Height": 360,
-                "CurrentClass": "'.$CurrentClass.'",
-                "OutId": "'.$row['OutId'].'"
-            },';
-
-        };
-
-        //Удаляем последнюю запятую
-        $Collect_JSON_Attr = preg_replace("/,$/", "", $Collect_JSON_Attr);
-
-        //выводим Json собраные циклом блоки и закрываем
-        echo $Collect_JSON_Attr.'
-                 ]
-        }
-    ';
+    include("nodes/WaterfallJson_Tpl.php");
 
 }
 

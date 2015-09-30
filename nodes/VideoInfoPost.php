@@ -4,6 +4,11 @@ $q->getVideo(109111165, $isStack, "SetGlobals");
 //--- Prepare tag line from data to $TagsArr
 prepareTagsArrVar();
 
+/*
+$Authors = "Sergey Serkin, Potapov, Danila NewYourk";
+$Authors_Aliases = "serkin,Na,danila";
+*/
+
 ?>
 
 <section id="PostBox">
@@ -17,14 +22,34 @@ prepareTagsArrVar();
         <div class="wrapper">
 
             <div class="info">
-                <h1><?= $Title ?> and more amazing workaround words</h1>
+                <h1><?= $Title ?></h1>
 
                 <div class="Authors">
-                    <div class="IconCol"><img src="img/ShotInfo_iconUser.png" /></div>
-                    <div class="Names"><?= $Authors ?></div>
+                    <div class="IconCol"><img src="img/ShotInfo_iconUser.png" alt="Authors" /></div>
+                    <div class="Names">
+                        <?
+                        if ( !empty($Authors_Aliases) ) {
+                            //assemble array of Author => Alias
+                            $AA_Arr = array_combine (explode(',', $Authors), explode(',', $Authors_Aliases));
+                            unset($AuthorLine);
+                            foreach( $AA_Arr as $Author => $Alias) {
+
+                                if ($Alias == "Na" || $Alias == "na") {
+                                    $AuthorLine .= $Author.', ';
+                                } else {
+                                    $AuthorLine .= '<a href="artist/'.$Alias.'">'.$Author.'</a>, ';
+                                }
+                            }
+                            echo( chop($AuthorLine, ', \n') );
+                        } else {
+                            //If there is no $Authors_Aliases
+                            echo $Authors;
+                        }
+                        ?>
+                    </div>
                 </div>
 
-                <div class="Location"><? if ( !empty($Location)) { echo '<a href="/?tags='.$Location.'">'.$Location.'</a>, <a href="/?tags='.$Year.'">'.$Year.'</a>'; } else { echo '<div class="min_cap">Year: </div><a href="/?tags='.$Year.'">'.$Year.'</a>'; }?></div>
+                <div class="Location"><? if ( !empty($Location)) { echo '<a href="/?tags='.str_replace(",","", $Location).'">'.$Location.'</a>, <a href="/?tags='.$Year.'">'.$Year.'</a>'; } else { echo '<div class="min_cap">Year: </div><a href="/?tags='.$Year.'">'.$Year.'</a>'; }?></div>
 
                 <? if ( !strstr( $Authors, $Brand ) and !empty( $Brand ) ) { echo '<div class="Brand"><div class="min_cap">Brand: </div><a href="/?tags='.$Brand.'">'.$Brand.'</a></div>'; } ?>
 

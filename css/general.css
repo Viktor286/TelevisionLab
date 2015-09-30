@@ -362,7 +362,7 @@ div.ui-accordion-header div.icn_sml_authors { background: url(../img/icn_sml_aut
 
 div.ui-accordion-content { line-height:125%; font-size: 14px; display: block; margin: 0px 0px 0px 8px; width: auto; height: auto; background:none;  color: #CCC; border: 0px blue dashed;}
 
-div.ui-accordion-content span {
+div.ui-accordion-content a, div.ui-accordion-content span.here {
     text-transform:capitalize; font-weight: 300;
     display: block; float: left; margin: 2px 3px 2px 0px; padding: 2px 4px;
     -moz-border-radius: 3px;
@@ -370,17 +370,19 @@ div.ui-accordion-content span {
     -webkit-border-radius: 3px;
     border: 1px solid #524c3d;
     background-color: #191919;
+	text-decoration:none;
+	color: #999;
 }
 
-div.ui-accordion-content span:hover {background-color: #292929;}
+div.ui-accordion-content a:hover { border-color: #6387cb; color: #fff; }
 
-div.ui-accordion-content span a:hover, div.ui-accordion-content span.here { border-color: #6387cb; color: #fff;}
+div.ui-accordion-content span.here { border-color: #6387cb; color: #fff;}
 
-div.ui-accordion-content span a { text-decoration:none; color: #999;}
+div.ui-accordion-content span a {}
 
 
 
-/*------- Add Page
+/*------- Main Page
 ------*/
 
 main > section#MainOutput h1 { display: block; width: 100%; margin: 0 0 15px 0; border: 0px red dashed; font-size: 16px; font-weight: 300;}
@@ -406,12 +408,29 @@ div.NoResultBlock div.NoResultMsg a.StartOver { font-size:21px; margin-top: 28px
 
 div.NoResultBlock div.NoResultClean {margin: 60px auto; width: 202px; border: 0px #fff dashed;}
 
+/*------- Tags Styles Section
+------*/
 
-div.NoResultAdvice span.Tags span.tag {border-color: #524c3d; background-color: #191919; line-height: 240%;}
-div.NoResultAdvice span.tag a { text-decoration: none; color: #999; text-transform: capitalize; font-size: 13px;}
+div#InformationWindow > .left > span.Tags > a.tag,
+section#PostBox > article > div.wrapper > .info > span.Tags > a.tag,
+div.NoResultAdvice > span.Tags > a.tag
+{
+    border-color: #525050;
+    margin: 0 5px 0 0;
+    background-color: #191919;
+    text-transform: capitalize;
+    font-size: 13px;
+    line-height: 220%;
+    text-decoration: none;
+    color: #999;
+}
+div#InformationWindow > .left > span.Tags > a.tag:hover,
+section#PostBox > article > div.wrapper > .info > span.Tags > a.tag:hover,
+div.NoResultAdvice > span.Tags > a.tag:hover
+{
+    border-color: #6387cb; cursor: pointer; background-color: #292929; color: #fff;
+}
 
-div.NoResultAdvice span.tag a:hover { color: #fff;}
-div.NoResultAdvice span.Tags span.tag:hover { border-color: #6387cb; cursor: pointer; background-color: #292929;}
 
 span.Tags span.tag, a.tag {
 
@@ -660,11 +679,6 @@ border-color: #9CF;
 
 
 
-
-
-
-
-
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: #666;
 	font-style: italic;
@@ -688,17 +702,6 @@ border-color: #9CF;
 	font-style: italic;
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 .tabs-menu {
@@ -858,7 +861,7 @@ div.Team-Dashboard a.bt-LogOut-sml { display: block; width: 40px; height: 40px; 
 /*-------        Post Box        ------*/
 section#PostBox a, div#InformationWindow a { text-decoration: none; color: #fff;}
 section#PostBox a:hover, div#InformationWindow a:hover {
-    color: #cdeaff; text-decoration: underline;
+    color: #cdeaff;
 }
 
 section#PostBox {
@@ -961,6 +964,7 @@ section#PostBox > article > div.wrapper > .info > h1 {
     display: block;
     margin: 0 0 0 20px;
     line-height: 105%;
+    text-transform: capitalize;
 }
 section#PostBox > article > div.wrapper > .info > h1 {
     margin: 0;
@@ -987,24 +991,6 @@ section#PostBox > article > div.wrapper > .info > div.Rating {
     border: 0px dashed #ffee00;
 }
 section#PostBox > article > div.wrapper > .info > div.Rating { margin: 18px 0 0 0px; }
-
-
-
-div#InformationWindow > .left > span.Tags > a.tag,
-section#PostBox > article > div.wrapper > .info > span.Tags > a.tag {
-    border-color: #525050;
-    margin: 0 5px 0 0;
-    background-color: #191919;
-    text-transform: capitalize;
-    font-size: 13px;
-    line-height: 220%;
-    text-decoration: none;
-    color: #999;
-}
-div#InformationWindow > .left > span.Tags > a.tag:hover,
-section#PostBox > article > div.wrapper > .info > span.Tags > a.tag:hover {
-    border-color: #6387cb; cursor: pointer; background-color: #292929; color: #fff;
-}
 
 
 

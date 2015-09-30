@@ -354,13 +354,14 @@ function ShowRating ($Tags_Name, $Limit, $Tags) {
 
             } else {
                 $Output .= '
-			<li><span style="font-size:'.round ($Size,1).'px"><a href="javascript:void(0);" title="'.$arr[$x][0].' ('.$arr[$x][1].')" onclick="LPoTC('."'".$arr[$x][0]."'".');return true">'.$arr[$x][0].'</a></span></li>';
+			<li><a style="font-size:'.round ($Size,1).'px" href="javascript:void(0);" title="'.$arr[$x][0].' ('.$arr[$x][1].')" onclick="LPoTC('."'".$arr[$x][0]."'".');return true">'.$arr[$x][0].'</a></li>';
 
             }
 
         }
     }
-    $Output = trim($Output); //убираем хвост‚
+    $Output = trim($Output);
+
     $Output = preg_replace("/,<\/span>$/", "</span>", $Output);
     echo $Output;
 }

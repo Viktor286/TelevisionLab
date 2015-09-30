@@ -26,7 +26,6 @@ $Tags = strtolower($Tags);
 //CSS Variables to css/dynamic.php
 if ( empty ($_GET['video']) ) {$emptyVid = 1;} else {$emptyVid = 0;}
 
-
 if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; } /* <!-- 6=260, 5=319 and 3=317, 4=400, 3 = 540 --> */
 $yCol = round($xCol/ 1.78);
 
@@ -79,7 +78,7 @@ p:first-letter {}
     <div class="item">
         <div class="box{{CurrentClass}}">
             <!--
-            <div class="min-icons">{{Motion_Type}}</div>
+            <div class="min-icons">{{{Motion_Type}}}</div>
             <div class="wf-rating"><div class="RateText">{{Rating}}</div></div>
             -->
             <div class="wf-info">
@@ -111,12 +110,11 @@ p:first-letter {}
     <section id="MainOutput">
         <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
         <? $TvLab->showDebugCookie();  ?>
-
+        <!--
         <? include 'nodes/VideoInfoPost.php'; ?>
+        -->
 
-        <? include 'nodes/VideoInfoPost.php'; ?>
-
-        <!--<div id="container"></div>-->
+        <div id="container"></div>
     </section>
 </main>
 
@@ -136,43 +134,6 @@ p:first-letter {}
             loadingFinished: function($loading, isBeyondMaxPage) {
                 if ( !isBeyondMaxPage ) {
                     $loading.fadeOut();
-                        $($('.min-icons')).each(function(index, value) {
-
-                            if ($(this).html().length < 20) {
-
-                                var mt = $(this).html().split(',');
-                                var mts = "";
-
-                                //console.log(mt[0] + '<<<------------')
-                                for (var i = 0, l = mt.length; i < l; i++){ // цикл по количеству элементов в массиве mt
-
-                                    switch(mt[i]){ //
-                                    case '0':
-                                        mts += '<img class="min-icon m_compositing" src="img/min-compositing.png" />';
-                                        break;
-                                    case '1':
-                                        mts += '<img class="min-icon m_graphics" src="img/min-graphics.png" />';
-                                        break;
-                                    case '2':
-                                        mts += '<img class="min-icon m_simulation" src="img/min-simulation.png" />';
-                                        break;
-                                    case '3':
-                                        mts += '<img class="min-icon m_animation" src="img/min-animation.png" />';
-                                        break;
-                                    case '4':
-                                        mts += '<img class="min-icon m_rd_stop_motion" src="img/min-rd_stop_motion.png" />';
-                                        break;
-                                    case '5':
-                                        mts += '<img class="min-icon m_rd_video" src="img/min-rd_video.png" />';
-                                        break;
-                                    default:
-                                        // none :)
-                                    }
-
-                                }
-                                $(this).html(mts);
-                            }
-                        });
                     //console.log('loading finished');
                 } else {
                     //console.log('loading isBeyondMaxPage');
@@ -207,7 +168,6 @@ p:first-letter {}
             return 'data.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
         }
     });
-
 
 </script>
 

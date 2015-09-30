@@ -8,7 +8,7 @@ $q = new TvLabQuery;
 
 //-- Inputs
 //------------------------------------------------------------------------------------------
-$Input = array("AuthorName" => $_GET["name"], "AuthorId" => $_GET["id"]);
+$Input = array("AuthorAlias" => $_GET["alias"]);
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
 
 
@@ -30,8 +30,7 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
 
 <?
 
-echo "AuthorName $AuthorName <br />";
-echo "AuthorId $AuthorId <br />";
+echo "AuthorAlias $AuthorAlias <br />";
 
 insertFooter ("../nodes/FooterTpl.php");
 
