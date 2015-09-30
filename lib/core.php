@@ -131,6 +131,7 @@ class TvLabQuery
 	public $Img;
 	public $Img_Small;
 	public $Authors;
+    public $Authors_Id;
 	public $Location;
 	public $Brand;
 	public $Tv_Channel;
@@ -377,7 +378,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 		
 		if(!$result = $this->mysql->query($IdQuery)){die('Error [' . $this->mysql->error . ']');}
 		
-		
+
 		//если не нашел видео в базе соотнтветствующей текущему борду, сделать попытку отыскать видео в другой базе
 		if ($result->num_rows < 1) {
 			if ($isStack == "") {$isStack = "_stack";} else {$isStack = "";}// переключаем настройки флагов
@@ -393,6 +394,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			$this->Img = $row->Img;
 			$this->Img_Small = $row->Img_Small;
 			$this->Authors = $row->Authors;
+			$this->Authors_Id = $row->Authors_Id;
 			$this->Location = $row->Location;
 			$this->Brand = $row->Brand;
 			$this->Tv_Channel = $row->Tv_Channel;
@@ -425,6 +427,7 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			global $Img; $Img = $this->Img;
 			global $Img_Small; $Img_Small = $this->Img_Small;
 			global $Authors; $Authors = $this->Authors;
+            global $Authors_Id; $Authors_Id = $this->Authors_Id;
 			global $Location; $Location = $this->Location;
 			global $Brand; $Brand = $this->Brand;
 			global $Tv_Channel; $Tv_Channel = $this->Tv_Channel;
