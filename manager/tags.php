@@ -1,5 +1,5 @@
 <?
-require_once("lib/core.php");
+require_once("../lib/core.php");
 
 $TvLab = new TvLab;
 $q = new TvLabQuery;

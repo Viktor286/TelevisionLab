@@ -1,4 +1,10 @@
 <?
+/*
+Usages:
+desktop/waterfall-json.php
+showcase/waterfall-json.php
+*/
+
 echo '
 {
 "total": '.$TotalRows[0].',
@@ -77,7 +83,8 @@ while ($row = $result->fetch_assoc()) {
 };
 
 //Remove last comma and output
-echo preg_replace("/,$/", "", $Collect_JSON_Attr).'
+echo chop($Collect_JSON_Attr, ',\n').'
+
 ]
 }
 ';

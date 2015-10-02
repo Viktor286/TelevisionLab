@@ -1,6 +1,6 @@
 <?php
 header("Cache-Control: no-store");
-require_once("lib/core.php");
+require_once("../lib/core.php");
 
 $TvLab = new TvLab;
 $q = new TvLabQuery;
@@ -167,7 +167,7 @@ $result = $q->Query($specificQuery);
 //Если в ответе что-то есть, формируем Json ответ
 if ($result->num_rows > 0){
 
-    include("nodes/WaterfallJson_Tpl.php");
+    include("../nodes/Wtfl-json-Base-Tpl.php");
 
 }
 

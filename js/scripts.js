@@ -51,28 +51,6 @@ $( document ).ready(function() {
 });
 
 
-/*  ??? */
-$( document ).ready(function() {
-
-    $( "#BoardSetup div.BoardTitle" ).on( "click", function( event ) {
-
-        BoardState = $( "#BoardSetup div.BoardTitle" ).data( "state" );
-
-        if ( BoardState == 1 ) { BoardState = 0; } else { BoardState = 1; }
-
-        $.ajax('ajax_handler.php', {
-            method: "POST",
-            success: function(response) {
-                location.reload();
-            },
-            data: {"boardstate": BoardState},
-            cache: false
-        });
-
-    });
-
-});
-
 //------------------------------------------------------------------------------------
 // Display Video On page load
 function LoadVideoOnPage(VideoId) {
@@ -168,19 +146,7 @@ $(function() {
         create: function( event, ui ) {$('aside#LeftPanel').css("display","block")},
         activate: function( event, ui ) {
             var TagMenuActive = $( "aside#LeftPanel" ).accordion( "option", "active" );
-
-            $.ajax({
-                url: 'ajax_handler.php',
-                type: 'POST',
-                data: {tmstate: '"' + TagMenuActive + '"'},
-                dataType : 'json',
-                success: function(data, textStatus, xhr) {
-                    console.log(data); // do with data e.g success message
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.log(textStatus.reponseText);
-                }
-            });
+            document.cookie="TagMenuState=" + TagMenuActive;
         }
     });
 });
@@ -205,7 +171,9 @@ $(function() {
 				height: 40
 			});
 
-     $('div.hideBeforeInit').css("display","block")
+     $('.hideBeforeInit').css("display","block");
+
+
 
 		});
 

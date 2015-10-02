@@ -177,7 +177,7 @@ div.add_bt { width:40px; height:40px; display:block; float:right; top:11px; posi
 
 div.tpSearch {display:block; position:relative; border:0px red dashed; width: auto; float:left; top:11px; margin:0 0 0 40px; }
 
-div.tpSearch_filters { display:block; float:left; width:400px; border:1px #181818 solid; position:relative; top:11px; margin: 0 0 0 15px;}
+div.tpSearch_filters { display: block; float:left; width:400px; border:1px #181818 solid; position:relative; top:11px; margin: 0 0 0 15px;}
 
 div.hideBeforeInit { display: none; }
 

@@ -1,7 +1,7 @@
 <?php
 
 header("Cache-Control: no-store");
-require_once("lib/core.php");
+require_once("../lib/core.php");
 
 $TvLab = new TvLab;
 $q = new TvLabQuery;
@@ -11,7 +11,6 @@ $q = new TvLabQuery;
 
 /*----------------Обработка входных данных */
 $Input = array(
-
     "page" => $_GET['page'],
     "User" => $_GET['user'],
     "Section" => $_GET['section']

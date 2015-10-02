@@ -79,7 +79,7 @@ $HeadLayoutSet = array(
     "Description" => "Description",
     "css" => array ("reset", "board", "general", "google_fonts", "placeholder-big"),
     "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall-board", "jquery-ui"),
-    "Prepend" => '<link rel="icon" type="image/png" href="img/favicon-board.ico" />',
+    "Prepend" => '<link rel="icon" type="image/png" href="img/favicon-board-v2.ico" />',
     "Append" => ''
 );
 
@@ -132,7 +132,19 @@ if ($Section == $SectionList[0]) {
                     }
                 }
                 //Output Add Video only for Auth User
-                if ( isset($AuthUser) ) { echo '<div class="Button-VideoInput">'; include '../nodes/input_VideoId_form.tpl'; echo '</div>';}
+                if ( isset($AuthUser) ) {
+                    if (!empty ($_GET['code'])) {if (!Check_Valid_Id($_GET['code'])) {$input_error = 'class="input_error"';}}
+                    echo '
+                <div class="Button-VideoInput">
+                    <form action="add/" method="get" autocomplete="off">
+                        <div '.$input_error.'>
+                        <input name="code" class="code" placeholder="New Video..."  /></textarea>
+                        <input type="submit" value="" class="SendVideo"/></p>
+                        </div>
+                    </form>
+                </div>
+                ';
+                }
                 ?>
             </nav>
         </section>
@@ -227,7 +239,7 @@ if ($Section == $SectionList[0]) {
                 }
             },
             path: function(page) {
-                return '../data-board.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=' + page;
+                return 'http://www.televisionlab.ru/board/waterfall-json.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=' + page;
             }
         });
     </script>

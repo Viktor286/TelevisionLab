@@ -43,7 +43,7 @@ $yCol = round($xCol/ 1.78);
 // History column
 // Studio Maps (or list, or somewhat to display hall of fame and get picture of the industry)
 // Email post-video notification to authors of video
-// test
+// Artist profile approved by editor, author, community
 
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
@@ -165,7 +165,7 @@ p:first-letter {}
             }
         },
         path: function(page) {
-            return 'data.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
+            return 'desktop/waterfall-json.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
         }
     });
 
