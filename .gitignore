@@ -1,9 +1,8 @@
 .idea/
 .git/
 
-config/
 lib/config/
-vimeo/cache/
+lib/vimeo/cache/
 
 test.php
 test.html

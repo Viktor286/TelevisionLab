@@ -7,7 +7,7 @@ require_once("../lib/password_compatibility_library.php");
 require_once("../lib/login.php"); // классы ситемы login
 $login = new Login;
 
-require_once('../vimeo/vimeo.php'); //классы для работы с vimeo API
+require_once('../lib/vimeo/vimeo.php'); //классы для работы с vimeo API
 
 require_once '../nodes/autotags_add.php'; //теговая система
 require_once '../lib/lang/rus.php'; //семантика блока
