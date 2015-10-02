@@ -63,7 +63,7 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
     var NowUrl = "<?= $Http_query; //Bring data from $_GET for farther json request to data.php ?>";
     var NowSet = "<?= $qSet; ?>";
     var NowVid = "<?= $VideoId; ?>";
-    var menuState = <? if (isset($MenuState)) {echo $MenuState;} else {echo "2";} ?>;
+    var menuState = <? if (isset($MenuState)) {echo $MenuState;} else {echo "0";} ?>;
     var xCol = <?= $xCol; ?>;
     <? if (isset( $VideoId )) {echo "LoadVideoOnPage(" . $VideoId . ");";} ?>
 </script>
