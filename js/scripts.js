@@ -55,7 +55,7 @@ $( document ).ready(function() {
 // Display Video On page load
 function LoadVideoOnPage(VideoId) {
 
-    $.ajax('video.php', {
+    $.ajax('desktop/video.php', {
         success: function(response) {
             $('#PreviewWindow').html('<iframe src="//player.vimeo.com/video/' + VideoId + '?portrait=0" width="650" height="366" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
             $('#InformationWindow').hide().html(response).fadeIn(250);

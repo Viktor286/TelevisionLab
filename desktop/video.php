@@ -1,5 +1,5 @@
 <?php
-require_once("lib/core.php");
+require_once("../lib/core.php");
 
 if (!isset ($TvLab)) {
     $TvLab = new TvLab;
@@ -38,7 +38,7 @@ if (preg_match ("/(\d{4,20})/", $VideoId)) {
     prepareTagsArrVar();
 
     //--- Here comes output template
-    include "nodes/VideoInfoSection.php";
+    include "../nodes/VideoInfoSection.php";
 
 
 

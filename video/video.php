@@ -20,7 +20,7 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
 
 //-- May be made a Context Variable here?
 //--- Include same module
-include "../video.php";
+include "../desktop/video.php";
 
 echo '
 <div id="PreviewWindow">
