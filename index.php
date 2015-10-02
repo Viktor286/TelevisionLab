@@ -5,7 +5,7 @@ require_once("lib/core.php");
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
-/*---------------- Обработка входных данных */
+/*---------------- Processing the input data */
 
 $Http_query = str_replace("/%5B0%5D/", "[]", http_build_query($_GET, '', '&'));
 
@@ -15,7 +15,7 @@ $Input = array(
     "Tags" => $_GET['tags'],
     "Mode" => $_GET['md'],
     "MenuState" => $_COOKIE["TagMenuState"],
-    "Http_query" => $Http_query
+    "Http_query" => $Http_query // displayed here to see full list of inputs
 );
 
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
