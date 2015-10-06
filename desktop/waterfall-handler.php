@@ -9,11 +9,11 @@ $q = new TvLabQuery;
 
 /*---------------- Inputs */
 $Input = array(
-	"getSet" => $_GET['set'],
-	"Mode" => $_GET['md'],
-	"Tags" => $_GET['tags'],
-	"Page" => $_GET['page'],
-	"Video" => $_GET['video']
+    "getSet" => $_GET['set'],
+    "Mode" => $_GET['md'],
+    "Tags" => $_GET['tags'],
+    "Page" => $_GET['page'],
+    "Video" => $_GET['video']
 );
 
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
@@ -22,7 +22,7 @@ $q->getCollection($getSet, $Mode, $Tags, $Page, 10, $Video);
 
 // If Collection is ok, assemble Json respond
 if ($Collection->num_rows > 0){
-	include("../nodes/Wtfl-json-Base-Tpl.php"); //json output template
+    include("waterfall-json-tpl.php"); //json output template
 }
 
 // debug url desktop/waterfall-json.php?tags=test

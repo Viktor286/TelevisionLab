@@ -1,40 +1,104 @@
 <?php
 
-//DebugCookie
-/*
- * function DebugCookie() {
-    if ( 1 == 0 ) {
-        echo "Session_name: ".session_name()."<br />";
-        echo "Session_id: ".session_id()."<br />";
-        echo "S_COOKIE: "; print_r($_COOKIE);
-        echo "<br />S_SESSION: "; print_r($_SESSION);
-        echo "<br />Sess_cookie_params: "; var_dump (session_get_cookie_params());
-        echo "<br />";
+function compAuthors($Authors, $Authors_Aliases) {
+    if ( !empty($Authors_Aliases) ) {
+        //assemble array of Author => Alias
+        $AA_Arr = array_combine (explode(',', $Authors), explode(',', $Authors_Aliases));
+
+        unset($AuthorLine);
+        foreach( $AA_Arr as $Author => $Alias) {
+
+            if ($Alias == "Na" || $Alias == "na") {
+                $AuthorLine .= $Author.', ';
+            } else {
+                $AuthorLine .= '<a href="artist/'.$Alias.'">'.$Author.'</a>, ';
+            }
+        }
+
+        echo( chop($AuthorLine, ', \n') );
+
+    } else {
+        //If there is no $Authors_Aliases
+        return $Authors;
     }
 }
-*/
 
-//Smart Set Session
-/*
- * function TvLabSession() {
-    if (isset($_COOKIE["TvLab"])) {
-        session_set_cookie_params(0,"/","",0,1);// config session cookies: ["lifetime"]=> int(0) ["path"]=> string(1) "/" ["domain"]=> string(0) "" ["secure"]=> bool(false) ["httponly"]=> bool(true)
-        session_name("TvLab");
-        session_start();
-    };
+function compMotionType($Motion_Type) {
+
+    foreach( explode(',',$Motion_Type) as $val){
+        switch ($val) {
+            case "0": $mts .= '<a href="/?set=c1d0s0a0t0v0"><img class="min-icon m_compositing" src="img/min-compositing.png" /></a>'; break;
+            case "1": $mts .= '<a href="/?set=c0d1s0a0t0v0"><img class="min-icon m_graphics" src="img/min-graphics.png" /></a>'; break;
+            case "2": $mts .= '<a href="/?set=c0d0s1a0t0v0"><img class="min-icon m_simulation" src="img/min-simulation.png" /></a>'; break;
+            case "3": $mts .= '<a href="/?set=c0d0s0a1t0v0"><img class="min-icon m_animation" src="img/min-animation.png" /></a>'; break;
+            case "4": $mts .= '<a href="/?set=c0d0s0a0t1v0"><img class="min-icon m_rd_stop_motion" src="img/min-rd_stop_motion.png" /></a>'; break;
+            case "5": $mts .= '<a href="/?set=c0d0s0a0t0v1"><img class="min-icon m_rd_video" src="img/min-rd_video.png" /></a>'; break;
+        }
+    }
+
+    return $mts;
 }
-*/
 
-/*
- * function LogOut() {
-    if (isset ($_GET['logout'])) {
-        $_SESSION = array();
-        session_destroy();
-        echo '<script type="text/javascript">window.history.pushState("", "", "http://www.televisionlab.ru/"); location.reload(); </script>';
-        exit();
+function compBroadcastType($Broadcast_Type) {
+
+    switch ($Broadcast_Type) {
+        case "0": $bct .= 'Identity'; break;
+        case "1": $bct .= 'Advertising'; break;
+        case "2": $bct .= 'Presentation and PR'; break;
+        case "3": $bct .= 'Information and Analytics'; break;
+        case "4": $bct .= 'Entertainment and show'; break;
+        case "5": $bct .= 'Artistic'; break;
+        case "6": $bct .= 'Educational'; break;
+    }
+
+    return $bct;
+}
+
+
+function compLocationYear($Location, $Year) {
+    if ( !empty($Location)) {
+        return '<a href="/?tags='.str_replace(",","", $Location).'">'.$Location.'</a>, <a href="/?tags='.$Year.'">'.$Year.'</a>';
+    } else {
+        return '<div class="min_cap">Year: </div><a href="/?tags='.$Year.'">'.$Year.'</a>';
     }
 }
-*/
+
+function compBrand($Authors, $Brand) {
+    if ( !strstr( $Authors, $Brand ) and !empty( $Brand ) ) {
+        return '<div class="Brand"><div class="min_cap">Brand: </div><a href="/?tags='.$Brand.'">'.$Brand.'</a></div>';
+    }
+}
+
+function compTvChannel($Tv_Channel) {
+    if ( !empty ($Tv_Channel) ) { return '<div class="Tv_Channel"><div class="min_cap">Tv channel: </div><a href="/?tags='.$Tv_Channel.'">'.$Tv_Channel.'</a></div>'; }
+}
+
+function compTags($Tags_SA, $Tags_Fashion, $Tags_Arts, $Tags_Music, $Tags_Others) {
+
+    $TagsArr = array_merge (
+        explode(", " , $Tags_SA),
+        explode(", " , $Tags_Fashion),
+        explode(", " , $Tags_Arts),
+        explode(", " , $Tags_Music),
+        explode(", " , $Tags_Others)
+    );
+
+    $TagsArr = array_filter($TagsArr);
+
+    $TagLine = "";
+    foreach ($TagsArr as $Tag) {
+        $TagLine .= '<a class="tag" href="/?tags='.$Tag.'">'.$Tag.'</a> ';
+    }
+
+    return $TagLine;
+}
+
+function compDate($Format){
+    $PubDate = "2015-07-27 19:49:12";
+    $PubDate = strtotime($PubDate);
+    return date($Format, $PubDate);
+}
+
 
 
 function InitSessVars () {
@@ -102,24 +166,6 @@ function AdjustH1InfoOutput($getSet, $Mode, $tags) {
     //$x = SetTitle($qSet, $Mode); if ($x != "") {echo "<h1>".$x."</h1>";}
 
     echo $OutputLine;
-}
-
-function prepareTagsArrVar() {
-    global $Tags_SA, $Tags_Fashion, $Tags_Arts, $Tags_Music, $Tags_Others, $TagsArr;
-
-    if ( !empty( $Tags_SA ) ) { $Tags_SA .= ', '; }
-    if ( !empty( $Tags_Fashion ) ) { $Tags_Fashion .= ', '; }
-    if ( !empty( $Tags_Arts ) ) { $Tags_Arts .= ', '; }
-    if ( !empty( $Tags_Music ) ) { $Tags_Music .= ', '; }
-    if ( !empty( $Tags_Others ) ) { $Tags_Others .= ', '; }
-
-    $TagsLine = $Tags_SA.$Tags_Fashion.$Tags_Arts.$Tags_Music.$Tags_Others;
-
-    $TagsLine = preg_replace("/, {0,1}$/", "", $TagsLine);
-    $TagsLine = preg_replace("/(, ){2,10}/", ", ", $TagsLine);
-$TagsArr = explode(", " , $TagsLine);
-    return $TagsArr;
-
 }
 
 function insertHead ($LayoutSet, $Template) {

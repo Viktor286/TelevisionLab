@@ -33,14 +33,8 @@ if (preg_match ("/(\d{4,20})/", $VideoId)) {
         echo $EditButton;
     }
 
-
-    //--- Prepare tag line from data to $TagsArr
-    prepareTagsArrVar();
-
     //--- Here comes output template
     include "../nodes/VideoInfoSection.php";
-
-
 
     //-- After all, set VideoHistory cookie ($_COOKIE["VideoHistory"]) of watched video
     if (!empty ($VideoHistory)) {

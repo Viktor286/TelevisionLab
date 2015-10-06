@@ -65,32 +65,11 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
     <? if (isset( $VideoId )) {echo "LoadVideoOnPage(" . $VideoId . ");";} ?>
 </script>
 
-<!--
-p:first-child
-p:first-letter {}
--->
-
 <script type="text/x-handlebars-template" id="waterfall-tpl">
-{{#result}}
-    <div class="item">
-        <div class="box{{CurrentClass}}">
-            <!--
-            <div class="min-icons">{{{Motion_Type}}}</div>
-            <div class="wf-rating"><div class="RateText">{{Rating}}</div></div>
-            -->
-            <div class="wf-info">
-                <div class="wf-title"><a href="javascript:void(0);" onclick="LoadVideoOnClick('{{OutId}}',this);return true">{{Title}}</a></div>
-                <div class="wf-desc">{{Year}} {{Brand}} {{Location}}</div>
-            </div>
-            <a href="javascript:void(0);" onclick="LoadVideoOnClick('{{OutId}}',this);return true"> <img src="{{Img}}" /></a>
-        </div>
-    </div>
-{{/result}}
+<? include 'desktop/waterfall-handlebars-tpl.php';  ?>
 </script>
 
 <? include 'nodes/top_panel.php';  ?>
-
-
 <main>
     <aside id="LeftPanel">
         <? include 'nodes/left_panel.php'; ?>
@@ -104,11 +83,12 @@ p:first-letter {}
     <section id="MainOutput">
         <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
         <? $TvLab->showDebugCookie();  ?>
-        <!--
-        <? include 'nodes/VideoInfoPost.php'; ?>
-        -->
+
 
         <div id="container"></div>
+        <!--<? include 'nodes/VideoInfoPost.php'; ?>
+
+        -->
     </section>
 </main>
 
@@ -159,7 +139,7 @@ p:first-letter {}
             }
         },
         path: function(page) {
-            return 'desktop/waterfall-json.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
+            return 'desktop/waterfall-handler.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
         }
     });
 
