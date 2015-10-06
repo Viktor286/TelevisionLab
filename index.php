@@ -30,9 +30,6 @@ if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; } /* <!-- 6=260, 
 $yCol = round($xCol/ 1.78);
 
 
-
-
-
 //TODO: ROAD MAP
 //https://thenounproject.com/ icons for tags
 // Related nodes formats atom type http://www.graphdracula.net/showcase/    http://arborjs.org/
@@ -82,12 +79,9 @@ p:first-letter {}
             <div class="wf-rating"><div class="RateText">{{Rating}}</div></div>
             -->
             <div class="wf-info">
-
                 <div class="wf-title"><a href="javascript:void(0);" onclick="LoadVideoOnClick('{{OutId}}',this);return true">{{Title}}</a></div>
                 <div class="wf-desc">{{Year}} {{Brand}} {{Location}}</div>
-
             </div>
-
             <a href="javascript:void(0);" onclick="LoadVideoOnClick('{{OutId}}',this);return true"> <img src="{{Img}}" /></a>
         </div>
     </div>

@@ -160,7 +160,6 @@ class TvLabQuery
 
 	}
 
-
 	//Common query wrapper
 	public function Query($Query) {
 		$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -173,7 +172,6 @@ class TvLabQuery
 		return $result;
 		$result->close();
 	}
-
 
 	public function setAuthUser() {
 
@@ -211,8 +209,6 @@ class TvLabQuery
 		} else { return false; }
 
 	}
-
-
 
 	public function putVideo($UserName, $isStack) {
 		global $UserAdded, $getTitle, $OutId, $OutHost, $Img, $ImgSmall, $getAuthors, $getLocation, $getBrand, $getTv_Channel, $Likes, $getRating, $getCost, $getMotion_Type, $getBroadcast_Type, $getTempo, $getTags_SA, $getTags_Fashion, $getTags_Arts, $getTags_Music, $getTags_Others, $CreateDate, $getYear, $Duration, $Width, $Height, $dateNow, $UserName;
@@ -262,7 +258,6 @@ class TvLabQuery
 			}
 	}
 
-
 	public function deleteVideo() {
 		global $OutId, $Title, $UserName, $isStack, $UserName, $dateNow;
 
@@ -279,7 +274,6 @@ class TvLabQuery
 			}
 
 	}
-
 
 	public function getVideoFromVimeo($Vimeo_Id) {
 		global
@@ -349,8 +343,14 @@ class TvLabQuery
 		}
 
 		//убираем хвосты запятых
-		if( preg_match("/, $/", $TagList)) {$TagList = preg_replace("/, $/", "", $TagList);}
-		if( preg_match("/, $/", $CastList)) {$CastList = preg_replace("/, $/", "", $CastList);}
+		if( preg_match("/, $/", $TagList)) { //$TagList = preg_replace("/, $/", "", $TagList);
+            $TagList = chop( $TagList, ', \n');
+		}
+		if( preg_match("/, $/", $CastList)) { //$CastList = preg_replace("/, $/", "", $CastList);
+            $CastList = chop( $CastList, ', \n');
+        }
+
+
 
 		$Duration = $result->video[0]->duration; //в секундах
 		$Brand = $result->video[0]->owner->display_name;
@@ -366,9 +366,8 @@ class TvLabQuery
 		$MainUserLocation = $result_user_info->person->location;
 	}
 
-
-	//Query thats gets Video info by Id with isStack setting, with flag VarState ([SetGlobals])
-public function getVideo($VideoId, $isStack, $VarState) {
+	//Gets Video info by Id with isStack setting, with flag VarState ([SetGlobals])
+	public function getVideo($VideoId, $isStack, $VarState) {
 
 		$this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		if($this->mysql->connect_errno > 0){
@@ -454,10 +453,129 @@ public function getVideo($VideoId, $isStack, $VarState) {
 			global $State; $State = $this->State;
 			}
     }
-	
 
-	
- 
+    public function getCollection($getSet, $Mode, $Tags, $Page, $inPage, $Video){
+
+        global $specificQuery, $Collection, $TotalRows, $MaxPages, $Page, $Video;
+
+        //starting MySQL $specificQuery
+        $specificQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE";
+
+        //search keywords processing, adding query lines to $specificQuery
+        if ( isset($Tags) ) $this->searchKeywords($Tags);
+
+
+        //extract data from encrypt param set=c1d1s1a1t1v1
+        $getSetArr = sscanf($getSet, "c%dd%ds%da%dt%dv%d");
+
+        foreach ($getSetArr as $indexNum => $boolKey) {
+            if ( $boolKey == "1" ) {
+                $getMtype[] = $indexNum;
+            }
+        }
+
+        // Strict mode for Mtype
+        if ($Mode == "on") {
+            $getMtypeInString = implode($getMtype, ",");
+            if (isset($getMtypeInString)) {
+                $specificQuery .= ' Motion_Type = "' . $getMtypeInString . '" AND';
+            }
+        } else {
+            if ($getMtype[0] >= 0) {
+                $getMtype_n = count ($getMtype);
+                for ($x=0; $x<$getMtype_n; $x++) {
+                    $specificQuery .= ' Motion_Type RLIKE '.$getMtype[$x].' AND';
+                };
+            };
+        }
+
+
+        //Replace last AND in MySQL query
+        //if( preg_match("/ AND$/", $specificQuery)) { $specificQuery = preg_replace("/ AND$/", "", $specificQuery); }
+        $specificQuery = chop( $specificQuery, ' AND\n');
+
+        //Проверяем, имеется ли дополнительные условия (различия) от первоначального SQL запроса
+        if ($specificQuery == "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE") {
+            $specificQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE State = 1"; //если условий не было, составляем общий запрос по умолчанию
+        }
+
+        //добавляем дополнительные условия к запросу, сортировка по возрасту
+        $specificQuery .= ' ORDER BY id DESC';
+
+        //Кол-во строк запроса $specificQuery для последующго разделения на порции
+        $TotalRows = $this->Query( str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery) )->fetch_row();
+
+        //Getting max page on collection, setup the limit
+        $MaxPages = ceil($TotalRows[0] / $inPage);
+        if ($Page == 0) {$PageIncr = 0;} else {$PageIncr = ($Page -1) * $inPage;}
+
+        //Append offset, number of rows
+        $specificQuery .= ' LIMIT '.$PageIncr.','.$inPage.';';
+
+        //Query for $inPage positions limit
+        $Collection = $this->Query($specificQuery);
+
+    }
+
+    public function searchKeywords ($SearchData) {
+
+        global $specificQuery;
+
+        if (iconv_strlen($SearchData, 'UTF-8') > 1){ //продолжаем работу, если данные в форме есть и они больше двух символов
+
+            $SearchData = substr($SearchData, 0, 128);//обрезаем строку до 128 символов
+            $SearchData = preg_replace("/[^\s\w.,-]/", "", $SearchData);//оставляем только буквы, цифры, пробелы
+            $SearchData = trim (preg_replace("/  +/", " ", $SearchData)); //убираем двойные и более пробелы, в т.ч. по краям
+            $SearchWords = explode(" ", $SearchData); //разбиваем строку на отдельные слова, ориентируясь на пробелы
+            $SearchWords_n = count ($SearchWords); //считаем слова поиска и запускаем цикл
+
+            $specificQuery = $specificQuery.' ('; // открываем скобки для вербального запроса
+
+            for ($x=0; $x<$SearchWords_n; $x++) {
+
+                if (iconv_strlen($SearchWords[$x], 'UTF-8') < 4){ //к словаи меньше 4-ти применяем строгое вхождение по слову
+                    //далее прибавляем строку запроса на 8 столбцов из БД, по одному слову на каждую.
+                    $specificQuery = $specificQuery.'
+				Title RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Authors RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Brand RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tv_Channel RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Location RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_SA RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Fashion RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]"OR
+				Tags_Arts RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Music RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Others RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Year RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR';
+
+                } else { //к словам >= 4-ти применяем относительное (исправлено, тоже строгое) вхождение последовательности символов
+
+                    $specificQuery = $specificQuery.'
+				Title RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Authors RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Brand RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tv_Channel RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Location RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_SA RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Fashion RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Arts RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Music RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Tags_Others RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
+				Year RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR';
+
+                    //альтернативный вариант формирования SQL запроса RLIKE "(\w{0,6})var(\w{0,6})"
+                };
+                //конец цикла
+            };
+
+            //закрываем скобки заменой последнего OR и ставим строгое условие с дальнейшими параметрами
+            if( preg_match("/ OR$/", $specificQuery)) {
+                $specificQuery = preg_replace("/ OR$/", " ) AND", $specificQuery);
+            }
+
+        } else { //если данные в форме отсутствуют или <= двух символов то Данные поисковой формы не участвует в общем SQL запросе
+        }
+    }
 }
 
 

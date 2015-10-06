@@ -9,11 +9,11 @@ echo '
 {
 "total": '.$TotalRows[0].',
 "pages": '.$MaxPages.',
-"page": '.$page.',
+"page": '.$Page.',
 "result": [';
 
 
-while ($row = $result->fetch_assoc()) {
+while ($row = $Collection->fetch_assoc()) {
 
     //--- Prepare some data for display
     //Round rating
@@ -21,9 +21,9 @@ while ($row = $result->fetch_assoc()) {
     $Rating = round($Rating,1);
 
     //Check "here" element
-    if ($video == $row['OutId']) { $CurrentClass = " here"; } else {$CurrentClass = ""; }
+    if ($Video == $row['OutId']) { $CurrentClass = " here"; } else {$CurrentClass = ""; }
 
-    //Convert Motion_Type type to html icons
+    //Convert Motion_Type to html icons
     foreach( explode(',',$row['Motion_Type']) as $val){
         switch ($val) {
             case "0": $Motion_Type_Str .= '<img class="min-icon m_compositing" src="img/min-compositing.png" />'; break;
