@@ -22,10 +22,10 @@ $q->getCollection($getSet, $Mode, $Tags, $Page, 10, $Video);
 
 // If Collection is ok, assemble Json respond
 if ($Collection->num_rows > 0){
-    include("waterfall-json-tpl.php"); //json output template
+    include("wtfll-json-tpl.php"); //json output template
 }
 
-// debug url desktop/waterfall-json.php?tags=test
+// debug url desktop/wtfll-controller.php?tags=test
 // echo $specificQuery;
 
 

@@ -26,8 +26,13 @@ $Tags = strtolower($Tags);
 //CSS Variables to css/dynamic.php
 if ( empty ($_GET['video']) ) {$emptyVid = 1;} else {$emptyVid = 0;}
 
-if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; } /* <!-- 6=260, 5=319 and 3=317, 4=400, 3 = 540 --> */
-$yCol = round($xCol/ 1.78);
+/*
+if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; }
+*/
+/* <!-- 6=260, 5=319 and 3=317, 4=400, 3 = 540 --> */
+/* $yCol = round($xCol/ 1.78); */
+
+$xCol = "319";
 
 
 //TODO: ROAD MAP
@@ -66,10 +71,10 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
 </script>
 
 <script type="text/x-handlebars-template" id="waterfall-tpl">
-<? include 'desktop/waterfall-handlebars-tpl.php';  ?>
+<? include 'desktop/wtfll-handlebars-tpl.php';  ?>
 </script>
 
-<? include 'nodes/top_panel.php';  ?>
+<? include 'nodes/top_panel.php'; ?>
 <main>
     <aside id="LeftPanel">
         <? include 'nodes/left_panel.php'; ?>
@@ -84,65 +89,10 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
         <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
         <? $TvLab->showDebugCookie();  ?>
 
-
         <div id="container"></div>
-        <!--<? include 'nodes/VideoInfoPost.php'; ?>
-
-        -->
     </section>
 </main>
 
-<script>
-    $('#container').waterfall({
-        itemCls: 'item',
-        colWidth: xCol,
-        gutterWidth: 19,
-        gutterHeight: 15,
-        align: 'left',
-        minCol: 3,
-        maxCol: undefined,
-        debug: false,
-        //isFadeIn: true,
-        checkImagesLoaded: false,
-            callbacks: {
-            loadingFinished: function($loading, isBeyondMaxPage) {
-                if ( !isBeyondMaxPage ) {
-                    $loading.fadeOut();
-                    //console.log('loading finished');
-                } else {
-                    //console.log('loading isBeyondMaxPage');
-                    $loading.remove();
-                }
-            },
-
-            renderData: function (data, dataType) {
-                var Total = data.total;
-                var Pages = data.pages;
-                var Page = data.page;
-
-
-                if ( Pages == Page) {
-                    $('#container').waterfall('pause', function() {
-                        $('#waterfall-message').html('<!--No more result from database-->')
-                    });
-                }
-
-                if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
-                    tpl = $('#waterfall-tpl').html();
-                    template = Handlebars.compile(tpl);
-                    return template(data);
-
-                } else { // html format
-
-                    return data;
-                }
-            }
-        },
-        path: function(page) {
-            return 'desktop/waterfall-handler.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
-        }
-    });
-
-</script>
+<? include 'desktop/wtfll-js-init.php'; ?>
 
 <? insertFooter ("nodes/FooterTpl.php"); ?>

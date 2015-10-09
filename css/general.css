@@ -214,9 +214,31 @@ div.FixedDisplay { position:fixed; width:686px; border:0px yellow dashed; clear:
 
 #container { border:0px red dashed;}
 
-div#PreviewWindow { width: 660px; min-height: 375px; display:block; border: 0px solid #0CC; background: url(../img/loader_0.gif) no-repeat center #27292a; margin:0 auto; text-align:center;} 
+div#PreviewWindow {
+    width: 660px;
+    min-height: 375px;
+    display:block;
+    border: 0px solid #0CC;
+    background: url(../img/loader_0.gif) no-repeat center #27292a;
+    margin:0 auto;
+    text-align:center;
+    position: relative;
+}
 
-div#PreviewWindow iframe {  border:0px red dashed; clear:both; margin:5px auto 5px;}
+div#PreviewWindow iframe {
+    border:0px red dashed;
+    clear:both;
+    /*margin:5px auto 5px;*/
+}
+
+div#PreviewWindow iframe {
+    position: absolute;
+    top: .7%;
+    left: .35%;
+    width: 99.4%;
+    height: 98.6%;
+
+}
 
 
 
@@ -868,7 +890,7 @@ section#PostBox {
 	min-width: 870px;
     max-width: 1300px;
     width: 85%;
-	margin: 0 0 35px 5%;
+	margin: 0 0 1.2% 5%;
 	font-weight: 300;
 	padding: 0;
 }

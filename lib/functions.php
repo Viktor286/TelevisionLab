@@ -93,8 +93,7 @@ function compTags($Tags_SA, $Tags_Fashion, $Tags_Arts, $Tags_Music, $Tags_Others
     return $TagLine;
 }
 
-function compDate($Format){
-    $PubDate = "2015-07-27 19:49:12";
+function compDate($PubDate, $Format){
     $PubDate = strtotime($PubDate);
     return date($Format, $PubDate);
 }

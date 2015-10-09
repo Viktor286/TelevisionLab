@@ -14,7 +14,7 @@ $yCol = round($xCol/ 1.78);
 
 
 //-- Start Output
-
+/*
 if ($emptyVid == 1) {
 echo '
 
@@ -22,7 +22,7 @@ main > section#FixedDisplay { display:none; }
 main > section#MainOutput { margin-left:190px; }
 
 ';
-}
+}*/
 
 ?>
 

@@ -1,5 +1,5 @@
 {{#result}}
-<div class="item">
+<div class="item" data-id="{{OutId}}">
     <div class="box{{CurrentClass}}">
         <div class="min-icons">{{{Motion_Type}}}</div>
         <div class="wf-rating"><div class="RateText">{{Rating}}</div></div>

@@ -1,6 +1,6 @@
 <?
 header("Cache-Control: no-store");
-require_once("../lib/core.php");
+require_once("../lib/core.php"); 
 
 $TvLab = new TvLab;
 $q = new TvLabQuery;
@@ -18,14 +18,14 @@ $Input = array(
 
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
 
-$q->getCollection($getSet, $Mode, $Tags, $Page, 10, $Video);
+$q->getCollection($getSet, $Mode, $Tags, $Page, 3, $Video);
 
 // If Collection is ok, assemble Json respond
 if ($Collection->num_rows > 0){
-    include("waterfall-json-tpl.php"); //json output template
+    include("wtfll-json-tpl.php"); //json output template
 }
 
-// debug url desktop/waterfall-json.php?tags=test
+// debug url showcase/wtfll-controller.php?tags=test
 // echo $specificQuery;
 
 

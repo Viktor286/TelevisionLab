@@ -32,6 +32,7 @@ allow from 92.100
 allow from 91.122.122.177
 allow from  95.55.175.193
 allow from  195.239.230
+allow from 178.67.205.217
 #Loop Prevent
 #RewriteCond %{ENV:REDIRECT_STATUS} 200
 #RewriteRule ^ - [L]

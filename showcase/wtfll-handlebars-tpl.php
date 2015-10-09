@@ -1,5 +1,5 @@
 {{#result}}
-<section id="PostBox">
+<section id="PostBox" class="item">
     <div class="DateTag">
         <div class="Day">{{Pub_Day}}</div> <!-- need Pub_Day eg 17 -->
         <div class="Hr"></div>
@@ -12,20 +12,20 @@
                 <h1>{{Title}}</h1>
                 <div class="Authors">
                     <div class="IconCol"><img src="img/ShotInfo_iconUser.png" alt="Authors" /></div>
-                    <div class="Names">{{Authors}}</div> <!-- $Authors_Aliases function output line -->
+                    <div class="Names">{{{Authors}}}</div> <!-- $Authors_Aliases function output line -->
                 </div>
-                <div class="Location">{{Location}}, {{Year}}</div> <!-- func output line -->
-                <div class="Motion_Type"><div class="min_cap">Production type: </div>{{Motion_Type}}</div> <!-- func output line -->
-                <div class="Broadcast_Type"><div class="min_cap">Function type: </div>{{Broadcast_Type}}</div> <!-- func output line -->
+                <div class="Location">{{{Location}}}</div> <!-- func output line -->
+                <div class="Motion_Type"><div class="min_cap">Production type: </div>{{{Motion_Type}}}</div> <!-- func output line -->
+                <div class="Broadcast_Type"><div class="min_cap">Function type: </div>{{{Broadcast_Type}}}</div> <!-- func output line -->
                 <div class="Rating">
                     <div class="Num"><div class="RateText">{{Rating}}</div></div>
                     <div class="AwesomeRate">
                         <div class="min_cap">internal rating</div>
                         <div class="MeterGhost"></div>
-                        <div class="MeterExist" style="width: 48%;"></div> <!-- need $RatingWidth-->
+                        <div class="MeterExist" style="width: {{RatingWidth}}%;"></div> <!-- need $RatingWidth-->
                     </div>
                 </div>
-                <span class="Tags">{{Tags}}</span> <!-- need $Tags func output line -->
+                <span class="Tags">{{{Tags}}}</span> <!-- need $Tags func output line -->
             </div>
             <div class="thumb">
                 <img src="{{Img}}" />
