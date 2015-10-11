@@ -276,6 +276,7 @@ class TvLabQuery
 	}
 
 	public function getVideoFromVimeo($Vimeo_Id) {
+
 		global
 		$OutId,
 		$Title,
@@ -296,8 +297,9 @@ class TvLabQuery
 		$MainUserLocation,
 		$Year;
 
-		$vimeo = new phpVimeo('986bbb02678174efc5d7f107a8ab7d79f7b90626', '0fd2320a50be95e7743922b0f177f29aa8bc33a3');
-		$vimeo->setToken('e67a282a494a5325d905347c137be65c','e062ff9270737fc548676f31f49d858840c89f7e');
+		$vimeo = new phpVimeo(CONSUMER_KEY, CONSUMER_SECRET);
+		$vimeo->setToken(TOKEN,TOKEN_SECRET);
+
 
 		//ВНИМАНИЕ Если API не найдет Video по ID, то скрипт остановится здесь. Как исправить ХЗ?
 		$result = $vimeo->call('vimeo.videos.getInfo', array('video_id' => $Vimeo_Id));
