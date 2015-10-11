@@ -78,24 +78,32 @@ $HeadLayoutSet = array(
     "PageTitle" => "Television Lab database Board",
     "Description" => "Description",
     "css" => array ("reset", "board", "general", "google_fonts", "placeholder-big"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall-board", "jquery-ui"),
+    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "jquery-ui"),
     "Prepend" => '<link rel="icon" type="image/png" href="img/favicon-board-v2.ico" />',
     "Append" => ''
 );
 
-insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
-
-
-//------------------------------------ CHUNK <script> -->
-// Output handlebar template for ribbon grid
+// Waterfall script depends on section. "Position absolute problem".
 if ($Section == $SectionList[0]) {
-    include '../nodes/board_OutputCell_Blog.tpl';
+    $HeadLayoutSet["js"][] = "waterfall-showcase";
 } else {
-    include '../nodes/board_OutputCell_Grid.tpl';
+    $HeadLayoutSet["js"][] = "waterfall";
 }
 
+insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
 
 ?>
+
+    <script type="text/x-handlebars-template" id="waterfall-tpl">
+        <? // Display Handlebars tpl depend on section
+        if ($Section == $SectionList[0]) {
+            include '../showcase/wtfll-handlebars-tpl.php';
+        } else {
+            include '../desktop/wtfll-handlebars-tpl.php';
+        }
+        ?>
+    </script>
+
     <header class="<? echo $Section ?>">
         <section class="Dashboard">
 
@@ -114,6 +122,7 @@ if ($Section == $SectionList[0]) {
 
             <nav<? if ( !isset($AuthUser) ) {echo ' class="noAuth"';} ?>>
                 <?
+
                 //Output first section with root url
                 if ( $Section == $SectionList[0] ) {echo '<div class="Button here '.$Section.'">'.$SectionList[0].'</div>'."\n";
                 } else {
@@ -131,6 +140,7 @@ if ($Section == $SectionList[0]) {
                         }
                     }
                 }
+
                 //Output Add Video only for Auth User
                 if ( isset($AuthUser) ) {
                     if (!empty ($_GET['code'])) {if (!Check_Valid_Id($_GET['code'])) {$input_error = 'class="input_error"';}}
@@ -157,91 +167,6 @@ if ($Section == $SectionList[0]) {
     </main>
 
 
-    <script>
-        $('#container').waterfall({
-            itemCls: 'item',
-            <? if ($Section == $SectionList[0]) { echo "colWidth: 720, maxCol: 1, "; } else { echo "colWidth: 330, maxCol: 3, ";} ?>
-            gutterWidth: 19,
-            gutterHeight: 15,
-            align: 'left',
-            debug: false,
-            //isFadeIn: true,
-            checkImagesLoaded: false,
-            callbacks: {
-                loadingFinished: function($loading, isBeyondMaxPage) {
-                    if ( !isBeyondMaxPage ) {
-                        $loading.fadeOut();
-                        $($('.min-icons')).each(function(index, value) {
-
-                            if ($(this).html().length < 20) {
-
-                                var mt = $(this).html().split(',');
-                                var mts = "";
-
-                                console.log(mt[0] + '<<<------------')
-                                for (var i = 0, l = mt.length; i < l; i++){ // цикл по количеству элементов в массиве mt
-
-                                    switch(mt[i]){ //
-                                        case '0':
-                                            mts += '<img class="min-icon m_compositing" src="img/min-compositing.png" />';
-                                            break;
-                                        case '1':
-                                            mts += '<img class="min-icon m_graphics" src="img/min-graphics.png" />';
-                                            break;
-                                        case '2':
-                                            mts += '<img class="min-icon m_simulation" src="img/min-simulation.png" />';
-                                            break;
-                                        case '3':
-                                            mts += '<img class="min-icon m_animation" src="img/min-animation.png" />';
-                                            break;
-                                        case '4':
-                                            mts += '<img class="min-icon m_rd_stop_motion" src="img/min-rd_stop_motion.png" />';
-                                            break;
-                                        case '5':
-                                            mts += '<img class="min-icon m_rd_video" src="img/min-rd_video.png" />';
-                                            break;
-                                        default:
-                                        // none :)
-                                    }
-
-                                }
-                                $(this).html(mts);
-                            }
-                        });
-                        //console.log('loading finished');
-                    } else {
-                        //console.log('loading isBeyondMaxPage');
-                        $loading.remove();
-                    }
-                },
-
-                renderData: function (data, dataType) {
-                    var Total = data.total;
-                    var Pages = data.pages;
-                    var Page = data.page;
-
-
-                    if ( Pages == Page) {
-                        $('#container').waterfall('pause', function() {
-                            $('#waterfall-message').html('<!--No more result from database-->')
-                        });
-                    }
-
-                    if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
-                        tpl = $('#waterfall-tpl').html();
-                        template = Handlebars.compile(tpl);
-                        return template(data);
-
-                    } else { // html format
-
-                        return data;
-                    }
-                }
-            },
-            path: function(page) {
-                return 'http://www.televisionlab.ru/board/waterfall-json.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=' + page;
-            }
-        });
-    </script>
+<? include 'wtfll-js-init.php'; ?>
 
 <? insertFooter ("../nodes/FooterTpl.php"); ?>

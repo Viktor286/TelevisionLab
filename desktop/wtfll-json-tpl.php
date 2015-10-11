@@ -16,6 +16,7 @@ while ($row = $Collection->fetch_assoc()) {
     //--- Prepare some data for display
     extract($row);
 
+    // Detect info about first video in first array
     if ($c == 0) {
         $FirstVideoId = $OutId;
         $FirstTitle = $Title;

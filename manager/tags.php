@@ -31,7 +31,7 @@ if ($_GET['reload']== 1) {
 		$Tags_Arts = ReadAndExplode("Tags_Arts");
 		$Tags_Music = ReadAndExplode("Tags_Music");
 		$Tags_Others = ReadAndExplode("Tags_Others");
-		
+
 		//подсчет количества ключевых слов по каждой категории
 		$num_Tags_SA = count($Tags_SA);
 		$num_Tags_Fashion = count($Tags_Fashion);

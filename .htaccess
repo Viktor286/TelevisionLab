@@ -26,13 +26,12 @@ RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 order deny,allow
 deny from all
 
-#allow from 195.239.230.7
+allow from 195.239
 allow from 92.100
-#allow from 178.67.214.135
-allow from 91.122.122.177
-allow from  95.55.175.193
-allow from  195.239.230
-allow from 178.67.205.217
+allow from 91.122
+allow from 95.55
+allow from 178.67
+
 #Loop Prevent
 #RewriteCond %{ENV:REDIRECT_STATUS} 200
 #RewriteRule ^ - [L]

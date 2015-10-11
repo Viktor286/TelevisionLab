@@ -517,6 +517,50 @@ class TvLabQuery
 
     }
 
+    public function getBoardContent($Section, $inPage, $User) {
+
+        global $Collection, $TotalRows, $MaxPages, $Page;
+
+        //Test for right user or die
+        $UserQuery = '(SELECT * FROM u186876_tvarts.users WHERE user_name = "'.$User.'")';
+        $result = $this->Query($UserQuery);
+        if ($result->num_rows != 1) { echo "no such user"; die(); }
+
+        //Model base
+        $Timeline = '(SELECT * FROM u186876_tvarts.contents WHERE By_User =  "'.$User.'") UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
+        $Approved = '(SELECT * FROM u186876_tvarts.contents WHERE By_User = "'.$User.'")';
+        $Stacked = '(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = "'.$User.'")';
+        $Review = '(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User != "'.$User.'")';
+
+        //Logic of model
+        switch ($Section) {
+            case "timeline": $specificQuery = $Timeline; break;
+            case "approved": $specificQuery = $Approved; break;
+            case "stacked": $specificQuery = $Stacked; break;
+            case "review": $specificQuery = $Review; break;
+            default: $specificQuery = $Timeline; break;
+        }
+
+        //Кол-во строк запроса $specificQuery для последующго разделения на порции
+        $result = $this->Query( str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery) );
+
+        //???
+        $TotalRows = 0;
+        while( $row = $result->fetch_assoc() ){
+            $TotalRows = $TotalRows + $row['COUNT(*)'];
+        }
+
+        $MaxPages = ceil($TotalRows / $inPage);
+        if ($Page == 0) {$PageIncr = 0;} else {$PageIncr = ($Page -1) * $inPage;}
+
+        //Финализируем запрос, добавляем лимит к запросу, для порционной выдачи (offset, number of rows)
+        $specificQuery .= ' ORDER BY id DESC';
+        $specificQuery .= ' LIMIT '.$PageIncr.','.$inPage.';';
+
+        $Collection = $this->Query($specificQuery);
+
+    }
+
     public function searchKeywords ($SearchData) {
 
         global $specificQuery;
