@@ -43,10 +43,8 @@ function isEmpty(str) {
 /*  AdjustH1InfoOutput Line */
 $( document ).ready(function() {
     $( "span.tag span.x-close" ).on( "click", function( event ) {
-
         $("#singleFieldTags").tagit("removeAll");
         document.getElementById("tpSearch").submit();
-
     });
 });
 
@@ -57,7 +55,7 @@ function LoadVideoOnPage(VideoId) {
 
     $.ajax('desktop/video.php', {
         success: function(response) {
-            $('#PreviewWindow').html('<iframe src="//player.vimeo.com/video/' + VideoId + '?portrait=0"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+            $('#PreviewWindow').html('<div class="box"><iframe src="//player.vimeo.com/video/' + VideoId + '?loop=1&title=0&byline=0&portrait=0"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>');
             $('#InformationWindow').hide().html(response).fadeIn(250);
         },
         data: {"VideoId": VideoId},
@@ -127,11 +125,9 @@ function ResetSet (tag) {
 }
 
 function LPoTC (tag) {
-
     $("#singleFieldTags").tagit("removeAll");
     $("#singleFieldTags").tagit("createTag", tag);
     document.getElementById("tpSearch").submit();
-
 }
 
 
@@ -139,13 +135,13 @@ function LPoTC (tag) {
 //------------------------------------------------------------------------------------
 // Accordion Left Panel (LeftPanel)
 $(function() {
-    $( "aside#LeftPanel" ).accordion({
+    $( "aside#LeftPanel div.Accordion" ).accordion({
         collapsible: true,
         active: menuState,
         heightStyle: "content",
-        create: function( event, ui ) {$('aside#LeftPanel').css("display","block")},
+        create: function( event, ui ) {$('aside#LeftPanel div.Accordion').css("display","block")},
         activate: function( event, ui ) {
-            var TagMenuActive = $( "aside#LeftPanel" ).accordion( "option", "active" );
+            var TagMenuActive = $( "aside#LeftPanel div.Accordion" ).accordion( "option", "active" );
             document.cookie="TagMenuState=" + TagMenuActive;
         }
     });
@@ -164,7 +160,7 @@ $(function() {
 				width: 40,
 				height: 40
 			});
-			
+
 			$('input:checkbox').screwDefaultButtons({
 				image: 'url("img/checkboxSmall.jpg")',
 				width: 40,
@@ -195,10 +191,10 @@ $(document).ready(function(){
 function mQSetup2() {
 	//Ставим mQ в скрытый параметр в форме
 	$('#set').val(mQ);
-	
+
 	//Проверяем имеет ли url параметр &set=mQ, если нет, то ставим принудительно, поскольку дальше будет его редакция.
 	//Достаем NowUrl, объявленый в index.php с помощью http_build_query($_GET, '', '&')
-	
+
 	if (!NowUrl.match(/&{0,1}set=[\d\w]{12}/)) {
 		NowUrl = NowUrl.replace(/&{0,1}set=/, ""); //исключаем случай, когда из GET передался пустой параметр &set= в URL
 		NowUrl = NowUrl + "&set=c0d0s0a0t0v0";
@@ -207,7 +203,7 @@ function mQSetup2() {
 	//и заменяем на обновленный код mQ
 	NewUrl = NowUrl.replace(/set=.{12}/, "set=" + mQ);
 	NowUrl = NewUrl;
-	
+
 	//Корректируем полученный URL для текущей дирректории
 	NewUrl = "?" + NewUrl;
 
@@ -224,7 +220,7 @@ function mQSetup() {
 }
 
 
-//Проверяем, есть ли уже установленные chk на странице, если да - предварительно изменяем ключ-код mQ 
+//Проверяем, есть ли уже установленные chk на странице, если да - предварительно изменяем ключ-код mQ
 if ($('#comp')[0].checked == true) {mQ = mQ.replace(/c0/, 'c1')};
 if ($('#3d')[0].checked == true) {mQ = mQ.replace(/d0/, 'd1')};
 if ($('#sim')[0].checked == true) {mQ = mQ.replace(/s0/, 's1')};
@@ -279,7 +275,7 @@ $('.styledCheckbox:has(#vid)').on('click', function(){
 	{if (!mQ.match(/v0/)){mQ = mQ.replace(/v1/, 'v0')};}
 	mQSetup();
 });
-	
+
 });
 
 

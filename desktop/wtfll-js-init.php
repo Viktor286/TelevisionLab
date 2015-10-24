@@ -1,12 +1,13 @@
 <script>
     $('#container').waterfall({
         itemCls: 'item',
+        fitWidth: false,
         colWidth: xCol,
         gutterWidth: 19,
         gutterHeight: 15,
-        align: 'left',
-        minCol: 3,
-        maxCol: undefined,
+        align: 'center',
+        minCol: 1,
+        maxCol: 3,
         debug: false,
         //isFadeIn: true,
         checkImagesLoaded: false,

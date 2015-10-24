@@ -47,6 +47,8 @@ $xCol = "319";
 // Email post-video notification to authors of video
 // Artist profile approved by editor, author, community
 
+//Have a problem, when manually click on close .tagit tag
+
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
     "SiteName" => SITE_TITLE,
@@ -75,22 +77,25 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
 </script>
 
 <? include 'nodes/top_panel.php'; ?>
+
 <main>
-    <aside id="LeftPanel">
-        <? include 'nodes/left_panel.php'; ?>
-    </aside>
-
-    <section id="FixedDisplay">
-        <div id="PreviewWindow"></div>
-        <div id="InformationWindow"></div>
-    </section>
-
-    <section id="MainOutput">
+    <div class="Wr50">
+        <div class="table">
+            <aside id="LeftPanel">
+                <div class="Accordion">
+                <? include 'nodes/left_panel.php'; ?>
+            </aside>
+            <section id="FixedDisplay">
+                <div id="PreviewWindow"></div>
+                <div id="InformationWindow"></div>
+            </section>
+        </div>
+    </div>
+    <div id="MainOutput">
         <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
         <? $TvLab->showDebugCookie();  ?>
-
         <div id="container"></div>
-    </section>
+    </div>
 </main>
 
 <? include 'desktop/wtfll-js-init.php'; ?>

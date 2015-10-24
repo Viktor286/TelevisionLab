@@ -24,7 +24,8 @@
             maxPage: undefined, // max page, if undefined,max page is infinite
             bufferPixel: -50, // decrease this number if you want scroll to fire quicker
             containerStyle: { // the waterfall container style
-                position: 'relative'
+                position: 'relative',
+                height: '100%'
             },
             resizable: true, // triggers layout when browser window is resized
             isFadeIn: false, // fadein effect on loading

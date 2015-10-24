@@ -16,7 +16,8 @@
                 singleField: true,
                 singleFieldNode: $('#mySingleField'),
 				afterTagRemoved: function(evt, ui) {
-					document.getElementById("tpSearch").submit();
+
+					//document.getElementById("tpSearch").submit();
 					}
 				
             });
