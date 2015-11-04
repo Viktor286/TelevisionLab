@@ -516,6 +516,7 @@ div.NoResultAdvice > span.Tags > a.tag
     line-height: 220%;
     text-decoration: none;
     color: #999;
+    white-space: nowrap;
 }
 div#InformationWindow > .left > span.Tags > a.tag:hover,
 section#PostBox > article > div.wrapper > .info > span.Tags > a.tag:hover,

@@ -34,7 +34,7 @@ $("#container.waterfall-container div.item:first-child").data('id');
  */
 
 function isEmpty(str) {
-    return (!str || 0 === str.length);
+    return ( !str || 0 === str.length );
 }
 
 
@@ -44,6 +44,7 @@ $( document ).ready(function() {
         $("#singleFieldTags").tagit("removeAll");
         document.getElementById("tpSearch").submit();
     });
+
 });
 
 
@@ -63,43 +64,53 @@ function LoadVideoOnPage(VideoId) {
 }
 
 
+function urlVideo(param) { //Shows or Changes URLs Video param
+
+    Rgx = /&{0,1}video=(\d*)/;
+    RgxV = /video=\d*/;
+
+    if ( typeof param != 'undefined') {
+
+        //--Change URLs video param
+        //Fix url if we don't have full param line
+        if ( !NowUrl.match( Rgx ) ) { // in case we don't have full param line
+            NowUrl = NowUrl.replace( RgxV , ""); // remove if we just have "video=" without value
+            NowUrl = NowUrl + '&video=' + param; // after all add video param line to NowUrl buffer
+        }
+
+        //Update URL
+        NewUrl = "?" + NowUrl.replace( RgxV , 'video=' + param);
+
+        window.history.pushState("", "", NewUrl);
+        return NewUrl;
+
+    }else{
+        if ( Rslt = NowUrl.match( Rgx ) ) {
+            if ( !isEmpty( Rslt[1] ) ) { return Rslt[1]; } else { return undefined; }
+        }
+    }
+}
+
 //------------------------------------------------------------------------------------
 // Load Video On Click + some actions on this event
 
-function LoadVideoOnClick (id,ThisLink) {
-    if (isEmpty(NowVid)) {
-        var wasEmpty = 1;
-    }
+function LoadVideoOnClick (id,thisObj) {
 
-    //Url Update
-    if (!NowUrl.match(/&{0,1}video=\d*/)) {
-        NowUrl = NowUrl.replace(/&{0,1}video=/, ""); //исключаем случай, когда из GET передался пустой параметр &video= в URL
-        NowUrl = NowUrl + '&video=' + id;
-    }
+    //Update Video Input param
+    urlVideo(id);
 
-    NewUrl = NowUrl.replace(/video=\d*/, 'video=' + id);
-    NowUrl = NewUrl;
-    NewUrl = "?" + NewUrl;
+    //Update Video Input param
+    $('input#InputVideo').val(id);
 
-    window.history.pushState("", "", NewUrl);
+    //Update Logo Button
+    //$('.tpLogo').html('<a href="?video=' + id + '"></a>');
 
-    // At this moment check to reload or continue
-    if (wasEmpty == 1) {
-        location.reload();
-    } else {
-        //Set Video Input param
-        $('#InputVideo').val(id)
+    //Update Item Box Here class
+    $("div.item .box.here").removeClass( "here" );
+    $( thisObj ).parent().addClass( "here" );
 
-        //Logo Button Update
-        $('.tpLogo').html('<a href="?video=' + id + '"></a>');
-
-        //Item Box Here update
-        $("div.item .box.here").removeClass( "here" );
-        $( ThisLink ).parent().addClass( "here" );
-
-        //Use existing function to Load Video
-        LoadVideoOnPage(id);
-    }
+    //Load Video
+    LoadVideoOnPage(id);
 
 }
 
@@ -125,7 +136,7 @@ function ResetSet (tag) {
 function LPoTC (tag) {
     $("#singleFieldTags").tagit("removeAll");
     $("#singleFieldTags").tagit("createTag", tag);
-    $('input#InputVideo').val("");
+    $('input#InputVideo').val(""); //Drop displayed video to ""
     $('#tpSearch').submit();
 }
 

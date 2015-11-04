@@ -21,6 +21,13 @@
                     $loading.remove();
                 }
 
+                //-- Check for not selected video
+                if (  urlVideo() == undefined ) { // If url video param does not exist
+                    if( $(".waterfall-container .item .box.here").length == 0 ){ // if .box.here does not exist too
+                        $(".waterfall-container .item:first-child .box").addClass( "here" ); // add class to first one
+                    }
+                }
+
             },
 
             renderData: function (data, dataType) {
@@ -36,13 +43,16 @@
 
                 <? if (!isset( $VideoId )) { echo '
                 if (Page == 1) {
-                //alert(data.FirstTitle);
                 LoadVideoOnPage( data.FirstVideo );
+                // alert(data.FirstTitle);
                 }'; } ?>
 
                 if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
                     tpl = $('#waterfall-tpl').html();
                     template = Handlebars.compile(tpl);
+
+                    //console.log( template(data) );
+
                     return template(data);
 
                 } else { // html format
@@ -57,5 +67,7 @@
             return 'desktop/wtfll-controller.php?<? echo $Http_query; ?>&page=' + page + '<? echo $jsDataRef; ?>';
         }
     });
+
+
 
 </script>

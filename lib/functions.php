@@ -87,9 +87,9 @@ function compTags($Tags_SA, $Tags_Fashion, $Tags_Arts, $Tags_Music, $Tags_Others
 
     $TagLine = "";
     foreach ($TagsArr as $Tag) {
-        $TagLine .= '<a class="tag" href="/?tags='.$Tag.'">'.$Tag.'</a> ';
+        $TagLine .= '<a class="tag" href="javascript:void(0);" onclick="LPoTC('."'$Tag'".');return true">'.$Tag.'</a> ';
     }
-
+    //<a href="javascript:void(0);" onclick="LPoTC('micrographics');return true">micrographics</a>
     return $TagLine;
 }
 

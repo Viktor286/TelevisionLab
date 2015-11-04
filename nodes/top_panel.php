@@ -1,7 +1,10 @@
 <div class="TopPanelBox">
     <div class="TopPanel">
     	<div class="tpLogo">
-            <?  if (isset($VideoId)) {echo '<a href="?video='.$VideoId.'"></a>';} else {echo '<a href="/"></a>';} ?>
+            <?
+                // if (isset($VideoId)) {echo '<a href="?video='.$VideoId.'"></a>';} else {echo '<a href="/"></a>';}
+                echo '<a href="/"></a>';
+            ?>
         </div>
         <form method="get" id="tpSearch">
             <div class="tpSearch">
