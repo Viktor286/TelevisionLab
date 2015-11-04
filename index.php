@@ -49,13 +49,15 @@ $xCol = "319";
 
 //Have a problem, when manually click on close .tagit tag
 
+//Make News Row (from boards) on index.php without parametrs
+//jquery url parser https://github.com/websanova/js-url
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
     "SiteName" => SITE_TITLE,
     "PageTitle" => "Television Lab database desktop",
     "Description" => "Motion Design and Broadcast Graphics database",
     "css" => array ("reset", "general","common", "jquery.tagit", "tagit.ui-zendesk", "google_fonts"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall", "jquery-ui", "tag-it", "scripts", "desktop_cfg"),
+    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall", "jquery-ui", "tag-it", "scripts", "desktop_cfg", "url"),
     "Prepend" => '',
     "Append" => '<link rel="stylesheet" type="text/css" href="/css/dynamic.php?xcol='.$xCol.'&ev='.$emptyVid.'" />'
 );

@@ -1,18 +1,19 @@
 //hide the divs depends of size
 /*
 function hideBlocks(){
-
     if ($(window).width() < 1024) {
-
         $(".infoline").fadeOut("slow");
-
     }else{
-
         $(".infoline").fadeIn("slow");
-
     }
-
 }
+
+// Data and first-child construction
+$("#container.waterfall-container div.item:first-child").data('id');
+
+// URL plugin usage
+ $.url('?tags') + " " + $.url('?video') + " " + $.url('?set')
+
 */
 
 //on parent document load init
@@ -28,9 +29,6 @@ function hideBlocks(){
  });
 
  });
-
-
-
 
  document.getElementById("tpSearch").submit();
  */
@@ -109,7 +107,7 @@ function LoadVideoOnClick (id,ThisLink) {
 // Drop Type On Click
 
 function DropTypeOnClick() {
-    $('#set').val("c0d0s0a0t0v0");
+    $('input#set').val("c0d0s0a0t0v0");
     $('#tpSearch').submit();
 }
 
@@ -127,7 +125,8 @@ function ResetSet (tag) {
 function LPoTC (tag) {
     $("#singleFieldTags").tagit("removeAll");
     $("#singleFieldTags").tagit("createTag", tag);
-    document.getElementById("tpSearch").submit();
+    $('input#InputVideo').val("");
+    $('#tpSearch').submit();
 }
 
 
