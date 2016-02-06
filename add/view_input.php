@@ -160,12 +160,12 @@
                   <div class="CanvasLine<? if (!Check_Digits($getMotion_Type)) {echo ' input_error';} ?>">
                     <div class="Header"><?= $nme_Motion_Type ?></div>
                     <div class="Content">
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_compositing.png')" value="0" alt="Compositing" <? isChecked ($getMotion_Type,0); ?> />
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_graphics.png')" value="1" alt="3d Graphics" <? isChecked ($getMotion_Type,1); ?> />
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_simulation.png')" value="2" alt="Simulation" <? isChecked ($getMotion_Type,2); ?> />
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_animation.png')" value="3" alt="Cartoon (Drawing)" <? isChecked ($getMotion_Type,3); ?> />
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_stop_motion.png')" value="4" alt="Stop Motion" <? isChecked ($getMotion_Type,4); ?> />
-                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_video.png')" value="5" alt="Video" <? isChecked ($getMotion_Type,5); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_compositing.png')" value="0" alt="Compositing" <? isChecked ($getMotion_Type,0); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_graphics.png')" value="1" alt="3d Graphics" <? isChecked ($getMotion_Type,1); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_simulation.png')" value="2" alt="Simulation" <? isChecked ($getMotion_Type,2); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_animation.png')" value="3" alt="Cartoon (Drawing)" <? isChecked ($getMotion_Type,3); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_stop_motion.png')" value="4" alt="Stop Motion" <? isChecked ($getMotion_Type,4); ?> />
+                      <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_video.png')" value="5" alt="Video" <? isChecked ($getMotion_Type,5); ?> />
                     </div>
                   </div>
                   

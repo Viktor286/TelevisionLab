@@ -235,19 +235,21 @@ div#PreviewWindow > div.box > iframe {
     position: absolute;
     width: 100%;
     height: 100%;
-    clear:both;
+    clear: both;
+    border: 1px solid #2f2f2f;
+    border-bottom: none;
 }
 
 
 
-body > main { border: 0px dashed red; display: table; width: 100%;}
+body > main { border: 0px dashed red; display: table; width: 100%; min-width: 900px;}
 
 main > div.Wr50 {
     display: table-cell;
     width: 45%;
     border: 0px dashed #ffee00;
     min-height: 400px;
-    min-width: 500px;
+    min-width: 530px;
     /*position: relative;*/
     position: fixed;
     vertical-align: top;
@@ -308,9 +310,13 @@ main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; displa
 }
 
 @media screen and (max-width: 1017px) {
-    main > div.Wr50 {width: 60%;}
+    main > div.Wr50 {width: 60%; margin-left: 12px;}
     main > div#MainOutput {width: 40%;}
     main > div.Wr50 > div.table > aside#LeftPanel { display: none !important; }
+}
+
+@media screen and (max-width: 980px) {
+    main > div#MainOutput { margin-left: 15px; }
 }
 
 /* PersonalInfo Board */

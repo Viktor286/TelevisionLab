@@ -30,8 +30,15 @@ $("#container.waterfall-container div.item:first-child").data('id');
 
  });
 
+ if(event.ctrlKey) {
+ console.log("ctrl");
+ }
+
  document.getElementById("tpSearch").submit();
  */
+
+
+
 
 function isEmpty(str) {
     return ( !str || 0 === str.length );
@@ -40,9 +47,20 @@ function isEmpty(str) {
 
 /*  AdjustH1InfoOutput Line */
 $( document ).ready(function() {
-    $( "span.tag span.x-close" ).on( "click", function( event ) {
-        $("#singleFieldTags").tagit("removeAll");
-        document.getElementById("tpSearch").submit();
+
+    //-- Remove tag on x click
+    $( "div#MainOutput > h1.setInfo > span.Tags > span.tag span.x-close" )
+        .on( "click", function( event ) {
+        //Recognize tag text
+        var TagText = $( this ).parent().text();
+        TagText = TagText.replace("⨯","");
+
+        // Remove tag
+        $("#singleFieldTags").tagit("removeTagByLabel", TagText);
+        // Remove div tag
+        $( this ).parent().fadeOut(200, function() { TagText.remove(); });
+        // Submit with delay
+        setTimeout(function() { $('#tpSearch').submit(); }, 100);
     });
 
 });
@@ -63,33 +81,36 @@ function LoadVideoOnPage(VideoId) {
 
 }
 
+function urlVideo(param) {
 
-function urlVideo(param) { //Shows or Changes URLs Video param
+    var Url = NowUrl;
+    var prmStr = "video=";
+    var Rgx = /(video=)(\d*)/;
 
-    Rgx = /&{0,1}video=(\d*)/;
-    RgxV = /video=\d*/;
 
-    if ( typeof param != 'undefined') {
+    if ( typeof param != 'undefined' ) {
 
-        //--Change URLs video param
-        //Fix url if we don't have full param line
-        if ( !NowUrl.match( Rgx ) ) { // in case we don't have full param line
-            NowUrl = NowUrl.replace( RgxV , ""); // remove if we just have "video=" without value
-            NowUrl = NowUrl + '&video=' + param; // after all add video param line to NowUrl buffer
+        if ( !Url.match( Rgx ) ) {
+            Url = Url + '&' + prmStr + param;
         }
 
-        //Update URL
-        NewUrl = "?" + NowUrl.replace( RgxV , 'video=' + param);
+        var NewUrl = Url.replace( Rgx , "$1" + param );
 
-        window.history.pushState("", "", NewUrl);
+        window.history.pushState("", "", "?" + NewUrl);
+
+        NowUrl = NewUrl;
         return NewUrl;
 
     }else{
-        if ( Rslt = NowUrl.match( Rgx ) ) {
-            if ( !isEmpty( Rslt[1] ) ) { return Rslt[1]; } else { return undefined; }
+        //--Shows URLs video param
+        var Rslt = "";
+        if ( Rslt = Url.match( Rgx ) ) {
+            if ( !isEmpty( Rslt[2] ) ) { return Rslt[2]; } else { return undefined; }
         }
     }
 }
+
+
 
 //------------------------------------------------------------------------------------
 // Load Video On Click + some actions on this event
@@ -111,7 +132,6 @@ function LoadVideoOnClick (id,thisObj) {
 
     //Load Video
     LoadVideoOnPage(id);
-
 }
 
 //------------------------------------------------------------------------------------
@@ -134,6 +154,10 @@ function ResetSet (tag) {
 }
 
 function LPoTC (tag) {
+
+    // TODO: Remade to .on(click)
+    //console.log(thisLink);
+
     $("#singleFieldTags").tagit("removeAll");
     $("#singleFieldTags").tagit("createTag", tag);
     $('input#InputVideo').val(""); //Drop displayed video to ""

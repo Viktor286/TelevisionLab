@@ -163,8 +163,8 @@ $(document).ready(function() {
 			
 			$('input:checkbox').screwDefaultButtons({
 				image: 'url("img/checkboxSmall.jpg")',
-				width: 49,
-				height: 56
+				width: 40,
+				height: 40
 			});
 		});
  

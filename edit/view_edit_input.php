@@ -210,12 +210,12 @@ if ($VimeoEmbed_flag == 'New') {echo '<div class="VideoBlock">'.$NewVimeoEmbed.'
           <div class="CanvasLine<? if (!Check_Digits($getMotion_Type)) {echo ' input_error';} ?>">
             <div class="Header"><? echo $nme_Motion_Type ?></div>
             <div class="Content">
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_compositing.png')" value="0" alt="Compositing" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/0/");} else {echo matchChecked ($Motion_Type,"/0/");} ?> />
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_graphics.png')" value="1" alt="3d Graphics" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/1/");} else {echo matchChecked ($Motion_Type,"/1/");} ?> />
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_simulation.png')" value="2" alt="Simulation" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/2/");} else {echo matchChecked ($Motion_Type,"/2/");} ?> />
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_animation.png')" value="3" alt="Cartoon (Drawing)" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/3/");} else {echo matchChecked ($Motion_Type,"/3/");} ?> />
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_stop_motion.png')" value="4" alt="Stop Motion" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/4/");} else {echo matchChecked ($Motion_Type,"/4/");} ?> />
-              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/rd_video.png')" value="5" alt="Video" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/5/");} else {echo matchChecked ($Motion_Type,"/5/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_compositing.png')" value="0" alt="Compositing" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/0/");} else {echo matchChecked ($Motion_Type,"/0/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_graphics.png')" value="1" alt="3d Graphics" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/1/");} else {echo matchChecked ($Motion_Type,"/1/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_simulation.png')" value="2" alt="Simulation" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/2/");} else {echo matchChecked ($Motion_Type,"/2/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_animation.png')" value="3" alt="Cartoon (Drawing)" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/3/");} else {echo matchChecked ($Motion_Type,"/3/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_stop_motion.png')" value="4" alt="Stop Motion" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/4/");} else {echo matchChecked ($Motion_Type,"/4/");} ?> />
+              <input type="checkbox" class="cbx" name="motion[]" data-sdb-image="url('img/bt40_video.png')" value="5" alt="Video" <? if (isset($getMotion_Type_Line)) {echo matchChecked ($getMotion_Type_Line,"/5/");} else {echo matchChecked ($Motion_Type,"/5/");} ?> />
             </div>
           </div>
           

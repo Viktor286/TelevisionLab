@@ -139,7 +139,7 @@ function AdjustH1InfoOutput($getSet, $Mode, $tags) {
     if ( !isset($SetTitleLine) ) {$SetTitleLine = " All";}
 
 
-    if ($Mode == "on") {$OnlyWrap = "<span class='TitleOnly'> only ( </span>"; $OnlyWrapClose = "<span class='TitleOnly'> )</span>";}
+    if ($Mode == "on") {$OnlyWrap = "<span class='TitleOnly'> only&nbsp;(&nbsp;</span>"; $OnlyWrapClose = "<span class='TitleOnly'> )</span>";}
 
     if ($tags != "") {
 
@@ -365,6 +365,7 @@ function ShowRating ($Tags_Name, $Limit, $Tags) {
 
     $Query = "SELECT ".$Tags_Name.", COUNT( ".$Tags_Name." ) FROM u186876_tvarts.tags GROUP BY 1 ORDER BY COUNT( ".$Tags_Name." ) DESC LIMIT 0 , 50";
     $result = mysql_query ($Query);
+
     while ( $arr[] = mysql_fetch_array($result) );
 
     if ($Limit == 0) { $Limit = mysql_num_rows ($result);} //если лимит не указан выводим все строки
@@ -387,7 +388,8 @@ function ShowRating ($Tags_Name, $Limit, $Tags) {
     $TagsArr = explode(" ", $Tags);
 
     //Вывод блока
-    for ($x=0; $x<$Limit; $x++) {
+    for ( $x=0; $x < $Limit; $x++ ) {
+
         if (strlen($arr[$x][0]) > 1) //обходим возможные пустые строки
         {
             $Size = ($arr[$x][1] - $MinTags) / ($MaxTags - $MinTags) * ($max_size - $min_size) + $min_size; // Супер формула на соотношение величин размера шрифта, и тэгов
@@ -398,9 +400,8 @@ function ShowRating ($Tags_Name, $Limit, $Tags) {
 			<li><span style="font-size:'.round ($Size,1).'px"'.$here.'>'.$arr[$x][0].'</span></li>';
 
             } else {
-                $Output .= '
-			<li><a style="font-size:'.round ($Size,1).'px" href="javascript:void(0);" title="'.$arr[$x][0].' ('.$arr[$x][1].')" onclick="LPoTC('."'".$arr[$x][0]."'".');return true">'.$arr[$x][0].'</a></li>';
-
+                $Output .= '<li><a style="font-size:'.round ($Size,1).'px" href="javascript:void(0);" title="'.$arr[$x][0].' ('.$arr[$x][1].')" onclick="LPoTC('."'".$arr[$x][0]."'".');return true">'.$arr[$x][0].'</a></li>';
+			    // $Output .= '<button class="tag" data-tag="'.$arr[$x][0].'" title="'.$arr[$x][0].' ('.$arr[$x][1].')" style="font-size:'.round ($Size,1).'px">'.$arr[$x][0].'</button></li>';
             }
 
         }

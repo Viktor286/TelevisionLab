@@ -8,7 +8,7 @@ $q = new TvLabQuery();
 
 if ( !$q->setAuthUser() ) { unset( $AuthUser ); die; }
 
-require_once '../config/config.php'; //подключаем конфиг бд
+// require_once '../config/config.php'; //подключаем конфиг бд
 require_once '../nodes/autotags_add.php'; //теговая система
 require_once '../lib/lang/rus.php'; //семантика блока
 

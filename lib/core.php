@@ -529,10 +529,10 @@ class TvLabQuery
         if ($result->num_rows != 1) { echo "no such user"; die(); }
 
         //Model base
-        $Timeline = '(SELECT * FROM u186876_tvarts.contents WHERE By_User =  "'.$User.'") UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
-        $Approved = '(SELECT * FROM u186876_tvarts.contents WHERE By_User = "'.$User.'")';
-        $Stacked = '(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = "'.$User.'")';
-        $Review = '(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User != "'.$User.'")';
+        $Timeline = "(SELECT * FROM u186876_tvarts.contents WHERE By_User =  '$User' AND State = '1')"; // UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
+        $Approved = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '.$User.')";
+        $Stacked = "(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '.$User.')";
+        $Review = "(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User != '.$User.')";
 
         //Logic of model
         switch ($Section) {

@@ -34,23 +34,6 @@ if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; }
 
 $xCol = "319";
 
-
-//TODO: ROAD MAP
-//https://thenounproject.com/ icons for tags
-// Related nodes formats atom type http://www.graphdracula.net/showcase/    http://arborjs.org/
-// Category Lines welcome page. May be auto group by tags
-// Feed + History display mainpage
-// FastList video addition
-// TvLab wiki or another library
-// History column
-// Studio Maps (or list, or somewhat to display hall of fame and get picture of the industry)
-// Email post-video notification to authors of video
-// Artist profile approved by editor, author, community
-
-//Have a problem, when manually click on close .tagit tag
-
-//Make News Row (from boards) on index.php without parametrs
-//jquery url parser https://github.com/websanova/js-url
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
     "SiteName" => SITE_TITLE,
