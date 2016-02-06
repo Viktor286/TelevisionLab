@@ -502,7 +502,7 @@ class TvLabQuery
         }
 
         //добавляем дополнительные условия к запросу, сортировка по возрасту
-        $specificQuery .= ' ORDER BY id DESC';
+        $specificQuery .= ' AND State = 1 ORDER BY id DESC';
 
         //Кол-во строк запроса $specificQuery для последующго разделения на порции
         $TotalRows = $this->Query( str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery) )->fetch_row();
