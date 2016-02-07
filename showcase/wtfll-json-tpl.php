@@ -36,6 +36,10 @@ while ($row = $Collection->fetch_assoc()) {
     $RatingIndex = round($Rating/10000,1);
     $RatingWidth = round($Rating/10000,1)*10;
 
+    // Proportion 22:5 ratio where 22 is A and 5 is B): B / (A / 100) = C%. So 22:5 is 5 / .22 = 22.72%.
+    // 1,777777777777778 x W = 56.25%;
+    $RatioPercent = $Height / ($Width / 100);
+
     // Get Dates
     $PubDay = compDate($Date_Create, "d");
     $PubMonth = compDate($Date_Create, "M");
@@ -64,13 +68,14 @@ while ($row = $Collection->fetch_assoc()) {
     "Tags_Others": "'.$Tags_Others.'",
     "Year": "'.$Year.'",
     "Img_Small": "'.$Img_Small.'",
-    "Width": 640,
-    "Height": 360,
+    "Width": "'.$Width.'",
+    "Height": "'.$Height.'",
     "CurrentClass": "'.$CurrentClass.'",
     "OutId": "'.$OutId.'",
     "Pub_Day": "'.$PubDay.'",
     "Pub_Month": "'.$PubMonth.'",
-    "Pub_Year": "'.$PubYear.'"
+    "Pub_Year": "'.$PubYear.'",
+    "RatioPercent": "'.$RatioPercent.'"
     },';
 
     unset ($Motion_Type_Str);
