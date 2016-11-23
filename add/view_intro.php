@@ -1,6 +1,6 @@
 <div class="Input_Form">
     <div class="IntroTag"> 
-        <a class="TvToDesktop" href="http://www.televisionlab.ru/"></a>
+        <a class="TvToDesktop" href="http://www.televisionlab.net/"></a>
             <form method="get" autocomplete="off">
                 <div <? if (!empty ($_GET['code'])) {if (!Check_Valid_Id($_GET['code'])) {echo 'class="input_error"';}} ?>>
                     <input name="code" class="code" placeholder="<? echo $nme_Code ?>"  /></textarea>

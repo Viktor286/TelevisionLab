@@ -1,5 +1,5 @@
 {{#result}}
-<section id="PostBox" class="item">
+<section id="PostBox{{Index}}" class="PostBox item">
     <div class="DateTag">
         <div class="Day">{{Pub_Day}}</div> <!-- need Pub_Day eg 17 -->
         <div class="Hr"></div>
@@ -10,7 +10,7 @@
         <div class="wrapper">
             <div class="info">
                 <div class="pad">
-                    <h1>{{Title}}</h1>
+                    <h1>{{Title}} N {{Index}}</h1>
                     <div class="Authors">
                         <div class="IconCol"><img src="img/ShotInfo_iconUser.png" alt="Authors" /></div>
                         <div class="Names">{{{Authors}}}</div> <!-- $Authors_Aliases function output line -->
@@ -33,8 +33,7 @@
 
                 <div class="wrapper" style="padding-top: {{RatioPercent}}%">
                         <div class="main">
-                            <!--<img src="{{Img}}" />-->
-                            <iframe src="//player.vimeo.com/video/{{OutId}}?loop=1&title=0&byline=0&portrait=0"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <img src="{{Img}}" class="VideoThumb" data-outid="{{OutId}}" onclick="javascript:ShowVideoFrame(this,{{OutId}},{{Index}} );" />
                         </div>
                 </div>
 

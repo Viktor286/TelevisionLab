@@ -3,7 +3,7 @@
 /* Personal Board */
 
 body > main { width: 1050px; margin: 0 auto; z-index: 0;}
-body > div.Main-Indent {height: 240px;}
+body > div.Main-Indent {height: 190px;}
 
 body > header { position: fixed; width: 100%; border: 0px red dashed; z-index: 10;  background: url(../img/black_denim.png) repeat #000;}
 .approved {border-bottom: 1px solid #7bc251 !important;}
@@ -12,7 +12,7 @@ body > header { position: fixed; width: 100%; border: 0px red dashed; z-index: 1
 .review {border-bottom: 1px solid #5d96d3 !important;}
 
 
-section.Dashboard {height: 180px; width: 1050px; margin: 0 auto; z-index: 12; color: #ffffff; font-weight: 300; border: 0px red dashed; position: relative;}
+section.Dashboard {height: 130px; width: 1050px; margin: 0 auto; z-index: 12; color: #ffffff; font-weight: 300; border: 0px red dashed; position: relative;}
 
 
 section.UserInfo { border: 0px red dashed; position: relative; margin: 20px 0 0 0; text-align: center; }
@@ -28,8 +28,7 @@ section.Dashboard > a.bt-LogIn-sml { display: block; width: 40px; height: 40px; 
 section.Dashboard > a.bt-LogOut-sml { display: block; width: 40px; height: 40px; position: absolute; z-index: 10; left: 1010px; top: 10px;  background: url(../img/bt_logout_sml.png) no-repeat;}
 
 
-
-nav { border: 0px red dashed; height: 51px; width: 822px; top: 85px; position: relative;  margin: 0 auto 0;}
+nav { border: 0px red dashed; height: 51px; width: 822px; top: 35px; position: relative;  margin: 0 auto 0;}
 nav.noAuth {width: 456px; border: 0px red dashed;}
 
 

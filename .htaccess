@@ -14,8 +14,8 @@ RewriteBase /
 
 # Rewrite domain.com -> www.domain.com -- used with SEO Strict URLs plugin
 RewriteCond %{HTTP_HOST} .
-RewriteCond %{HTTP_HOST} !^www\.televisionlab\.ru [NC]
-RewriteRule (.*) http://www.televisionlab.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^www\.televisionlab\.net [NC]
+RewriteRule (.*) http://www.televisionlab.net/$1 [R=301,L]
 
 
 
@@ -24,13 +24,13 @@ RewriteRule ^(manager|assets)/*$ - [L]
 RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 
 order deny,allow
-deny from all
+#deny from all
 
-allow from 195.239
-allow from 92.100
-allow from 91.122
-allow from 95.55
-allow from 178.67
+#allow from 195.239
+#allow from 92.100
+#allow from 91.122
+#allow from 95.55
+#allow from 178.67
 
 #Loop Prevent
 #RewriteCond %{ENV:REDIRECT_STATUS} 200

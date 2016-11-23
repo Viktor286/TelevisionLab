@@ -511,7 +511,7 @@ div.NoResultBlock div.NoResultClean {margin: 60px auto; width: 202px; border: 0p
 ------*/
 
 div#InformationWindow > .left > span.Tags > a.tag,
-section#PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag,
+section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag,
 div.NoResultAdvice > span.Tags > a.tag
 {
     border-color: #525050;
@@ -525,7 +525,7 @@ div.NoResultAdvice > span.Tags > a.tag
     white-space: nowrap;
 }
 div#InformationWindow > .left > span.Tags > a.tag:hover,
-section#PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag:hover,
+section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag:hover,
 div.NoResultAdvice > span.Tags > a.tag:hover
 {
     border-color: #6387cb; cursor: pointer; background-color: #292929; color: #fff;
@@ -872,6 +872,7 @@ div.Team-Fixed { position: fixed; width: 100%; border: 0px red dashed; z-index: 
 .timeline {border-bottom: 1px solid #808080 !important;}
 .review {border-bottom: 1px solid #5d96d3 !important;}
 
+
 div.Team-Dashboard {height: 180px; width: 1050px; margin: 0 auto; z-index: 12; color: #ffffff; font-weight: 300; border: 0px red dashed; position: relative;}
 
 div.Team-Body-Indent {height: 240px; }
@@ -958,14 +959,14 @@ div.Team-Dashboard a.bt-LogOut-sml { display: block; width: 40px; height: 40px; 
 
 
 /*-------        Post Box        ------*/
-section#PostBox a, div#InformationWindow a { text-decoration: none; color: #fff;}
-section#PostBox a:hover, div#InformationWindow a:hover {
+section.PostBox a, div#InformationWindow a { text-decoration: none; color: #fff;}
+section.PostBox a:hover, div#InformationWindow a:hover {
     color: #cdeaff;
 }
 
-section#PostBox {
+section.PostBox {
 	min-width: 770px;
-    max-width: 1000px;
+    max-width: 1250px;
     width: 85%;
 	/*margin: 0 0 1.2% 5%;*/
     margin: 0 auto .7%;
@@ -973,7 +974,7 @@ section#PostBox {
 	padding: 0 0 0 0;
 }
 
-section#PostBox > div.DateTag {
+section.PostBox > div.DateTag {
     width: 50px;
     height: 93px;
     background: url(../img/date-shdw.png) #202020 repeat-y right;
@@ -985,74 +986,79 @@ section#PostBox > div.DateTag {
     margin: 23px 0 0 0;
 }
 
-section#PostBox > div.DateTag > .Day {
+section.PostBox > div.DateTag > .Day {
     font-size: 22px; font-weight: 600;
     margin: 10px 0px 0px 0px;
 
 }
-section#PostBox > div.DateTag > .Hr {
+section.PostBox > div.DateTag > .Hr {
     width: 26px;
     height: 1px;
     border-bottom: 1px solid #8d8d8d;
     margin: 5px auto;
 }
 
-section#PostBox > div.DateTag > .Month {font-size: 12px; font-weight: 400; text-transform: uppercase; line-height: 120%;}
-section#PostBox > div.DateTag > .Year {font-size: 10px; font-weight: 400; line-height: 120%;}
+section.PostBox > div.DateTag > .Month {font-size: 12px; font-weight: 400; text-transform: uppercase; line-height: 120%;}
+section.PostBox > div.DateTag > .Year {font-size: 10px; font-weight: 400; line-height: 120%;}
 
-section#PostBox > article {
+section.PostBox > article {
     margin: 0px 0px 0px 51px;
     border: 1px solid #2f2f2f;
     background: url(../img/black_denim_50.png) repeat;
 }
 
-section#PostBox > article > div.wrapper {
+section.PostBox > article > div.wrapper {
     margin: 2%;
 }
 
-section#PostBox > article > div.wrapper > div.info {
+section.PostBox > article > div.wrapper > div.info {
     width: 37%;
 	float: right;
     display: block;
 }
 
-section#PostBox > article > div.wrapper > div.info > .pad {
+section.PostBox > article > div.wrapper > div.info > .pad {
     padding: 0 0 0 15px;
 }
 
-section#PostBox > article > div.wrapper > div.thumb {
+section.PostBox > article > div.wrapper > div.thumb {
     width: 63%;
     display: block;
 }
 
-section#PostBox > article > div.wrapper > div.thumb > .wrapper {
+section.PostBox > article > div.wrapper > div.thumb > .wrapper {
     width: 100%;
     display: block;
     position: relative;
     padding-top: 56.25%;
 }
 
-section#PostBox > article > div.wrapper > div.thumb > .wrapper > .main {
+section.PostBox > article > div.wrapper > div.thumb > .wrapper > .main {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     border: 1px solid #2f2f2f;
-
 }
 
 
-section#PostBox > article > div.wrapper > div.thumb > .wrapper > .main > img {
+section.PostBox > article > div.wrapper > div.thumb > .wrapper > .main > img {
     width: 100%;
     height: 100%;
     display: block;
+    cursor: pointer;
 }
 
-section#PostBox > article > div.wrapper > div.thumb > .wrapper > .main > iframe {
+section.PostBox > article > div.wrapper > div.thumb > .wrapper > .main > img:hover {
+    opacity: .7;
+}
+
+section.PostBox > article > div.wrapper > div.thumb > .wrapper > .main > iframe {
     width: 100%;
     height: 100%;
     display: block;
+    /*display: none;*/
 }
 
 
@@ -1086,7 +1092,7 @@ div#InformationWindow > div#InformationWindow { border: none; background: none; 
 }
 
 div#InformationWindow > .left > div.Title,
-section#PostBox > article > div.wrapper > .info > .pad > h1 {
+section.PostBox > article > div.wrapper > .info > .pad > h1 {
 	font-size: 24px;
 	color: #a9a9a9;
 	_min-height:50px;
@@ -1095,7 +1101,7 @@ section#PostBox > article > div.wrapper > .info > .pad > h1 {
     line-height: 105%;
     text-transform: capitalize;
 }
-section#PostBox > article > div.wrapper > .info > .pad > h1 {
+section.PostBox > article > div.wrapper > .info > .pad > h1 {
     margin: 0;
     font-size: 21px;
 
@@ -1106,76 +1112,76 @@ div#InformationWindow > .left > span.Tags {
     margin: 25px 0 0 20px;
 }
 
-section#PostBox > article > div.wrapper > .info > .pad > span.Tags {
+section.PostBox > article > div.wrapper > .info > .pad > span.Tags {
     display: block;
     margin: 20px 0 0 0;
 }
 
 #InformationWindow > .left > div.Rating,
-section#PostBox > article > div.wrapper > .info > .pad > div.Rating {
+section.PostBox > article > div.wrapper > .info > .pad > div.Rating {
 	display: table;
     width: 100%;
     height: 28px;
     margin: 30px 0 0 20px;
     border: 0px dashed #ffee00;
 }
-section#PostBox > article > div.wrapper > .info > .pad > div.Rating { margin: 18px 0 0 0px; }
+section.PostBox > article > div.wrapper > .info > .pad > div.Rating { margin: 18px 0 0 0px; }
 
 
 
 #InformationWindow > .right > .Authors,
-section#PostBox > article > div.wrapper > .info > .pad > .Authors {
+section.PostBox > article > div.wrapper > .info > .pad > .Authors {
 	line-height: 120%;
 	border: 0px yellow dashed;
 	display: table;
 	margin: 3px 0 0 0;
 }
-section#PostBox > article > div.wrapper > .info > .pad > .Authors {margin: 12px 0 0 0;}
+section.PostBox > article > div.wrapper > .info > .pad > .Authors {margin: 12px 0 0 0;}
 
 #InformationWindow > .right > .Authors > .IconCol,
-section#PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol { width: 22px; display: table-cell; vertical-align: middle; border: 0px red dashed;}
+section.PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol { width: 22px; display: table-cell; vertical-align: middle; border: 0px red dashed;}
 
 #InformationWindow > .right > .Authors > .Names,
-section#PostBox > article > div.wrapper > .info > .pad > .Authors > .Names { display: table-cell; vertical-align: middle; padding: 0 10px 0 5px;  border: 0px blue dashed; font-size: 16px; color: #c6c6c6;}
-section#PostBox > article > div.wrapper > .info > .pad > .Authors > .Names { font-size: 14px; }
+section.PostBox > article > div.wrapper > .info > .pad > .Authors > .Names { display: table-cell; vertical-align: middle; padding: 0 10px 0 5px;  border: 0px blue dashed; font-size: 16px; color: #c6c6c6;}
+section.PostBox > article > div.wrapper > .info > .pad > .Authors > .Names { font-size: 14px; }
 
 #InformationWindow > .right > .Authors > .IconCol img,
-section#PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol {}
+section.PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol {}
 
 
 
 
 #InformationWindow > .right > .Location,
-section#PostBox > article > div.wrapper > .info > .pad > .Location {
+section.PostBox > article > div.wrapper > .info > .pad > .Location {
     margin: 5px 0 0px 0;
 	padding: 0 10px 0 0;
 }
-section#PostBox > article > div.wrapper > .info > .pad > .Location { font-size: 12px;}
+section.PostBox > article > div.wrapper > .info > .pad > .Location { font-size: 12px;}
 
 #InformationWindow > .right > .Brand,
-section#PostBox > article > div.wrapper > .info > .pad > .Brand {
+section.PostBox > article > div.wrapper > .info > .pad > .Brand {
     margin: 15px 0 5px 0;
 }
 
 #InformationWindow > .right > .Tv_Channel,
-section#PostBox > article > div.wrapper > .info > .pad > .Tv_Channel {
+section.PostBox > article > div.wrapper > .info > .pad > .Tv_Channel {
     margin: 15px 0 0 0;
 }
 
 #InformationWindow > .right > .Motion_Type,
-section#PostBox > article > div.wrapper > .info > .pad > .Motion_Type {
+section.PostBox > article > div.wrapper > .info > .pad > .Motion_Type {
     margin: 10px 0 0 0;
 }
 
 #InformationWindow > .right > .Broadcast_Type,
-section#PostBox > article > div.wrapper > .info > .pad > .Broadcast_Type{
+section.PostBox > article > div.wrapper > .info > .pad > .Broadcast_Type{
     margin: 20px 0 0 0;
 	font-size: 12px;
 }
 
 
 #InformationWindow > .right > .Motion_Type img.min-icon,
-section#PostBox > article > div.wrapper > .info > .pad > .Motion_Type img.min-icon {
+section.PostBox > article > div.wrapper > .info > .pad > .Motion_Type img.min-icon {
     display:inline;
     width: 32px;
     height: 32px;
@@ -1186,7 +1192,7 @@ section#PostBox > article > div.wrapper > .info > .pad > .Motion_Type img.min-ic
 }
 
 #InformationWindow  .min_cap,
-section#PostBox > article .min_cap{
+section.PostBox > article .min_cap{
     font-size:12px;
     color:#aaaaaa;
     display: inline;
@@ -1194,7 +1200,7 @@ section#PostBox > article .min_cap{
 
 
 #InformationWindow > .left > .Rating > .Num,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .Num {
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num {
 	display: table-cell;
 	font-size: 11px;
 	height: 24px;
@@ -1210,29 +1216,29 @@ section#PostBox > article > div.wrapper > .info > .pad > .Rating > .Num {
 }
 
 #InformationWindow > .left > .Rating > .Num > div.RateText,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText{ margin: 7px 10px 0 ;}
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText{ margin: 7px 10px 0 ;}
 
 #InformationWindow > .left > .Rating > .Num > div.RateText:first-letter,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText:first-letter
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText:first-letter
 { font-size:14px; letter-spacing:.1px !important; color: #999;}
 
 
 #InformationWindow > .left > .Rating > .AwesomeRate,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate { border: 0px blue dashed; margin: 0 0 0 10px;  position: relative; }
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate { border: 0px blue dashed; margin: 0 0 0 10px;  position: relative; }
 
 
 #InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost,
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost,
 #InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist {
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist {
 	margin: 5px 0 0 0; height: 5px; width: 100%;
 	position: absolute;
 }
 
 #InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost
 {background: url(../img/awesom-meter-sml-o.png) no-repeat; background-size: cover;  z-index: 1; }
 
 #InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
-section#PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist
 {background: url(../img/awesom-meter-sml.png) no-repeat; background-size: cover; z-index: 2; }

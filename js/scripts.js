@@ -72,7 +72,9 @@ function LoadVideoOnPage(VideoId) {
 
     $.ajax('desktop/video.php', {
         success: function(response) {
-            $('#PreviewWindow').html('<div class="box"><iframe src="//player.vimeo.com/video/' + VideoId + '?loop=1&title=0&byline=0&portrait=0"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>');
+            $('#PreviewWindow').html('<div class="box"><iframe src="//player.vimeo.com/video/' + VideoId + '?loop=1&title=0&byline=0&portrait=0"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>').load(function(e){
+                $(this).contents().find('body').addClass('Z');
+            });
             $('#InformationWindow').hide().html(response).fadeIn(250);
         },
         data: {"VideoId": VideoId},

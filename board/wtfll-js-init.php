@@ -1,13 +1,12 @@
 <script>
     $('#container').waterfall({
         itemCls: 'item',
-        <? if ($Section == $SectionList[0]) { echo "colWidth: 720, maxCol: 1, "; } else { echo "colWidth: 330, maxCol: 3, ";} ?>
+        <? if ($Section == $SectionList[0]) { echo "colWidth: 720, maxCol: 1, bufferPixel: -500, "; } else { echo "colWidth: 330, maxCol: 3, ";} ?>
         gutterWidth: 19,
         gutterHeight: 15,
         align: 'left',
         debug: false,
-        //isFadeIn: true,
-        checkImagesLoaded: false,
+        // isFadeIn: true,
         callbacks: {
             loadingFinished: function($loading, isBeyondMaxPage) {
                 if ( !isBeyondMaxPage ) {
@@ -17,6 +16,7 @@
                     //console.log('loading isBeyondMaxPage');
                     $loading.remove();
                 }
+
             },
 
             loadingError: function($message, xhr) {

@@ -33,7 +33,7 @@ if ( empty ($Section) ) { $Section = $SectionList[0]; }
 if ( !in_array( $Section, $SectionList ) )  {echo "no section"; die();}
 
 // 3 or 10 per page depend on section
-if ($Section == $SectionList[0] ) { $inPage = 3; } else { $inPage = 10; }
+if ($Section == $SectionList[0] ) { $inPage = 8; } else { $inPage = 10; }
 
 $q->getBoardContent($Section, $inPage, $User);
 

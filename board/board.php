@@ -78,8 +78,8 @@ $HeadLayoutSet = array(
     "PageTitle" => "Television Lab database Board",
     "Description" => "Description",
     "css" => array ("reset", "board", "general", "google_fonts", "placeholder-big"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "jquery-ui"),
-    "Prepend" => '<link rel="icon" type="image/png" href="img/favicon-board-v2.ico" />',
+    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "jquery-ui", "scripts[board]"),
+    "Prepend" => '<link rel="icon" href="img/favicon-star.ico" />',
     "Append" => ''
 );
 
@@ -166,7 +166,34 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
         <div id="container"></div>
     </main>
 
+    <script>
 
-<? include 'wtfll-js-init.php'; ?>
+        var page = 1;
+        var pageurl = 'http://www.televisionlab.net/board/wtfll-controller.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=';
+        var isPreviousEventComplete = true, isDataAvailable = true;
+
+        window.onload = function(){
+            load_PostBox(pageurl, page);
+        };
+
+        $(window).scroll(function() {
+
+            if($(window).scrollTop() + $(window).height() > $(document).height() - 500) {
+                if (isPreviousEventComplete && isDataAvailable) {
+
+                    isPreviousEventComplete = false;
+                    $(".LoaderImage").css("display", "block");
+
+                    page++;
+                    load_PostBox(pageurl, page);
+                    // console.log("---> Loaded "+page+" PostBox");
+                }
+
+            }
+        });
+
+    </script>
+
+<? // include 'wtfll-js-init.php'; ?>
 
 <? insertFooter ("../nodes/FooterTpl.php"); ?>

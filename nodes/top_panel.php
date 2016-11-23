@@ -26,10 +26,10 @@
                 </div>
             </div>
         </form>
-        <div class="infoline">This site is a rough prototype of an online database of motion graphics. For more information or for participation please contact with just.viktor@gmail.com</div>
+        <div class="infoline">Television Lab is a prototype of an online motion graphics database. For more information or for participation please contact with just.viktor@gmail.com</div>
 		<div class="add_bt"><a href="/add"><img src="img/add.png" title="<? echo $VideoCount ?>"></a></div>
 <? 
-			//Панель LoggedInfo
+			// Панель LoggedInfo
 			if (isset($_SESSION['user_name'])) {
 				echo '
 			<table class="PersonalInfo"><tr>

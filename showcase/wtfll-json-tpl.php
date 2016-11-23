@@ -11,6 +11,9 @@ echo '
 "page": '.$Page.',
 "result": [';
 
+// Count index of each element
+if ( $Page > 1 ) { $i = ($Page * $inPage) - ($inPage-1);} else { $i = 1; }
+
 while ($row = $Collection->fetch_assoc()) {
 
     //--- Prepare some data for display
@@ -75,11 +78,12 @@ while ($row = $Collection->fetch_assoc()) {
     "Pub_Day": "'.$PubDay.'",
     "Pub_Month": "'.$PubMonth.'",
     "Pub_Year": "'.$PubYear.'",
+    "Index": "'.$i.'",
     "RatioPercent": "'.$RatioPercent.'"
     },';
 
     unset ($Motion_Type_Str);
-
+    $i++;
 };
 
 // Remove last comma and output

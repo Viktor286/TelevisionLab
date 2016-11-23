@@ -5,7 +5,7 @@ require_once("lib/core.php");
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
-/*---------------- Processing the input data */
+/*---------------- Processing the input data*/
 
 $Http_query = str_replace("/%5B0%5D/", "[]", http_build_query($_GET, '', '&'));
 

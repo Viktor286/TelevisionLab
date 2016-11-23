@@ -40,8 +40,8 @@
             <div class="indent"></div>
         </div>
 
-        <div><a href="javascript:void(0)" ><div class="icn_sml_worldmap"></div><div class="tag_title">World Map</div></a></div>
+        <!--<div><a href="javascript:void(0)" ><div class="icn_sml_worldmap"></div><div class="tag_title">World Map</div></a></div>
         <div class="LeftMenuRow"></div>
         <div><a href="javascript:void(0)" ><div class="icn_sml_authors"></div><div class="tag_title">Authors</div></a></div>
-        <div class="LeftMenuRow"></div>
+        <div class="LeftMenuRow"></div>-->
 

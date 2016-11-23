@@ -42,7 +42,7 @@ $getMotion_Type = implode(",", $getMotion_Type);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><? echo $Title." edit on Television Lab" ?></title>
-<base href="http://www.televisionlab.ru/" /><!--[if IE]></base><![endif]-->
+<base href="http://www.televisionlab.net/" /><!--[if IE]></base><![endif]-->
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
@@ -120,7 +120,7 @@ if (isset($getVideo) and $_GET['delete'] == 1) {
 	if ( $AuthUser == $By_User or $UserRole == 0 ) {// доступ на удаление для автора, админа. Здесь встает вопрос об организации иерархии доступа к редакции видео
 	
 		if ($q->deleteVideo()) {
-			ScreenFadeMsg ($Title, "Удалено", "http://www.televisionlab.ru/"); //display state
+			ScreenFadeMsg ($Title, "Удалено", "http://www.televisionlab.net/"); //display state
 		}
 	} 
 	else {echo "Вы не можете удалять это видео";}
