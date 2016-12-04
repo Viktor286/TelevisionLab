@@ -23,10 +23,9 @@ RewriteRule (.*) http://www.televisionlab.net/$1 [R=301,L]
 RewriteRule ^(manager|assets)/*$ - [L]
 RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 
-order deny,allow
+#order deny,allow
 #deny from all
-
-#allow from 195.239
+#allow from 78.37.191
 #allow from 92.100
 #allow from 91.122
 #allow from 95.55

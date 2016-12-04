@@ -26,12 +26,6 @@ $Tags = strtolower($Tags);
 //CSS Variables to css/dynamic.php
 if ( empty ($_GET['video']) ) {$emptyVid = 1;} else {$emptyVid = 0;}
 
-/*
-if ( $emptyVid == 1 ) { $xCol = "400"; } else { $xCol = "319"; }
-*/
-/* <!-- 6=260, 5=319 and 3=317, 4=400, 3 = 540 --> */
-/* $yCol = round($xCol/ 1.78); */
-
 $xCol = "319";
 
 //------------------------------------ SNIPPET <HTML> STARTS -->

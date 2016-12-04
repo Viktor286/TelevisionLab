@@ -219,7 +219,7 @@ div.FixedDisplay { position:fixed; width:686px; border:0px yellow dashed; clear:
 
 
 
-#container { border:0px red dashed;}
+#container { border:0px red dashed; }
 
 div#PreviewWindow {
     width: 100%;
@@ -268,9 +268,49 @@ main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; displa
 
 
 
+
+
+/*----------------- @media screen  */
+
+
+@media screen and (min-width: 1900px) {
+    main > div.Wr50 {width: 50%; }
+    div#PreviewWindow { min-height: 500px; }
+
+    main > div#MainOutput {width: 50%;}
+
+    div#PreviewWindow { min-height: 430px; }
+}
+
+
+@media screen and (min-width: 2270px) {
+    main > div.Wr50 {width: 55%; }
+    div#PreviewWindow { min-height: 600px; }
+
+    main > div#MainOutput {width: 45%;}
+}
+
+
+@media screen and (min-width: 2450px) {
+    main > div.Wr50 {width: 58%; }
+    main > div#MainOutput {width: 42%;}
+}
+
+
+@media screen and (max-width: 2044px) {
+    main > div.Wr50 {width: 45%; }
+    main > div#MainOutput {width: 55%; }
+
+    /*div#PreviewWindow { min-height: 500px; }*/
+}
+
+
+
 @media screen and (max-width: 1900px) {
-    main > div.Wr50 {width: 60%;}
-    main > div#MainOutput {width: 40%;}
+    main > div.Wr50 {width: 60%; }
+    main > div#MainOutput {width: 40%; }
+
+    div#PreviewWindow { min-height: 500px; }
 }
 
 @media screen and (max-width: 1744px) {
@@ -281,6 +321,8 @@ main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; displa
 @media screen and (max-width: 1662px) {
     main > div.Wr50 {width: 56%;}
     main > div#MainOutput {width: 44%;}
+
+    div#PreviewWindow { min-height: 400px; }
 }
 
 @media screen and (max-width: 1590px) {
@@ -1242,3 +1284,8 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
 #InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist
 {background: url(../img/awesom-meter-sml.png) no-repeat; background-size: cover; z-index: 2; }
+
+div.Rating {
+    width: 70% !important;
+}
+
