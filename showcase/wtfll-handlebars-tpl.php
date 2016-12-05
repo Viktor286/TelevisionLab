@@ -1,11 +1,12 @@
 {{#result}}
 <section id="PostBox{{Index}}" class="PostBox item">
-    <div class="DateTag">
-        <div class="Day">{{Pub_Day}}</div> <!-- need Pub_Day eg 17 -->
+    <!--<div class="DateTag">
+        <div class="Day">{{Pub_Day}}</div>
         <div class="Hr"></div>
-        <div class="Month">{{Pub_Month}}</div> <!-- need Pub_Month eg SPT-->
-        <div class="Year">{{Pub_Year}}</div> <!-- need Pub_Year eg 2015 -->
-    </div>
+        <div class="Month">{{Pub_Month}}</div>
+        <div class="Year">{{Pub_Year}}</div>
+    </div>-->
+
     <article>
         <div class="wrapper">
             <div class="info">

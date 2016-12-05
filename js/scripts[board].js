@@ -164,6 +164,8 @@ function scrollToPrevious() {
 function scrollToNext() {
     var nextElement = getCurrentlyVisibleSection().nextAll('section.PostBox');
 
+    /*console.log(nextElement);*/
+
     if (nextElement.length > 0) {
         scrollToElement(nextElement);
         nextVideoThumb = getCurrentlyVisibleSection().next().find("img.VideoThumb");
@@ -173,17 +175,17 @@ function scrollToNext() {
 
 function scrollToElement(ctrl) {
 
-     var topIndent = 250;
+     var topIndent = 150;
      var Wd = $(window).width();
 
-     if (Wd > 600) topIndent = 385;
-     if (Wd > 1000) topIndent = 350;
-     if (Wd > 1100) topIndent = 320;
-     if (Wd > 1200) topIndent = 300;
-     if (Wd > 1400) topIndent = 280;
+
+     if (Wd > 1000) topIndent = 150;
+     if (Wd > 1100) topIndent = 200;
+     if (Wd > 1200) topIndent = 230;
+    if (Wd > 1300) topIndent = 250;
+     if (Wd > 1400) topIndent = 300;
 
     $('html, body').animate({
-
         scrollTop: ctrl.offset().top - topIndent
     }, 120);
 
@@ -192,8 +194,10 @@ function scrollToElement(ctrl) {
 }
 
 function getCurrentlyVisibleSection() {
+
     $("section#PostBox1").visible(true);
     var rtn;
+
     $.each($('section.PostBox'), function (ind, val) {
         if ($(this).visible(false)) {
             //true here means ALL the element has to be visible.. change to False if you want ANY Part of the item to be visible..

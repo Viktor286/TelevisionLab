@@ -1,0 +1,60 @@
+main#addVideo {
+    height:100vh;
+}
+
+main#addVideo > section {
+    height: 100%;
+
+    display:-webkit-box; /*old prefixed for webkit*/
+    display:-moz-box; /*old prefixed for mozilla*/
+    display:-ms-flexbox; /*inbetween prefixed for ie*/
+    display:-webkit-flex; /*new prefixed for webkit*/
+    display:flex; /*new*/
+
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: justify;
+    justify-content: space-around;
+
+    -webkit-align-content: space-around;
+    -ms-flex-line-pack: distribute;
+    align-content: space-around;
+
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+}
+
+main#addVideo > section > div.Input_Form {
+    /*border: 1px #ffabac dashed;*/
+    height: auto;
+    /*margin-top: -10%;*/
+}
+
+main#addVideo > section > div#ghost {
+   /*border: 1px #d2ffa5 dashed;*/
+    height: 5%;
+}
+
+
+
+
+
+div.AddCanvas {
+    border:0px red dashed;
+    width:1400px;
+    margin:0 auto;
+    color:#666;
+}
+div.AddCanvas table {width: 100%; }
+div.AddCanvas table tr td { border:0px yellow dashed;}
+
+

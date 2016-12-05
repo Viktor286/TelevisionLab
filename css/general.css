@@ -105,9 +105,7 @@ div.IntroTag input.SendVideo:hover {background: url(../img/bt_send_video_i.png) 
 div.tempLoginDiv { border:0px red dashed; width:338px; display:block; margin:0px auto;}
 div.tempLoginDiv input { width:255px; margin: 0 0 10px 0;}
 
-div.AddCanvas {border:0px red dashed; width:1400px; margin:0 auto; color:#666;}
-div.AddCanvas table {width: 100%;}
-div.AddCanvas table tr td { border:0px yellow dashed;}
+
 
 div.CanvasLine { width:100%; display:block;   float:none; height: 45px; clear:both; margin:0 0 20px 0; vertical-align:middle !important;}
 div.CanvasLine div.Header {width:140px; float:left; }
@@ -161,7 +159,7 @@ div.ScreenFade div.SuccessMsg { z-index:99; background-color:#000 ; opacity:1; b
 
 /*------- Desktop Page
 ------*/
-div.TopPanelBox {position:fixed; height:91px; z-index: 5; width:100%; border: 0px coral dashed;}
+div.TopPanelBox {position:fixed; height:91px; z-index: 5; width:100%; border: 0px coral dashed; min-width: 900px;}
 
 div.TopPanel { height:60px; background:#181818; width:100%; display: block;}
 div.TopPanelBorder { height:35px; background: url(../img/top-panel-border.png) repeat-x; border:0px red dashed;}
@@ -294,17 +292,16 @@ main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; displa
 @media screen and (min-width: 2450px) {
     main > div.Wr50 {width: 58%; }
     main > div#MainOutput {width: 42%;}
+    div#PreviewWindow { min-height: 680px;}
 }
+
+
 
 
 @media screen and (max-width: 2044px) {
     main > div.Wr50 {width: 45%; }
     main > div#MainOutput {width: 55%; }
-
-    /*div#PreviewWindow { min-height: 500px; }*/
 }
-
-
 
 @media screen and (max-width: 1900px) {
     main > div.Wr50 {width: 60%; }
@@ -336,19 +333,22 @@ main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; displa
 }
 
 @media screen and (max-width: 1445px) {
-    main > div.Wr50 {width: 50%;}
-    main > div#MainOutput {width: 50%;}
+    main > div.Wr50 {width: 50%; }
+    main > div#MainOutput {width: 50%; }
 }
 
 @media screen and (max-width: 1389px) {
     main > div.Wr50 {width: 70%;}
     main > div#MainOutput {width: 30%;}
     div.infoline { display: none;}
+    div#PreviewWindow { min-height: 400px; }
 }
 
 @media screen and (max-width: 1179px) {
-    main > div.Wr50 {width: 65%;}
+    main > div.Wr50 {width: 65%; }
     main > div#MainOutput {width: 35%;}
+    div#PreviewWindow { min-height: 300px; }
+
 }
 
 @media screen and (max-width: 1017px) {
@@ -369,7 +369,7 @@ div.UserInfo { width:195px; height:20px; display:block; float:right; font-size:1
 
 div.UserInfo div.UserName {border:0px green dashed; display: inline-block; vertical-align:top !important; max-width:165px; }
 div.UserName a { color: #ffffff; text-decoration: none;}
-div.UserName a:hover {  text-decoration: none; cursor: text ;}
+div.UserName a:hover {  text-decoration: none; cursor: pointer ;}
 
 a.UserLogout  { width:19px; height:19px; display: inline-block; position:relative; background: url(../img/bt_logout.png) no-repeat center; margin:0 10px 0 0;}
     
@@ -673,7 +673,6 @@ div.sep_v { display:block; width:3px; height:496px; background: url(../img/sep_v
 
 td.primary input { width:540px;}
 td.primary input.short { width:220px;}
-
 
 
 div.input_error, div.input_error input {border-color:#e78b2f;}
@@ -1008,7 +1007,7 @@ section.PostBox a:hover, div#InformationWindow a:hover {
 
 section.PostBox {
 	min-width: 770px;
-    max-width: 1250px;
+    max-width: 1600px;
     width: 85%;
 	/*margin: 0 0 1.2% 5%;*/
     margin: 0 auto .7%;
@@ -1044,7 +1043,7 @@ section.PostBox > div.DateTag > .Month {font-size: 12px; font-weight: 400; text-
 section.PostBox > div.DateTag > .Year {font-size: 10px; font-weight: 400; line-height: 120%;}
 
 section.PostBox > article {
-    margin: 0px 0px 0px 51px;
+    margin: 0px 0px 0px 0px;
     border: 1px solid #2f2f2f;
     background: url(../img/black_denim_50.png) repeat;
 }
@@ -1288,4 +1287,3 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
 div.Rating {
     width: 70% !important;
 }
-

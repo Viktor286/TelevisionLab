@@ -17,7 +17,7 @@ class TvLab
 
         $this->CSP_Header(); //"Report-Only" --- empty flag will turn on CPS rules
 
-        define("SITE_PATH", "/home/u186876/televisionlab.ru/www/");
+        define("SITE_PATH", "/home/u186876/televisionlab.net/www/");
 
         require_once("config/settings.php");
         require_once("config/security.php");
@@ -63,7 +63,7 @@ class TvLab
         if (isset ($_GET['logout'])) {
             $_SESSION = array(); //erase array
             session_destroy();
-            echo '<script type="text/javascript">window.history.pushState("", "", "http://www.televisionlab.ru/"); location.reload(); </script>'; //to main page
+            echo '<script type="text/javascript">window.history.pushState("", "", "http://www.televisionlab.net/"); location.reload(); </script>'; //to main page
             exit();
         }
     }
