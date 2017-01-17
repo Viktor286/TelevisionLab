@@ -275,6 +275,32 @@ class TvLabQuery
 
 	}
 
+	// API QUERY https://api.vimeo.com/videos/174130132/comments
+    // https://developer.vimeo.com/api/playground/videos/174130132/comments
+
+    public function getComments_for_VideoFromVimeo($Vimeo_Id) {
+
+
+        $vimeo = new phpVimeo(CONSUMER_KEY, CONSUMER_SECRET);
+        $vimeo->setToken(TOKEN,TOKEN_SECRET);
+
+        // OLD API LINK https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.comments.getList
+        $result = $vimeo->call('vimeo.videos.comments.getList', array('video_id' => $Vimeo_Id));
+        if($result->stat != 'ok') echo 'Нет подключения к vimeo, статус ('.$result->stat.')<br />';
+
+        $comments = $result->comments->comment;
+
+        //print_r($comments);
+
+        foreach ($comments as $comment) {
+           print "---> ".$comment->author->display_name.": -- ".$comment->text."<br />\n";
+        }
+        // echo $result->video[0]->title;
+        // print_r($result->comments->comment);
+
+    }
+
+
 	public function getVideoFromVimeo($Vimeo_Id) {
 
 		global
@@ -529,9 +555,10 @@ class TvLabQuery
         if ($result->num_rows != 1) { echo "no such user"; die(); }
 
         //Model base
-        $Timeline = "(SELECT * FROM u186876_tvarts.contents WHERE By_User =  '$User' AND State = '1')"; // UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
-        $Approved = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '.$User.')";
-        $Stacked = "(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '.$User.')";
+        //$Timeline = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '$User' AND State = '1') UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '$User' AND State = '1') ORDER BY Date_Create"; // UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
+        $Timeline = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '$User' AND State = '1') UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '$User' AND State = '1')";
+        $Approved = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '$User' AND State = '1')";
+        $Stacked = "(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '$User' AND State = '1')";
         $Review = "(SELECT * FROM u186876_tvarts.contents_stack WHERE By_User != '.$User.')";
 
         //Logic of model

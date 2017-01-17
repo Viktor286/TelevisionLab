@@ -36,7 +36,7 @@ $SectionList = array(
 //-- Output review Section only for Auth User
 if ( !isset($AuthUser) ) {  if (($SLkey = array_search('review', $SectionList)) !== false) { unset($SectionList[$SLkey]); } }
 
-//-- Give first name from SectionList (timeline)  to empty section
+//-- Give first name from SectionList (timeline) to empty section
 if ( empty ($Section) ) { $Section = $SectionList[0]; }
 
 
@@ -44,7 +44,7 @@ if ( empty ($Section) ) { $Section = $SectionList[0]; }
 if (!empty ($InputUser)) {
 
     //Test the right name of sections or die
-    if ( !in_array( $Section, $SectionList ) and !empty( $Section ) )  {echo "no such section"; die();}
+    if ( !in_array( $Section, $SectionList ) )  {echo "no such section"; die();}
 
     //User Info Model
     $UserQuery = 'SELECT * FROM u186876_tvarts.users WHERE user_name = "'.$InputUser.'"';
@@ -84,10 +84,10 @@ $HeadLayoutSet = array(
 );
 
 // Waterfall script depends on section. "Position absolute problem".
-if ($Section == $SectionList[0]) {
-    $HeadLayoutSet["js"][] = "waterfall-showcase";
-} else {
+if ($Section == "review2") {
     $HeadLayoutSet["js"][] = "waterfall";
+} else {
+    $HeadLayoutSet["js"][] = "waterfall-showcase";
 }
 
 insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
@@ -96,10 +96,11 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
 
     <script type="text/x-handlebars-template" id="waterfall-tpl">
         <? // Display Handlebars tpl depend on section
-        if ($Section == $SectionList[0]) {
-            include '../showcase/wtfll-handlebars-tpl.php';
-        } else {
+        //
+        if ($Section == "review2"){
             include '../desktop/wtfll-handlebars-tpl.php';
+        } else {
+            include '../showcase/wtfll-handlebars-tpl.php';
         }
         ?>
     </script>
@@ -111,7 +112,6 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
             <?
             if ( isset($AuthUser) ) { echo '<a class="bt-LogOut-sml" href="?logout"></a>'; } else { echo '<a href="add/" class="bt-LogIn-sml"></a>';}
             ?>
-
             <section class="UserInfo">
                 <div class="UserName"><? echo $UserName; ?></div>
                 <div>Approves <span class="Sum">28</span></div>

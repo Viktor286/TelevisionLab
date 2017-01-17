@@ -43,6 +43,7 @@ $q->getBoardContent($Section, $inPage, $User);
 $Tmp = $TotalRows; unset ($TotalRows); $TotalRows[0] = $Tmp;
 
 if ($Collection->num_rows > 0){
+
     include("../showcase/wtfll-json-tpl.php"); //json output template
 }
 
