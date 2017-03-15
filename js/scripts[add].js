@@ -43,11 +43,12 @@ $(document).ready(function() {
 /* --------    AutoTagSystem */
 
 
-
 $(document).ready(function() {
 	$('span.tagInsertSa').on("click",function(){
+
 		var state = $('textarea#sa').val();
 		var tag = $( this ).text();
+
 		if (!state.match(new RegExp(tag, "i")) ) 
 			{
 				if (state.length == 0) {
@@ -56,13 +57,18 @@ $(document).ready(function() {
 				$('textarea#sa').val( state + ", " + tag );
 					}
 			}
+
+        //$( this ).fadeOut(300)
+        $( this ).css({"border-color": "#3d5e8e", "color": "#4D4D4D"})
 		});
+
 });
 
 $(document).ready(function() {
 	$('span.tagInsertFashion').on("click",function(){
 		var state = $('textarea#fashion').val();
 		var tag = $( this ).text();
+
 		if (!state.match(new RegExp(tag, "i")) ) 
 			{
 				if (state.length == 0) {
@@ -71,6 +77,8 @@ $(document).ready(function() {
 				$('textarea#fashion').val( state + ", " + tag );
 					}
 			}
+        $( this ).css("border-color", "#3d5e8e")
+
 		});
 });
 
@@ -87,6 +95,7 @@ $(document).ready(function() {
 				$('textarea#music').val( state + ", " + tag );
 					}
 			}
+        $( this ).css("border-color", "#3d5e8e")
 		});
 });
 
@@ -102,23 +111,10 @@ $(document).ready(function() {
 				$('textarea#arts').val( state + ", " + tag );
 					}
 			}
+        $( this ).css("border-color", "#3d5e8e")
 		});
 });
 
-$(document).ready(function() {
-	$('span.tagInsertMusic').on("click",function(){
-		var state = $('textarea#music').val();
-		var tag = $( this ).text();
-		if (!state.match(new RegExp(tag, "i")) ) 
-			{
-				if (state.length == 0) {
-				$('textarea#music').val( tag );
-					}else{
-				$('textarea#music').val( state + ", " + tag );
-					}
-			}
-		});
-});
 
 $(document).ready(function() {
 	$('span.tagInsertTags').on("click",function(){
@@ -132,6 +128,7 @@ $(document).ready(function() {
 				$('textarea#tags').val( state + ", " + tag );
 					}
 			}
+        $( this ).css("border-color", "#3d5e8e")
 		});
 });
 

@@ -28,8 +28,9 @@ section.Dashboard > a.bt-LogIn-sml { display: block; width: 40px; height: 40px; 
 section.Dashboard > a.bt-LogOut-sml { display: block; width: 40px; height: 40px; position: absolute; z-index: 10; left: 1010px; top: 10px;  background: url(../img/bt_logout_sml.png) no-repeat;}
 
 
-nav { border: 0px red dashed; height: 51px; width: 822px; top: 35px; position: relative;  margin: 0 auto 0;}
-nav.noAuth {width: 456px; border: 0px red dashed;}
+nav { border: 0px red dashed; height: 51px; width: 822px; /*width: 669px;*/ top: 35px; position: relative;  margin: 0 auto 0;}
+nav.noAuth {width: 456px; /*width: 305px;*/ border: 0px red dashed;}
+
 
 
 nav > div.Button { width: 150px; height: 50px; float: left; border: 1px solid #282828;  text-align: center;
@@ -102,7 +103,7 @@ div.item.here div.wf-rating { top:157px; left: 284px;}
 
 div.RateText { margin:6px 0 0 0;}
 
-div.wf-rating div.RateText:first-letter { font-size:14px; letter-spacing:.1 px !important; color: #999;}
+div.wf-rating div.RateText:first-letter { font-size:14px; letter-spacing:.1px !important; color: #999;}
 
 span.sup {vertical-align: super; font-size:9px; color: #999;}
 

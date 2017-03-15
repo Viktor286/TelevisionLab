@@ -24,19 +24,19 @@ unset ($Tag_Music_List);
 unset ($Tag_Arts_List);
 
 foreach ($Tag_SA_List_arr as $key => $value) {
-	$Tag_SA_List .= '<span class="tagInsertSa" data-num="'.$key.'">'.$value.'</span>, ';
+	$Tag_SA_List .= '<span class="tagInsertSa" data-num="'.$key.'">'.$value.'</span> ';
 	}
 	
 foreach ($Tag_Fashion_List_arr as $key => $value) {
-	$Tag_Fashion_List .= '<span class="tagInsertFashion" data-num="'.$key.'">'.$value.'</span>, ';
+	$Tag_Fashion_List .= '<span class="tagInsertFashion" data-num="'.$key.'">'.$value.'</span> ';
 	}
 	
 foreach ($Tag_Music_List_arr as $key => $value) {
-	$Tag_Music_List .= '<span class="tagInsertMusic" data-num="'.$key.'">'.$value.'</span>, ';
+	$Tag_Music_List .= '<span class="tagInsertMusic" data-num="'.$key.'">'.$value.'</span> ';
 	}
 	
 foreach ($Tag_Arts_List_arr as $key => $value) {
-	$Tag_Arts_List .= '<span class="tagInsertArts" data-num="'.$key.'">'.$value.'</span>, ';
+	$Tag_Arts_List .= '<span class="tagInsertArts" data-num="'.$key.'">'.$value.'</span> ';
 	}
 
 $Tag_SA_List = preg_replace("/, $/", "", $Tag_SA_List);

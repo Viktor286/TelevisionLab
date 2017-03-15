@@ -47,7 +47,6 @@ main#addVideo > section > div#ghost {
 
 
 
-
 div.AddCanvas {
     border:0px red dashed;
     width:1400px;
@@ -58,3 +57,17 @@ div.AddCanvas table {width: 100%; }
 div.AddCanvas table tr td { border:0px yellow dashed;}
 
 
+div.TagOffer span {
+    font-size: 14px;
+    border: 1px solid #4b4a43;
+    padding:3px 7px;
+    margin: 2px;
+    line-height: 220%;
+    border-radius: 5px;
+
+}
+div.TagOffer span:hover {
+    background: #4b4a43;
+    color: #ffe6a3;
+    border: 1px solid #ffe6a3;
+}

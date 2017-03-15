@@ -79,9 +79,9 @@ class TvLab
         }
 
         $csp .=
-            "default-src 'none'; "
-            . "script-src 'self' mc.yandex.ru 'unsafe-inline' 'unsafe-eval' ;"
-            . "img-src i.vimeocdn.com mc.yandex.ru 'self' data: ;"
+            "default-src 'self' https://*.vimeo.com; "
+            . "script-src 'self' https://mc.yandex.ru https://*.vimeo.com 'unsafe-inline' 'unsafe-eval'; "
+            . "img-src i.vimeocdn.com 'self' data: ;"
             . "connect-src 'self' mc.yandex.ru f.vimeocdn.com vimeo.com; "
             . "style-src 'self' fonts.googleapis.com 'unsafe-inline' ; "
             . "font-src 'self' fonts.googleapis.com fonts.gstatic.com ; "

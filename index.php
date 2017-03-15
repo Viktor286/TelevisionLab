@@ -36,7 +36,10 @@ $HeadLayoutSet = array(
     "css" => array ("reset", "general","common", "jquery.tagit", "tagit.ui-zendesk", "google_fonts"),
     "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall", "jquery-ui", "tag-it", "scripts", "desktop_cfg", "url"),
     "Prepend" => '',
-    "Append" => '<link rel="stylesheet" type="text/css" href="/css/dynamic.php?xcol='.$xCol.'&ev='.$emptyVid.'" />'
+    "Append" => '
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dynamic.php?xcol='.$xCol.'&ev='.$emptyVid.'" />
+    '
 );
 
 insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
