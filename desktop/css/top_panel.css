@@ -1,0 +1,161 @@
+/* ------ Desktop Top Panel ------ */
+
+div.TopPanelBox {position:fixed; height:91px; z-index: 5; width:100%; border: 0px coral dashed; min-width: 900px;}
+
+div.TopPanel { height:64px; background:#181818; width:100%; display: block;}
+div.TopPanelBorder { height:35px; background: url(../img/top-panel-border.png) repeat-x; border:0px red dashed;}
+
+div.TopPanelMargin{ width:100%; height:69px; display:block; margin:0 0 20px 0; border:0px #ffff00 dashed;}
+
+
+div.tpLogo {background: url(../img/logo.png) no-repeat; transition: background-image .2s ease-in-out; width:112px; height:41px; margin:0 0 0 20px; top:12px; position:relative; float:left;}
+
+
+div.tpLogo:hover {
+    background-image:url(../img/logo_hover.png);
+}
+
+div.tpLogo a { display:block; width:112px; height:41px; text-decoration:none; background: url(../img/logo_hover.png) no-repeat -999px;}
+
+
+div.TopPanel > div.database_selector {
+    display: block;
+    float: left;
+    margin: 15px 0 0 23px;
+    width: 40px;
+    height: 40px;
+    background: url(../img/ui_top_panel.png) -392px 0 no-repeat;
+}
+
+div.TopPanel > div.database_selector:hover {
+    cursor: text;
+    /*cursor: pointer;*/
+    background: url(../img/ui_top_panel.png) -392px -40px no-repeat;
+}
+
+/* Search block */
+
+div.tpSearch {display:block; position:relative; border:0px red dashed; width: auto; float:left; top:15px; margin:0 0 0 22px; }
+
+div.tpSearch_filters { display: block; float:left; width:400px; border:1px #181818 solid; position:relative; top:2px; margin: 0 0 0 15px;}
+
+div.hideBeforeInit { display: none; }
+
+div.tpSearch input.tpSearch_field {display:none;}
+
+
+div.tpSearch ul.tpSearch_field {width: auto; height:40px; background: #27292a;
+    border: 0px solid #353535;
+    color: #cacaca;
+    font-size: 14px;
+    opacity: .9;
+    display: block;
+    padding: 5px;
+    line-height: 1;
+    box-sizing: border-box;
+    resize: none;
+    float:left;
+    margin:0 2px 0 0;
+    min-width:50px;
+}
+
+
+.tagit-autocomplete.ui-widget-content { z-index:50 !important; border:1px red dashed !important;}
+.ui-helper-hidden-accessible {}
+
+
+div.tpSearch input.tpSearch_Bt { border:0; width:40px; height:40px; background: url(../img/ui_top_panel.png) no-repeat -240px 0; float: left;}
+div.tpSearch input.tpSearch_Bt:hover {cursor: pointer; background: url(../img/ui_top_panel.png) no-repeat -240px -40px; }
+/*div.tpSearch input.tpSearch_Bt:active {cursor: pointer; background: url(../img/ui_top_panel.png) no-repeat 0 -80px; }*/
+
+
+div.TopPanel div.filters_icon_title_line {
+    width: 129px;
+    height: 10px;
+    float: left;
+    position: absolute;
+    margin: 0 0 0 15px;
+    background: url(../img/ui_top_panel.png) no-repeat -82px -164px;
+}
+
+div.TopPanel div.filters_icon_title_line:hover {
+    background: url(../img/ui_top_panel.png) no-repeat -82px -173px;
+    cursor: text;
+    /*cursor: help;*/
+}
+
+div.TopPanel div.filters_icon_left, div.TopPanel div.filters_icon_right {
+    width: 8px;
+    height: 49px;
+    float: left;
+    margin: 8px 7px 0 0;
+    background: url(../img/ui_top_panel.png) no-repeat -286px -64px;
+
+}
+
+div.TopPanel div.filters_icon_right {
+    background-position: -295px -64px;
+    margin: 8px 0 0 0;
+}
+
+div.TopPanel div.styledCheckbox {
+    margin-top: 12px;
+
+}
+
+/*-- Infoline Section --*/
+div.infoline { width:350px; display:block; margin: 15px 5px 0 5px; font-size: 11px; color:#666; float:left;}
+
+/* if screen size gets wider than 900  test */
+@media screen and (max-width:1670px){
+    div.infoline {
+        /*display:block;*/
+        display: none;
+    }
+}
+
+
+/*-- Right Hand Buttons --*/
+
+div.TopPanel > div.help, div.TopPanel > div.goToBoard {
+    display: block;
+    position:relative;
+    float: right;
+}
+
+div.TopPanel > div.help {
+     top:19px;
+     margin:0 15px 0 0;
+     width: 30px;
+     height: 31px;
+     background: url(../img/ui_top_panel.png) -280px 0 no-repeat;
+ }
+
+div.TopPanel > div.help:hover {
+    cursor: pointer;
+    background: url(../img/ui_top_panel.png) -280px -31px no-repeat;
+}
+
+div.TopPanel > div.goToBoard {
+    top:13px;
+    margin:0 20px 0 0;
+    width: 42px;
+    height: 42px;
+    background: url(../img/ui_top_panel.png) -310px 0 no-repeat;
+}
+
+div.TopPanel > div.goToBoard:hover {
+    cursor: pointer;
+    background: url(../img/ui_top_panel.png) -310px -42px no-repeat;
+}
+
+/*
+div.TopPanel > div.goToBoard:active {
+    cursor: pointer;
+    background: url(../img/ui_top_panel.png) -696px -84px no-repeat;
+}
+*/
+
+/*
+div.add_bt { width:40px; height:40px; display:block; float:right; top:11px; position:relative;  margin:0 20px 10px 8px;}
+*/

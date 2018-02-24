@@ -1,0 +1,21 @@
+
+Additional future modules:
+artist/
+feed/ or showcase/
+video/
+
+define("SITE_URL", "C:/xampp/htdocs/televisionlab.dev");
+
+Implement Django system of different modules each one in separate folder.
+MAy be with prefixes [m]_ [v]_ [c]_
+
+Try to separate modules specific class and functions and cross app class and functions.
+
+Separate classes for different sets of sql queries. Visitor main, editor control...
+
+Make as many cached blocks for main page (and newsboard) as possible.
+
+Constants move to common's class constants.
+Other speed improve:
+http://thehighload.com/post/PHP+performance+checklist
+

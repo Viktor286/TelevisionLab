@@ -1,9 +1,3 @@
 .idea/
 .git/
-
-lib/config/
-lib/vimeo/cache/
-
-test.php
-test.html
-
+_global/config/private/

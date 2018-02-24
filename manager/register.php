@@ -17,18 +17,18 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
     // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
     // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-    require_once("../lib/password_compatibility_library.php");
+    require_once("../_global/lib/vendors/auth/password_compatibility_library.php");
 }
 
 // include the configs / constants for the database connection
-require_once("../lib/config/db.php");
+require_once("../_global/config/private/db.php");
 
 // load the registration class
-require_once("../lib/registration.php");
+require_once("../_global/lib/vendors/auth/registration.php");
 
 // create the registration object. when this object is created, it will do all registration stuff automatically
 // so this single line handles the entire registration process.
 $registration = new Registration();
 
 // show the register view (with the registration form, and messages/errors)
-include("../nodes/register.php");
+include("views/register_view.php");

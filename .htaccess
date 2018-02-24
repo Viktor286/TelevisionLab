@@ -1,7 +1,3 @@
-# For full documentation and other suggested options, please see
-# http://svn.modxcms.com/docs/display/MODx096/Friendly+URL+Solutions
-# including for unexpected logouts in multi-server/cloud environments
-# and especially for the first three commented out rules
 
 php_flag register_globals Off
 AddDefaultCharset utf-8
@@ -11,31 +7,20 @@ Options +FollowSymlinks
 RewriteEngine On
 RewriteBase /
 
-
-# Rewrite domain.com -> www.domain.com -- used with SEO Strict URLs plugin
 RewriteCond %{HTTP_HOST} .
 RewriteCond %{HTTP_HOST} !^www\.televisionlab\.net [NC]
 RewriteRule (.*) http://www.televisionlab.net/$1 [R=301,L]
 
-
-
-# Exclude /assets and /manager directories and images from rewrite rules
 RewriteRule ^(manager|assets)/*$ - [L]
 RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 
 #order deny,allow
 #deny from all
 #allow from 78.37.191
-#allow from 92.100
-#allow from 91.122
-#allow from 95.55
-#allow from 178.67
 
 #Loop Prevent
 #RewriteCond %{ENV:REDIRECT_STATUS} 200
 #RewriteRule ^ - [L]
-
-
 
 # IF the file exists, then:
 #RewriteRule (.*\.gif) images.php?$1
@@ -50,49 +35,45 @@ RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 #------- Friendly URL Routing
 
 
-#Input Query http://www.televisionlab.ru/Digital/127248964/c1d0s0a0t0v0/on/
+#Input Query http://www.televisionlab.net/Digital/127248964/c1d0s0a0t0v0/on/
 #RewriteCond %{QUERY_STRING} tags=([^/<>\."'\{\}\*]*)&video=([0-9]{4,15})&set=(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])&md=(on)
 #RewriteRule .*$ %1/%2/%3/%4/? [NC,R=301,L]
-#RewriteRule ^([^/<>\."'\{\}\*]*)/([0-9]{4,15})/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ index.php?tags=$1&video=$2&set=$3&md=$4 [NC,L]
+#RewriteRule ^([^/<>\."'\{\}\*]*)/([0-9]{4,15})/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ #--index.php?tags=$1&video=$2&set=$3&md=$4 [NC,L]
 
-#http://www.televisionlab.ru/127248964/c1d0s0a0t0v0/on/
+#http://www.televisionlab.net/127248964/c1d0s0a0t0v0/on/
 #RewriteCond %{QUERY_STRING} video=([0-9]{4,15})&set=(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])&md=(on)
 #RewriteRule .*$ %1/%2/%3/? [NC,R=301,L]
-#RewriteRule ^([0-9]{4,15})/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ index.php?video=$1&set=$2&md=$3 [NC,L]
+#RewriteRule ^([0-9]{4,15})/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ index.php?video=$1&set=$2&md=$3 #--[NC,L]
 
 
-#http://www.televisionlab.ru/Digital/c1d0s0a0t0v0/on/
+#http://www.televisionlab.net/Digital/c1d0s0a0t0v0/on/
 #RewriteCond %{QUERY_STRING} tags=([^/<>\."'\{\}\*]*)&set=(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])&md=(on)
 #RewriteRule .*$ %1/%2/%3/? [NC,R=301,L]
-#RewriteRule ^([^/<>\."'\{\}\*]*)/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ index.php?tags=$1&set=$2&md=$3 [NC,L]
+#RewriteRule ^([^/<>\."'\{\}\*]*)/(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ #--index.php?tags=$1&set=$2&md=$3 [NC,L]
 
-#http://www.televisionlab.ru/c1d0s0a0t0v0/on/
+#http://www.televisionlab.net/c1d0s0a0t0v0/on/
 #RewriteCond %{QUERY_STRING} set=(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])&md=(on)
 #RewriteRule .*$ %1/%2/? [NC,R=301,L]
 #RewriteRule ^(c[1|0]d[1|0]s[1|0]a[1|0]t[1|0]v[1|0])[\/]{0,1}(on){0,1}[\/]{0,1}$ index.php?set=$1&md=$2 [NC,L]
 
-#http://www.televisionlab.ru/Digital/127248964/
+#http://www.televisionlab.net/Digital/127248964/
 #RewriteCond %{QUERY_STRING} tags=([^/<>\."'\{\}\*]*)&video=([0-9]{4,15})
 #RewriteRule .*$ %1/%2/? [NC,R=301,L]
 #RewriteRule ^([^/<>\."'\{\}\*]*)/([0-9]{4,15})[\/]{0,1}$ index.php?tags=$1&video=$2 [NC,L]
 
-#http://www.televisionlab.ru/127248964/
+#http://www.televisionlab.net/127248964/
 #RewriteCond %{QUERY_STRING} video=([0-9]{4,15})
 #RewriteRule .*$ %1/? [NC,R=301,L]
 #RewriteRule ^([0-9]{4,15})[\/]{0,1}$ index.php?video=$1 [NC,L]
 
-#--> www.televisionlab.ru/?tags=$1
+#--> www.televisionlab.net/?tags=$1
 #RewriteCond %{QUERY_STRING} tags=([^/<>\."'\{\}\*]*)
 #RewriteCond %{ENV:REDIRECT_STATUS} ![0-2]*
 #RewriteRule .*$ %1/? [NC,R=301,L]
-#--> www.televisionlab.ru/Digital/
+#--> www.televisionlab.net/Digital/
 
 #RewriteRule ^([^/<>\."'\{\}\*]*)[\/]{0,1}$ index.php?tags=$1 [NC,L]
-#--> www.televisionlab.ru/Digital/
-
-
-
-
+#--> www.televisionlab.net/Digital/
 
 
 #RewriteRule .* - [E=STATUS:maintenance]
@@ -103,7 +84,6 @@ RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 #RewriteCond %{QUERY_STRING} video=([0-9]{4,15})
 #RewriteRule .*$ %1/? [NC,R=301]
 
-
 #RewriteCond %{QUERY_STRING} video=([0-9]{4,15})
 
 #-----
@@ -111,7 +91,7 @@ RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
 
 #--------------------------------------------------------------------------
 
-#Output Query http://www.televisionlab.ru/?video=73456
+#Output Query http://www.televisionlab.net/?video=73456
 #RewriteCond %{QUERY_STRING} video=([0-9]{4,15})
 #RewriteCond %{QUERY_STRING} !url_rewrited=1
 #RewriteRule .*$ %1/? [L,R=301,NC]

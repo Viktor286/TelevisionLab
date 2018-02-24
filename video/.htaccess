@@ -1,3 +1,0 @@
-DirectoryIndex video.php
-
-RewriteRule ^([0-9]{4,15})/?$ video.php?VideoId=$1 [L]

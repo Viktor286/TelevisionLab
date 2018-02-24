@@ -1,22 +1,10 @@
 <?
 header("Cache-Control: no-store");
-require_once("../lib/core.php");
+require_once("../_global/core.php");
+require_once('../_global/model/TvLabQuery.php');
 
 $TvLab = new TvLab;
 $q = new TvLabQuery;
-
-
-//-- TODO: ROAD MAP
-// 1. Timeline design feed
-// 2. Timeline click action inside div block
-// 3. Approved play in pop up screen on click
-// 4. Approved design inside pop up screen
-// 5. Stacked -> go to edit on click
-// 6. Come Back from Edit Section
-// 7. Review Separate feed by Name of User, remove all info from video icons, -> go to edit on click
-// 8. Review Change "Save" button to "Approve" in Review-Edit section.
-// 9. Private Massage Section
-
 
 //-- User Board Inputs
 //------------------------------------------------------------------------------------------
@@ -39,18 +27,17 @@ if ( !isset($AuthUser) ) {  if (($SLkey = array_search('review', $SectionList)) 
 //-- Give first name from SectionList (timeline) to empty section
 if ( empty ($Section) ) { $Section = $SectionList[0]; }
 
-
 //-- Logic
 if (!empty ($InputUser)) {
 
-    //Test the right name of sections or die
+    // Test the right name of sections or die
     if ( !in_array( $Section, $SectionList ) )  {echo "no such section"; die();}
 
-    //User Info Model
+    // User Info Model
     $UserQuery = 'SELECT * FROM u186876_tvarts.users WHERE user_name = "'.$InputUser.'"';
     $result = $q->Query($UserQuery);
 
-    //If there is no such User, kill the page
+    // If there is no such User, kill the page
     if ($result->num_rows != 1) { die(); } else {
         //Extract User variables
         while ( $row = $result->fetch_assoc() ) {
@@ -64,9 +51,9 @@ if (!empty ($InputUser)) {
         }
     }
 
-    //If we've got a User here, who looking on his own page
+    // If we've got a User here, who looking on his own page
     if ($_SESSION['user_name '] == $UserName) {
-        //do somethig
+        // do somethig
     }
 
 } else { die(); }
@@ -74,23 +61,37 @@ if (!empty ($InputUser)) {
 
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
+    "SiteUrl" => SITE_URL,
     "SiteName" => SITE_TITLE,
     "PageTitle" => "Television Lab database Board",
     "Description" => "Description",
-    "css" => array ("reset", "board", "general", "google_fonts", "placeholder-big"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "jquery-ui", "scripts[board]"),
+
+    "css" => array (
+        "_global/css/reset.css",
+        "_global/css/general.css",
+        "_global/css/placeholder-big.css",
+        "board/css/board.css",
+        "google_fonts"
+        ),
+
+    "js" => array ("_global/js/compatibility.js",
+        "_global/js/jquery-1.11.0.min.js",
+        "_global/js/handlebars.js",
+        "_global/js/jquery-ui.js",
+        "board/js/scripts.js"),
+
     "Prepend" => '<link rel="icon" href="img/favicon-star.ico" />',
     "Append" => ''
 );
 
 // Waterfall script depends on section. "Position absolute problem".
 if ($Section == "review2") {
-    $HeadLayoutSet["js"][] = "waterfall";
+    $HeadLayoutSet["js"][] = "_global/js/waterfall.js";
 } else {
-    $HeadLayoutSet["js"][] = "waterfall-showcase";
+    $HeadLayoutSet["js"][] = "_global/js/waterfall-showcase.js";
 }
 
-insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
+insertHead ($HeadLayoutSet, "../_global/views/HeadTpl.php");
 
 ?>
 
@@ -98,9 +99,9 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
         <? // Display Handlebars tpl depend on section
         //
         if ($Section == "review2"){
-            include '../desktop/wtfll-handlebars-tpl.php';
+            include 'views/handlebars_cell_tpl.php'; // outdated wtfll-handlebars-tpl.php
         } else {
-            include '../showcase/wtfll-handlebars-tpl.php';
+            include 'views/wtfll-handlebars-tpl.php';
         }
         ?>
     </script>
@@ -159,9 +160,8 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
             </nav>
         </section>
     </header>
-
-
     <div class="Main-Indent"></div>
+
     <main>
         <div id="container"></div>
     </main>
@@ -169,7 +169,7 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
     <script>
 
         var page = 1;
-        var pageurl = 'http://www.televisionlab.net/board/wtfll-controller.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=';
+        var pageurl = 'http://www.televisionlab.net/board/controller/wtfll-controller.php?<? echo "section=".$Section."&user=".$UserName; ?>&page=';
         var isPreviousEventComplete = true, isDataAvailable = true;
 
         window.onload = function(){
@@ -194,6 +194,6 @@ insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
 
     </script>
 
-<? // include 'wtfll-js-init.php'; ?>
+<? include 'js/wtfll-js-init.php'; ?>
 
-<? insertFooter ("../nodes/FooterTpl.php"); ?>
+<? insertFooter ("../_global/views/FooterTpl.php"); ?>

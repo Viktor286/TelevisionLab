@@ -1,16 +1,34 @@
 <?
 header("Cache-Control: no-store");
 
-require_once("../lib/core.php");
+/* Global elements */
+require_once('../_global/core.php');
+require_once("../_global/config/private/form-token.php");
+require_once('../_global/model/TvLabQuery.php');
 
 $TvLab = new TvLab;
-$q = new TvLabQuery();
+$q = new TvLabQuery;
+
+/* Local elements */
+require_once("../_global/lib/vendors/auth/password_compatibility_library.php");
+require_once("../_global/lib/vendors/auth/login.php");
+require_once("../_global/controllers/SessionStuff.php");
+require_once("controllers/DetectUpdate.php");
+
+
+$login = new Login;
+
+// require_once('../_global/lib/vendors/vimeo/vimeo.php');
+
+require_once '../_global/controllers/Forms.php';
+require_once '../add/controllers/AutoTags.php';
+require_once '../add/controllers/ScreenFadeMsg.php';
+require_once '../add/controllers/InOut.php';
+require_once '../add/controllers/GetRemoteImage.php';
+
+require_once '../add/lang/add_module_rus.php';
 
 if ( !$q->setAuthUser() ) { unset( $AuthUser ); die; }
-
-// require_once '../config/config.php'; //подключаем конфиг бд
-require_once '../nodes/autotags_add.php'; //теговая система
-require_once '../lib/lang/rus.php'; //семантика блока
 
 
 //GET Setup for Video parameters
@@ -35,86 +53,92 @@ $errorInfo = "";
 $getBroadcast_Type = implode(",", $getBroadcast_Type);
 $getMotion_Type = implode(",", $getMotion_Type);
 
+
+
+//------------------------------------ SNIPPET <HTML> STARTS -->
+$HeadLayoutSet = array(
+    'SiteName' => SITE_TITLE,
+    'SiteUrl' => SITE_URL,
+    'PageTitle' => 'Television Lab database add',
+    'Description' => 'Motion Design and Broadcast Graphics database',
+
+    'css' => array (
+        '/_global/css/reset.css',
+        '/_global/css/general.css',
+        '/_global/css/add.css',
+        '/_global/css/ddslick.css',
+        //'/_global/css/fonts-google-opensans.css',
+        'google_fonts'
+    ),
+
+    'js' => array (
+        '/_global/js/compatibility.js',
+        '/_global/js/jquery-1.11.0.min.js',
+        '/_global/js/jquery-ui.js',
+        '/_global/js/jquery.ddslick.min.js',
+        '/add/js/scripts.js',
+        '/add/js/get-form-elements.php',
+        '/add/js/others.js',
+    ),
+
+    'Prepend' => '',
+    'Append' => ''
+);
+
+insertHead ($HeadLayoutSet, '../_global/views/HeadTpl.php');
+
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><? echo $Title." edit on Television Lab" ?></title>
-<base href="http://www.televisionlab.net/" /><!--[if IE]></base><![endif]-->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-<link href="css/reset.css" rel="stylesheet" type="text/css" />
-<link href="css/general.css" rel="stylesheet" type="text/css" />
-
-<script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/jquery.ddslick.min.js"></script>
-<link href="css/ddslick.css" rel="stylesheet" type="text/css" />
-
-<script src="js/scripts[add].js" type="text/javascript"></script>
-
-
 <script type="text/javascript">
-$(function() {
-    $( "#Rating" ).slider({value: <? if (isset ($getRating)) {echo $getRating;} else {echo $Rating;}?>});
-    $( "#RatingAmount" ).val($("#Rating").slider("value"));
-	$( "#RatingDisplay" ).text($("#Rating").slider("value"));
 
-	
-	$( "#Tempo" ).slider({value: <? if (isset ($getTempo)) {echo $getTempo;} else {echo $Tempo;}?>});
-    $( "#TempoAmount" ).val($("#Tempo").slider("value"));
-	$( "#TempoDisplay" ).text( $("#Tempo").slider("value"));
+    $(function() {
+        $( "#Rating" ).slider({value: <? if (isset ($getRating)) {echo $getRating;} else {echo $Rating;}?>});
+        $( "#RatingAmount" ).val($("#Rating").slider("value"));
+        $( "#RatingDisplay" ).text($("#Rating").slider("value"));
 
-	
-	RatingComment($( "#RatingDisplay" ).text());
-	TempoComment($( "#TempoDisplay" ).text());
 
-  });
-  
-  
-$(document).ready(function() {
-	$('#broadcast').ddslick({
-		width: 400,
-		height: null,
-		onSelected: function(selectedData){
-			var sIndx = selectedData.selectedIndex;
-			$('#broadcastHidden option[value=' + sIndx + ']').prop("selected", true);
-    }   
-	});
-});
+        $( "#Tempo" ).slider({value: <? if (isset ($getTempo)) {echo $getTempo;} else {echo $Tempo;}?>});
+        $( "#TempoAmount" ).val($("#Tempo").slider("value"));
+        $( "#TempoDisplay" ).text( $("#Tempo").slider("value"));
 
-$(document).ready(function() {
-    $(".tabs-menu a").click(function(event) {
-        event.preventDefault();
-        $(this).parent().addClass("current");
-        $(this).parent().siblings().removeClass("current");
-        var tab = $(this).attr("href");
-        $(".tab-content").not(tab).css("display", "none");
-        $(tab).fadeIn(0);
+
+        RatingComment($( "#RatingDisplay" ).text());
+        TempoComment($( "#TempoDisplay" ).text());
+
     });
-});
-  
-  
- $(document).ready(function() {
-    $(".delete").click(function() { 
- 	$('span.realy_delete').fadeToggle();
-      });
-	 
-});
-  
+
+    $(document).ready(function() {
+        $('#broadcast').ddslick('select', {index: <? if (isset ($getBroadcast_Type)) {echo $getBroadcast_Type;} else {echo $Broadcast_Type;}?> });
+    });
+
+    $(document).ready(function() {
+        $(".tabs-menu a").click(function(event) {
+            event.preventDefault();
+            $(this).parent().addClass("current");
+            $(this).parent().siblings().removeClass("current");
+            var tab = $(this).attr("href");
+            $(".tab-content").not(tab).css("display", "none");
+            $(tab).fadeIn(0);
+        });
+    });
+
+
+    $(document).ready(function() {
+        $(".delete").click(function() {
+            $('span.realy_delete').fadeToggle();
+        });
+
+    });
+
 </script>
-</head>
-<body>
+
 <div class="Input_Form">
 
 <?
-include ('view_edit_input.php');
+include('views/view_edit_input.php');
 
 
-//chek for properly "delete" situation
+//check for properly "delete" situation
 if (isset($getVideo) and $_GET['delete'] == 1) {
 	
 	if ( $AuthUser == $By_User or $UserRole == 0 ) {// доступ на удаление для автора, админа. Здесь встает вопрос об организации иерархии доступа к редакции видео

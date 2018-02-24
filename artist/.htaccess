@@ -1,5 +1,0 @@
-
-DirectoryIndex artist.php
-
-RewriteRule ^([A-z0-9]{1,30})/?$ artist.php?alias=$1 [L]
-

@@ -1,16 +1,30 @@
 <?
-require_once("../lib/core.php");
+
+/* Global elements */
+require_once('../_global/core.php');
+require_once("../_global/config/private/form-token.php");
+require_once("../_global/config/private/vimeo-token.php");
+require_once('../_global/model/TvLabQuery.php');
+
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
-require_once("../lib/password_compatibility_library.php");
-require_once("../lib/login.php"); // классы ситемы login
+/* Local elements */
+require_once("../_global/lib/vendors/auth/password_compatibility_library.php");
+require_once("../_global/lib/vendors/auth/login.php");
+require_once("../_global/controllers/SessionStuff.php");
+
 $login = new Login;
 
-require_once('../lib/vimeo/vimeo.php'); //классы для работы с vimeo API
+// require_once('../_global/lib/vendors/vimeo/vimeo.php');
 
-require_once '../nodes/autotags_add.php'; //теговая система
-require_once '../lib/lang/rus.php'; //семантика блока
+require_once '../_global/controllers/Forms.php';
+require_once 'controllers/AutoTags.php';
+require_once 'controllers/ScreenFadeMsg.php';
+require_once 'controllers/InOut.php';
+require_once 'controllers/GetRemoteImage.php';
+
+require_once 'lang/add_module_rus.php';
 
 $Input = array(
     "getTitle" => $_POST['title'],
@@ -36,21 +50,18 @@ $Input = array(
 
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
 
-
-
 if ( !$q->setAuthUser() ) { unset( $AuthUser ); } // set-unset $AuthUser
 
 $Role = RoleState();
 if ($Role == 1 or $Role == 2) {$isStack = "_stack";}
 if ($Role == 0) {$isStack = "";}
 
-//Предварительные переменные
 $dateNow = date('Y-m-d H:i:s');
 $errorCount = 0;
 $errorInfo = "";
 
 
-//---------Base Routing
+//--------- Base Routing of 'add' module
 
 // Situation 0: no code or isVideoExist or even getVideo
 if( empty($getCode) or $isVideoExist > 0 ){
@@ -62,7 +73,7 @@ if( empty($getCode) or $isVideoExist > 0 ){
 // Situation 1: have a code and it will pass check
 if ( Check_Valid_Id($_GET['code']) ) {
         $ps = "(1)setCode";
-        preg_match('/(\d{4,15})/', $_GET['code'], $Vimeo_Id); $Vimeo_Id = $Vimeo_Id[0]; //достаем id из любого кода, помещаем в $Vimeo_Id для последующего подключения к API Vimeo
+        preg_match('/(\d{4,15})/', $_GET['code'], $Vimeo_Id); $Vimeo_Id = $Vimeo_Id[0];
 }
 
 // Situation 2: there is correct "video" and "title" params in GET array
@@ -73,97 +84,91 @@ if ( Check_Valid_Id($getVideo) and isset($getTitle) ) {
 
 //------------------------------------ SNIPPET <HTML> STARTS -->
 $HeadLayoutSet = array(
-    "SiteName" => SITE_TITLE,
-    "PageTitle" => "Television Lab database add",
-    "Description" => "Motion Design and Broadcast Graphics database",
-    "css" => array ("reset", "general", "add", "ddslick", "google_fonts"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "jquery-ui", "jquery.ddslick.min", "scripts[add]"),
-    "Prepend" => '',
-    "Append" => ''
+    'SiteName' => SITE_TITLE,
+    'SiteUrl' => SITE_URL,
+    'PageTitle' => 'Television Lab database add',
+    'Description' => 'Motion Design and Broadcast Graphics database',
+
+    'css' => array (
+        '/_global/css/reset.css',
+        '/_global/css/general.css',
+        '/_global/css/add.css',
+        '/_global/css/ddslick.css',
+        //'/_global/css/fonts-google-opensans.css',
+        'google_fonts'
+    ),
+
+    'js' => array (
+        '/_global/js/compatibility.js',
+        '/_global/js/jquery-1.11.0.min.js',
+        '/_global/js/jquery-ui.js',
+        '/_global/js/jquery.ddslick.min.js',
+        '/add/js/scripts.js',
+        '/add/js/get-form-elements.php',
+        '/add/js/others.js',
+    ),
+
+    'Prepend' => '',
+    'Append' => ''
 );
 
-insertHead ($HeadLayoutSet, "../nodes/HeadTpl.php");
+insertHead ($HeadLayoutSet, '../_global/views/HeadTpl.php');
 
 ?>
 
-
 <script type="text/javascript">
-$(function() {
-    $( "#Rating" ).slider({value: <? if (isset ($getRating)) {echo $getRating;} else {echo '17000';}?>});
-    $( "#RatingAmount" ).val($("#Rating").slider("value"));
-	$( "#RatingDisplay" ).text($("#Rating").slider("value"));
-
-	
-	$( "#Tempo" ).slider({value: <? if (isset ($getTempo)) {echo $getTempo;} else {echo '75';}?>});
-    $( "#TempoAmount" ).val($("#Tempo").slider("value"));
-	$( "#TempoDisplay" ).text( $("#Tempo").slider("value"));
-
-	
-	RatingComment($( "#RatingDisplay" ).text());
-	TempoComment($( "#TempoDisplay" ).text());
-
-  });
-  
-$(document).ready(function() {
-	$('#broadcast').ddslick({
-		width: 400,
-		height: null,
-		onSelected: function(selectedData){
-			var sIndx = selectedData.selectedIndex;
-			$('#broadcastHidden option[value=' + sIndx + ']').prop("selected", true);
-    }   
-	});
-});
-
-$(document).ready(function() {
-    $(".tabs-menu a").click(function(event) {
-        event.preventDefault();
-        $(this).parent().addClass("current");
-        $(this).parent().siblings().removeClass("current");
-        var tab = $(this).attr("href");
-        $(".tab-content").not(tab).css("display", "none");
-        $(tab).fadeIn(0);
-    });
-});
-
-$(document).ready(function() {
-    $("#HowItWorks").click(function(event) {
-		$("#HowItWorks-Img").slideToggle();
-    });
-});
+    var getRating = <? if (isset ($getRating)) {echo $getRating;} else {echo '17000';} ?>;
+    var getTempo = <? if (isset ($getTempo)) {echo $getTempo;} else {echo '85';} ?>;
 </script>
 
-</head>
-<body>
 
 <?php
 //echo "<div class='debug'>";  $TvLab->DebugCookie(1);  echo "</div>";
 
-if ($ps == "(0)setDefault") { include ("view_intro.php"); }
+if ($ps == "(0)setDefault") { include("views/view_intro.php"); }
 
 
 if ($ps == "(1)setCode") {
 
     if ( isset ($AuthUser) ) {
-        $TestIdQuery = "SELECT * FROM u186876_tvarts.contents WHERE OutId = " . $Vimeo_Id . " AND State = 1"; //Проверка наличия дубликата видео в базе по OuId
+        $TestIdQuery = "SELECT * FROM u186876_tvarts.contents WHERE OutId = " . $Vimeo_Id . " AND State = 1";
         $result = $q->Query($TestIdQuery);
 
         if ($result->num_rows > 0) {
 
             $isVideoExist = 1; // Set flag, that define isVideoExist
-            include("view_intro.php"); // If video exist check inside this chunk,
+            include("views/view_intro.php"); // If video exist check inside this chunk,
 
         } else {
 
-            $q->getVideoFromVimeo($Vimeo_Id); // Otherwise run Vimeo API connection
+            //
+            $v = $q->getVideoCreditsAPI($Vimeo_Id);
+            $OutId = $v->OutId;
+            $OutHost = $v->OutHost;
+            $Title = $v->Title;
+            $Likes = $v->Likes;
+            $Desc = $v->Desc;
+            $CreateDate = $v->CreateDate;
+            $Tags = $v->Tags;
+            $TagList = $v->TagList;
+            $CastList = $v->CastList;
+            $Duration = $v->Duration;
+            $Brand = $v->Brand;
+            $ImgSmall= $v->ImgSmall;
+            $Img = $v->Img;
+            $Width = $v->Width;
+            $Height = $v->Height;
+            $MainUserLocation = $v->MainUserLocation;
+            $Year = $v->Year;
 
-            include('view_input.php');
+            //$q->getVideoFromVimeo($Vimeo_Id); // Otherwise run Vimeo API connection
+            include('views/view_input.php');
         }
     } else {
 
     echo "<div style='text-align: center; margin: 50px auto 0; width: 400px;'>You need to log in to post this video<br />";
 
-    include("../nodes/not_logged_in.php");
+    include("views/not_logged_in.php");
 
     echo "</div>";
 
@@ -171,61 +176,64 @@ if ($ps == "(1)setCode") {
 
 }
 
-
 if ($ps == "(2)setVideo") {
     if ( !isset ($AuthUser) ) { die; }
 
-	$q->getVideoFromVimeo($getVideo); // Run Vimeo API connection with "video" from GET parameter
+    $v = $q->getVideoCreditsAPI($getVideo);
+	// $q->getVideoFromVimeo($getVideo); // Run Vimeo API connection with "video" from GET parameter
 
-	include ('view_input.php');
+    $OutId = $v->OutId;
+    $OutHost = $v->OutHost;
+    $Title = $v->Title;
+    $Likes = $v->Likes;
+    $Desc = $v->Desc;
+    $CreateDate = $v->CreateDate;
+    $Tags = $v->Tags;
+    $TagList = $v->TagList;
+    $CastList = $v->CastList;
+    $Duration = $v->Duration;
+    $Brand = $v->Brand;
+    $ImgSmall= $v->ImgSmall;
+    $Img = $v->Img;
+    $Width = $v->Width;
+    $Height = $v->Height;
+    $MainUserLocation = $v->MainUserLocation;
+    $Year = $v->Year;
 
-	//Начинаем проверку условий отправляемых карточкой параметров
-	//Внешний ID ролика
+	include('views/view_input.php');
 
 	if (Check_Valid_Id($OutId)) {$Prm = 1;}
 	else {$QuerryErrors .= $nme_err_NoId.', '; $Prm = 0;}
-	
-	//Заголовок видео
+
 	if (!empty($getTitle) and iconv_strlen($getTitle, 'UTF-8') > 2)
 	{$Prm = ($Prm == 1) ? 1 : 0; } else {$QuerryErrors .= $nme_err_NoTitle.', '; $Prm = 0;}
-	
-	//Проверяем данные с API на одном параметре "лайки" (он не передается в $_GET без явного участия юзера), наличие и число ли?
+
 	if (isset($Likes))
 	{ $Prm = ($Prm == 1) ? 1 : 0; }
 	else {$QuerryErrors .= $nme_err_NoAPI.', '; $Prm = 0;}
-	
-	//Проверяем картинку на наличие и количество сиволов
+
 	if (!empty($Img) and iconv_strlen($Img, 'UTF-8') > 8)
 	{ $Prm = ($Prm == 1) ? 1 : 0; }
 	else {$QuerryErrors .= $nme_err_NoImg.', '; $Prm = 0;}
-	
-	//Проверка на заполнение хотя бы одного тега в тэговой системе
+
 	if (!empty($getTags_SA) or !empty($getTags_Fashion) or !empty($getTags_Arts) or !empty($getTags_Music) or !empty($getTags_Others))
 	{ $Prm = ($Prm == 1) ? 1 : 0; }
 	else {$QuerryErrors .= $nme_err_NoTags.', '; $Prm = 0;}
-	
-	//Проверка юзера
+
 	if (isset($AuthUser)) {
 		{ $Prm = ($Prm == 1) ? 1 : 0; }
 	} else {$QuerryErrors .= $nme_err_NoUser.' '; $Prm = 0;}
 
-    //Проверка токена
 	$hash = md5( $_SESSION['token'].APPEND_KEY.HALF_DAY );
 
     if (!empty ($getToken) and $getToken == $hash) {
         { $Prm = ($Prm == 1) ? 1 : 0;}
     } else {$QuerryErrors .= $nme_err_NoToken; $Prm = 0;}
 
-
-	//---------- подгатавливаем запись в базу
-	//Перевод данных массивов в строки
 	$getBroadcast_Type = implode(",", $getBroadcast_Type);
 	$getMotion_Type = implode(",", $getMotion_Type);
-	
-	//NO RECORD
-	//$Prm = 0;
 
-	// если счетчик ошибок не сбросился на 0, то производим запись
+	//$Prm = 0;
 	if ($Prm == 1) {
 		
 		if ($q->putVideo($AuthUser, $isStack)) {
@@ -282,4 +290,4 @@ if ($ps == "(2)setVideo") {
 
 }
 
-insertFooter ("../nodes/FooterTpl.php");
+insertFooter ("../_global/views/FooterTpl.php");

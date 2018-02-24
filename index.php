@@ -1,7 +1,25 @@
 <?
-header("Cache-Control: no-store");
 
-require_once("lib/core.php");
+/* TODO: New Model for ALL and Tags for videos
+SELECT Title, videos_id FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id;
+
+Count different tags in table
+SELECT Title, COUNT( Title ) FROM tags_arts GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50
+
+SELECT Title, videos_id, COUNT(Title) FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50;
+*/
+
+header('Cache-Control: no-store');
+
+/* Global elements */
+require_once('_global/core.php');
+require_once('_global/model/TvLabQuery.php');
+require_once('_global/controllers/Forms.php');
+
+/* Local elements */
+require_once('desktop/controllers/Snippets.php');
+
+
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
@@ -10,62 +28,89 @@ $q = new TvLabQuery;
 $Http_query = str_replace("/%5B0%5D/", "[]", http_build_query($_GET, '', '&'));
 
 $Input = array(
-    "qSet" => $_GET['set'],
-    "VideoId" => $_GET['video'],
-    "Tags" => $_GET['tags'],
-    "Mode" => $_GET['md'],
-    "MenuState" => $_COOKIE["TagMenuState"],
-    "Http_query" => $Http_query // displayed here to see full list of inputs
+    'qSet' => $_GET['set'],
+    'VideoId' => $_GET['video'],
+    'Tags' => $_GET['tags'],
+    'Mode' => $_GET['md'],
+    'MenuState' => $_COOKIE['TagMenuState'],
+    'AutoPlayState' => $_COOKIE['AutoPlayState'],
+    'Http_query' => $Http_query // displayed here to see full list of inputs
 );
 
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
-
 $Tags = strtolower($Tags);
 
 
 //CSS Variables to css/dynamic.php
 if ( empty ($_GET['video']) ) {$emptyVid = 1;} else {$emptyVid = 0;}
+$xCol = '319';
 
-$xCol = "319";
-
-//------------------------------------ SNIPPET <HTML> STARTS -->
-$HeadLayoutSet = array(
-    "SiteName" => SITE_TITLE,
-    "PageTitle" => "Television Lab database desktop",
-    "Description" => "Motion Design and Broadcast Graphics database",
-    "css" => array ("reset", "general","common", "jquery.tagit", "tagit.ui-zendesk", "google_fonts"),
-    "js" => array ("compatibility", "jquery-1.11.0.min", "handlebars", "waterfall", "jquery-ui", "tag-it", "scripts", "desktop_cfg", "url"),
-    "Prepend" => '',
-    "Append" => '
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/dynamic.php?xcol='.$xCol.'&ev='.$emptyVid.'" />
-    '
-);
-
-insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
 ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Motion Design and Broadcast Graphics. Television Lab database desktop</title>
+        <base href="http://www.televisionlab.net/" /><!--[if IE]></base><![endif]-->
+        <meta name="description" content="Motion Design and Broadcast Graphics database">
+
+        <link rel="icon" href="favicon.ico" />
+
+        <link rel="stylesheet" type="text/css" href="/_global/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/_global/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/_global/css/common.css" />
+
+        <link rel="stylesheet" type="text/css" href="/_global/css/main_player_controls.css" />
+
+        <link rel="stylesheet" type="text/css" href="/_global/css/jquery.tagit.css" />
+        <link rel="stylesheet" type="text/css" href="/_global/css/tagit.ui-zendesk.css" />
+        <link rel="stylesheet" type="text/css" href="/_global/css/fonts-google-opensans.css" />
+        <link rel="stylesheet" type="text/css" href="/_global/css/balloon.css" />
+
+        <link rel="stylesheet" type="text/css" href="/desktop/css/top_panel.css" />
+        <link rel="stylesheet" type="text/css" href="/desktop/css/layout.css" />
+        <link rel="stylesheet" type="text/css" href="/desktop/css/general.css" />
+
+        <script type="text/javascript" src="/_global/js/compatibility.js"></script>
+        <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="/_global/js/handlebars.js"></script>
+        <script type="text/javascript" src="/_global/js/waterfall.js"></script>
+        <script type="text/javascript" src="/_global/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="/_global/js/tag-it.js"></script>
+        <script type="text/javascript" src="/_global/js/vimeo.api.player.js"></script>
+
+        <script type="text/javascript" src="/_global/js/scripts.js"></script>
+        <script type="text/javascript" src="/desktop/js/scripts.js"></script>
+
+        <script type="text/javascript" src="/desktop/js/player.js"></script>
+
+        <? print '<link rel="stylesheet" type="text/css" href="/desktop/css/dynamic.php?xcol='.$xCol.'&ev='.$emptyVid.'" />' ?>
+    </head>
+<body>
+
 
 <script type="text/javascript">
     var NowUrl = "<?= $Http_query; //Bring data from $_GET for farther json request to data.php ?>";
     var NowSet = "<?= $qSet; ?>";
     var NowVid = "<?= $VideoId; ?>";
+    var NowTags ="<?= $Tags; ?>";
     var menuState = <? if (isset($MenuState)) {echo $MenuState;} else {echo "0";} ?>;
+    var AutoPlayState = <? if (isset($AutoPlayState)) {echo $AutoPlayState;} else {echo "0";} ?>;
     var xCol = <?= $xCol; ?>;
-    <? if (isset( $VideoId )) {echo "LoadVideoOnPage(" . $VideoId . ");";} ?>
+    <? if (isset( $VideoId )) {echo 'LoadVideoOnPage(' . $VideoId . ');';} ?>
 </script>
 
 <script type="text/x-handlebars-template" id="waterfall-tpl">
-<? include 'desktop/wtfll-handlebars-tpl.php';  ?>
+<? include 'desktop/views/waterfall_cell_tpl.php';  ?>
 </script>
 
-<? include 'nodes/top_panel.php'; ?>
+<? include 'desktop/views/top_panel.php'; ?>
 
 <main>
     <div class="Wr50">
         <div class="table">
             <aside id="LeftPanel">
                 <div class="Accordion">
-                <? include 'nodes/left_panel.php'; ?>
+                <? include 'desktop/controllers/tags_overview_left.php'; ?>
             </aside>
             <section id="FixedDisplay">
                 <div id="PreviewWindow"></div>
@@ -80,6 +125,6 @@ insertHead ($HeadLayoutSet, "nodes/HeadTpl.php");
     </div>
 </main>
 
-<? include 'desktop/wtfll-js-init.php'; ?>
+<? include 'desktop/js/waterfall.php'; ?>
 
-<? insertFooter ("nodes/FooterTpl.php"); ?>
+<? insertFooter ('_global/views/FooterTpl.php'); ?>
