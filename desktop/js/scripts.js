@@ -53,13 +53,14 @@ function LoadVideoOnPage(VideoId) {
         var iframe = document.querySelector('iframe');
         var mainPlayer = new Vimeo.Player(iframe);
         var playPauseBt = $("div#MPC div#PlayPause");
-        var init_bug = mainPlayer; // initialization of mainPlayer object, which is inactive till first usage
+        var init = mainPlayer; // initialization of mainPlayer object, which is inactive till first usage
 
         // Time code result: playback is jumpy, no way to make decent time code
 /*        mainPlayer.on('timeupdate', function(data) {
             console.log(data.seconds);
             $('div.timecode').html("000" + data.seconds);
         });*/
+
 
         // Set On PlayPause Button Event
         $(document).on('click','div#MPC div#PlayPause',function( event ){
@@ -201,266 +202,319 @@ function LoadVideoOnPage(VideoId) {
             }
         });
 
-        // ------------------------------------------------
 
+        // ------------------------------------------------
         // 3. Assign all CuePoints in cycle for loaded media (add CuePoints for current video) from DB data
 
-        // temp data object
-        var videoCuePoints = [
-            {
-                "time": 3,
-                "data": {
-                    "ShotTag": "Nice",
-                    "ShotName": "Nice 3s shot" // this is "customKey": "customValue"
+        mainPlayer.getDuration().then(function(duration) { // duration = the duration of the video in seconds
+            // this getDuration callback need to calculate time point for test demo
+            // and it will be replaced by 'DB CuePoints data' callback
+
+            var equalPart = Math.floor(parseInt(duration) / 5);
+            var videoCuePointsForDemo = [1, equalPart * 2, equalPart * 3, equalPart * 4, duration-1];
+
+            // console.log('videoCuePointsForDemo: '+videoCuePointsForDemo);
+
+            // temp data object
+            var videoCuePoints = [
+                {
+                    "time": videoCuePointsForDemo[0],
+                    "data": {
+                        "ShotTag": "Nice",
+                        "ShotName": "Nice 3s shot" // this is "customKey": "customValue"
+                    },
+                    "id": "videoCuePoint-0"
                 },
-                "id": "videoCuePoint-0"
-            },
-            {
-                "time": 8,
-                "data": {
-                    "ShotTag": "Great",
-                    "ShotName": "Great 8 too"
+                {
+                    "time": videoCuePointsForDemo[1],
+                    "data": {
+                        "ShotTag": "Great",
+                        "ShotName": "Great 8 too"
+                    },
+                    "id": "videoCuePoint-1"
                 },
-                "id": "videoCuePoint-1"
-            },
-            {
-                "time": 16,
-                "data": {
-                    "ShotTag": "custom",
-                    "ShotName": "custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value"
+                {
+                    "time": videoCuePointsForDemo[2],
+                    "data": {
+                        "ShotTag": "custom",
+                        "ShotName": "custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value"
+                    },
+                    "id": "videoCuePoint-2"
                 },
-                "id": "videoCuePoint-2"
-            },
-            {
-                "time": 24,
-                "data": {
-                    "ShotTag": "Cool",
-                    "ShotName": "Cool 24 shoot"
+                {
+                    "time": videoCuePointsForDemo[3],
+                    "data": {
+                        "ShotTag": "Cool",
+                        "ShotName": "Cool 24 shoot"
+                    },
+                    "id": "videoCuePoint-3"
                 },
-                "id": "videoCuePoint-3"
-            },
-            {
-                "time": 30,
-                "data": {
-                    "ShotTag": "Far",
-                    "ShotName": "Far far 30 sec"
-                },
-                "id": "videoCuePoint-0"
-            }
-        ];
-
-        // Adding timecode formatted time
-        for (i = 0; i < videoCuePoints.length; i++) {
-
-            var mins = Math.floor(videoCuePoints[i].time / 60 % 60).toString();
-            var secs = Math.floor(videoCuePoints[i].time % 60).toString();
-
-            if (mins.length < 2) {
-                mins = '0' + mins;
-            }
-
-            if (secs.length < 2) {
-                secs = '0' + secs;
-            }
-
-            videoCuePoints[i].timecode = mins + ':' + secs;
-        }
-
-        // Debug timecode list
-        /*for (i = 0; i < videoCuePoints.length; i++) {
-            console.log(videoCuePoints[i].timecode);
-        }*/
-
-
-        // Make short version of data set
-        var cuePointsIdList = [];
-        for (var i = 0; i < videoCuePoints.length; i++) {
-            cuePointsIdList.push(videoCuePoints[i].time);
-        }
-
-        //  Add videoCuePoints items from data set to video player
-        for (i = 0; i < videoCuePoints.length; i++) {
-            // console.log('----- begin extraction of new videoCuePoints item ' + i + ' ... ');
-
-            mainPlayer.addCuePoint(videoCuePoints[i].time, videoCuePoints[i].data).then(function(id) {
-                //console.log('cue point ' + i + ' was added successfully with id: ' + id);
-
-            });
-        }
-
-        // 4. Get all CuePoints again
-        mainPlayer.getCuePoints().then(function(videoCuePoints) {
-            // 5. Make CuePoints Listener action (for visual indicating).
-            if (videoCuePoints.length > 0) {
-                //console.log('There is some final videoCuePoints in object.');
-            } else {
-                //console.log('Final videoCuePoints not found in object.');
-            }
-        });
-
-        var nearestCuePoint = 0,
-        nearestIndex = 0,
-        nextCuePoint = 0,
-        nextCuePointIndex = 0,
-        prevCuePoint = 0,
-        prevCuePointIndex = 0,
-        thisIndex = 0,
-        absDiffArr = [];
-
-        var KeyShotsDiv = 'div#InformationWindow > .left > div.KeyShots > ul';
-        var KeyShotsNameDiv = 'div#InformationWindow > .left > div.KeyShots > div.ShotName > span';
-
-        // div#NextShot controller
-        $(document).on('click','div#MPC div#NextShot',function( event ){
-            event.preventDefault();
-
-            var buttonNextShot = $( this );
-            buttonNextShot.addClass( "disabled" );
-
-            // Get Current Time to calculate where we are and where to go
-            mainPlayer.getCurrentTime().then(function(currentTime) {
-
-                // Find nearest point for currentTime
-                // Find absolute difference between currentTime and all cuePoints in data set
-                for (i = 0; i < cuePointsIdList.length; i++) {
-                    absDiffArr[i] = Math.abs(cuePointsIdList[i]-currentTime);
+                {
+                    "time": videoCuePointsForDemo[4],
+                    "data": {
+                        "ShotTag": "Far",
+                        "ShotName": "Far far 30 sec"
+                    },
+                    "id": "videoCuePoint-0"
                 }
-                nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
-                nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
+            ];
 
-                // Compare currentTime and nearestCuePoint to define correct nextCuePoint.
-                if (currentTime*1000 >= nearestCuePoint*1000) {
-                    nextCuePointIndex = nearestIndex + 1; // just NEXT item in array
+            // Adding timecode formatted time
+            for (i = 0; i < videoCuePoints.length; i++) {
 
-                    // if we pass the nearest point, next point will be just NEXT item in array
-                    if (nextCuePointIndex >= videoCuePoints.length) { // But. If this index went beyond array,
-                        nextCuePoint = videoCuePoints[0]; // then return to first cuePoint
-                        thisIndex = 0;
-                    } else {
-                        nextCuePoint = videoCuePoints[nextCuePointIndex];
-                        thisIndex = nextCuePointIndex;
-                    }
-                } else {
-                    nextCuePoint = videoCuePoints[nearestIndex]; // if we are after nearest point at this moment, prev point will be THIS current nearestPoint
-                    thisIndex = nearestIndex;
+                var mins = Math.floor(videoCuePoints[i].time / 60 % 60).toString();
+                var secs = Math.floor(videoCuePoints[i].time % 60).toString();
+
+                if (mins.length < 2) {
+                    mins = '0' + mins;
                 }
 
-                // Start load the Cue Point ( VideoShot )
-                $(KeyShotsDiv + ' > li').removeClass( "load" );
-                $(KeyShotsDiv + ' > li').eq(thisIndex).addClass('load');
-                // $(KeyShotsNameDiv).text('loading...');
+                if (secs.length < 2) {
+                    secs = '0' + secs;
+                }
 
-                // Set current nextCuePoint time
+                videoCuePoints[i].timecode = mins + ':' + secs;
+            }
 
-                mainPlayer.setCurrentTime(nextCuePoint.time).then(function(second) {
-                    //mainPlayer.pause();
-                    buttonNextShot.removeClass( "disabled" );
-                    $(KeyShotsDiv + ' > li').removeClass( "load" );
-                    LoadVideoShotSwitch(nextCuePoint);
-                    //console.log('Set time by div#NextShot to ' + second);
+            // Debug timecode list
+            /*for (i = 0; i < videoCuePoints.length; i++) {
+             console.log(videoCuePoints[i].timecode);
+             }*/
+
+
+            // Make short version of data set
+            var cuePointsIdList = [];
+            for (var i = 0; i < videoCuePoints.length; i++) {
+                cuePointsIdList.push(videoCuePoints[i].time);
+            }
+
+            //  Add videoCuePoints items from data set to video player
+            for (i = 0; i < videoCuePoints.length; i++) {
+                // console.log('----- begin extraction of new videoCuePoints item ' + i + ' ... ');
+
+                mainPlayer.addCuePoint(videoCuePoints[i].time, videoCuePoints[i].data).then(function(id) {
+                    //console.log('cue point ' + i + ' was added successfully with id: ' + id);
+
                 });
+            }
 
-            });
-        });
-
-        // div#PrevShot controller
-        $(document).on('click','div#MPC div#PrevShot',function( event ){
-            event.preventDefault();
-            var buttonPrevShot = $( this );
-            buttonPrevShot.addClass( "disabled" );
-
-            // Get Current Time to calculate where we are and where to go
-            mainPlayer.getCurrentTime().then(function(currentTime) {
-
-                // Find nearest point for currentTime
-                // Find absolute difference between currentTime and all cuePoints in data set
-                for (i = 0; i < cuePointsIdList.length; i++) {
-                    absDiffArr[i] = Math.abs(cuePointsIdList[i]-currentTime);
-                }
-                nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
-                nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
-
-                // Compare currentTime and nearestCuePoint to define correct prevCuePoint.
-                if (currentTime*1000 <= nearestCuePoint*1000+1000) { // add additional delay for back clicking
-                    prevCuePointIndex = nearestIndex - 1;
-
-                    // if we pass the nearest point, prev point will be just prev item in array
-                    if (prevCuePointIndex < 0) { // But. If this index went beyond array, then return to last cuePoint in array
-                        prevCuePointIndex = videoCuePoints.length-1;
-                        prevCuePoint = videoCuePoints[prevCuePointIndex];
-                        thisIndex = prevCuePointIndex;
-                    } else {
-                        prevCuePoint = videoCuePoints[prevCuePointIndex];
-                        thisIndex = prevCuePointIndex;
-                    }
+            // 4. Get all CuePoints again
+            mainPlayer.getCuePoints().then(function(videoCuePoints) {
+                // 5. Make CuePoints Listener action (for visual indicating).
+                if (videoCuePoints.length > 0) {
+                    //console.log('There is some final videoCuePoints in object.');
                 } else {
-                    prevCuePoint = videoCuePoints[nearestIndex]; // if we are after nearest point at this moment, prev point will be THIS current nearestPoint
-                    thisIndex = nearestIndex;
+                    //console.log('Final videoCuePoints not found in object.');
                 }
-
-
-                // Start load the Cue Point ( VideoShot )
-                $(KeyShotsDiv + ' > li').removeClass( "load" );
-                $(KeyShotsDiv + ' > li').eq(thisIndex).addClass('load');
-                // $(KeyShotsNameDiv).text('loading...');
-
-                // Set current prevCuePoint time
-
-                mainPlayer.setCurrentTime(prevCuePoint.time).then(function(second) {
-                    //mainPlayer.pause();
-                    buttonPrevShot.removeClass( "disabled" );
-                    $(KeyShotsDiv + ' > li').removeClass( "load" );
-                    LoadVideoShotSwitch(prevCuePoint);
-                    // console.log('Set time by div#PrevShot to ' + second);
-                });
-
             });
-        });
+
+            var nearestCuePoint = 0,
+                nearestIndex = 0,
+                nextCuePoint = 0,
+                nextCuePointIndex = 0,
+                prevCuePoint = 0,
+                prevCuePointIndex = 0,
+                thisIndex = 0,
+                absDiffArr = [];
+
+            var KeyShotsDiv = 'div#InformationWindow > .left > div.KeyShots > ul';
+            var KeyShotsNameDiv = 'div#InformationWindow > .left > div.KeyShots > div.ShotName > span';
+
+            // div#NextShot controller
+            $(document).on('click','div#MPC div#NextShot',function( event ){
+                event.preventDefault();
+
+                var buttonNextShot = $( this );
+                buttonNextShot.addClass( "disabled" );
+
+                // Get Current Time to calculate where we are and where to go
+                mainPlayer.getCurrentTime().then(function(currentTime) {
+
+                    // Find nearest point for currentTime
+                    // Find absolute difference between currentTime and all cuePoints in data set
+                    for (i = 0; i < cuePointsIdList.length; i++) {
+                        absDiffArr[i] = Math.abs(cuePointsIdList[i]-currentTime);
+                    }
+                    nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
+                    nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
+
+                    // Compare currentTime and nearestCuePoint to define correct nextCuePoint.
+                    if (currentTime*1000 >= nearestCuePoint*1000) {
+                        nextCuePointIndex = nearestIndex + 1; // just NEXT item in array
+
+                        // if we pass the nearest point, next point will be just NEXT item in array
+                        if (nextCuePointIndex >= videoCuePoints.length) { // But. If this index went beyond array,
+                            nextCuePoint = videoCuePoints[0]; // then return to first cuePoint
+                            thisIndex = 0;
+                        } else {
+                            nextCuePoint = videoCuePoints[nextCuePointIndex];
+                            thisIndex = nextCuePointIndex;
+                        }
+                    } else {
+                        nextCuePoint = videoCuePoints[nearestIndex]; // if we are after nearest point at this moment, prev point will be THIS current nearestPoint
+                        thisIndex = nearestIndex;
+                    }
+
+                    // Start load the Cue Point ( VideoShot )
+                    $(KeyShotsDiv + ' > li').removeClass( "load" );
+                    $(KeyShotsDiv + ' > li').eq(thisIndex).addClass('load');
+                    // $(KeyShotsNameDiv).text('loading...');
+
+                    // Set current nextCuePoint time
+
+                    mainPlayer.setCurrentTime(nextCuePoint.time).then(function(second) {
+                        //mainPlayer.pause();
+                        buttonNextShot.removeClass( "disabled" );
+                        $(KeyShotsDiv + ' > li').removeClass( "load" );
+                        LoadVideoShotSwitch(nextCuePoint);
+                        //console.log('Set time by div#NextShot to ' + second);
+                    });
+
+                });
+            });
+
+            // div#PrevShot controller
+            $(document).on('click','div#MPC div#PrevShot',function( event ){
+                event.preventDefault();
+                var buttonPrevShot = $( this );
+                buttonPrevShot.addClass( "disabled" );
+
+                // Get Current Time to calculate where we are and where to go
+                mainPlayer.getCurrentTime().then(function(currentTime) {
+
+                    // Find nearest point for currentTime
+                    // Find absolute difference between currentTime and all cuePoints in data set
+                    for (i = 0; i < cuePointsIdList.length; i++) {
+                        absDiffArr[i] = Math.abs(cuePointsIdList[i]-currentTime);
+                    }
+                    nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
+                    nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
+
+                    // Compare currentTime and nearestCuePoint to define correct prevCuePoint.
+                    if (currentTime*1000 <= nearestCuePoint*1000+1000) { // add additional delay for back clicking
+                        prevCuePointIndex = nearestIndex - 1;
+
+                        // if we pass the nearest point, prev point will be just prev item in array
+                        if (prevCuePointIndex < 0) { // But. If this index went beyond array, then return to last cuePoint in array
+                            prevCuePointIndex = videoCuePoints.length-1;
+                            prevCuePoint = videoCuePoints[prevCuePointIndex];
+                            thisIndex = prevCuePointIndex;
+                        } else {
+                            prevCuePoint = videoCuePoints[prevCuePointIndex];
+                            thisIndex = prevCuePointIndex;
+                        }
+                    } else {
+                        prevCuePoint = videoCuePoints[nearestIndex]; // if we are after nearest point at this moment, prev point will be THIS current nearestPoint
+                        thisIndex = nearestIndex;
+                    }
 
 
+                    // Start load the Cue Point ( VideoShot )
+                    $(KeyShotsDiv + ' > li').removeClass( "load" );
+                    $(KeyShotsDiv + ' > li').eq(thisIndex).addClass('load');
+                    // $(KeyShotsNameDiv).text('loading...');
 
-        // Set the first ShotName in videoCuePoints and set all the LI
-        $(KeyShotsNameDiv).html('<span style="color:#878787;">' + videoCuePoints.length + ' shot points...</span>');
-        // $('div#InformationWindow > .left > div.KeyShots > div.ShotName').hide();
+                    // Set current prevCuePoint time
 
-        // Set the LI elements
-        for ( i = 0; i < videoCuePoints.length; i++) {
-           $(KeyShotsDiv).append('<li data-time="' + videoCuePoints[i].time + '">' + videoCuePoints[i].data.ShotTag + '</li>');
-        }
+                    mainPlayer.setCurrentTime(prevCuePoint.time).then(function(second) {
+                        //mainPlayer.pause();
+                        buttonPrevShot.removeClass( "disabled" );
+                        $(KeyShotsDiv + ' > li').removeClass( "load" );
+                        LoadVideoShotSwitch(prevCuePoint);
+                        // console.log('Set time by div#PrevShot to ' + second);
+                    });
 
-        function LoadVideoShotSwitch(keyShot){ // keyShot = object by numerical order from videoCuePoints data set
+                });
+            });
+
+
+            // Set the first ShotName in videoCuePoints and set all the LI
+            $(KeyShotsNameDiv).html('<span style="color:#878787;">' + videoCuePoints.length + ' shot points...</span>');
+            // $('div#InformationWindow > .left > div.KeyShots > div.ShotName').hide();
+
+            // Set the LI elements
+            for ( i = 0; i < videoCuePoints.length; i++) {
+                $(KeyShotsDiv).append('<li data-time="' + videoCuePoints[i].time + '">' + videoCuePoints[i].data.ShotTag + '</li>');
+            }
+
+            function LoadVideoShotSwitch(keyShot){ // keyShot = object by numerical order from videoCuePoints data set
                 // Write Shot Name in state text block
                 // remove old .here
                 $(KeyShotsDiv + ' > li.here').removeClass( "here" );
                 // set new .here and delete .load
                 $(KeyShotsDiv + ' > li[data-time='+keyShot.time+']').removeClass( "load" ).addClass( "here" );
                 // $(KeyShotsNameDiv).hide().fadeIn(400).text(keyShot.data.ShotName);
-        }
+            }
 
-        // Controller to key shots link list
-        $(document).on('click',KeyShotsDiv + ' > li',function( event ){
-            event.preventDefault();
+            // Controller to key shots link list
+            $(document).on('click',KeyShotsDiv + ' > li',function( event ){
+                event.preventDefault();
 
-            //if (!$( this ).hasClass( "here" )){ // don't do on .here class
-            var keyShot = videoCuePoints[$( this ).index()]; // object by numerical order from videoCuePoints data set
-            // Start load the Cue Point
-            $(KeyShotsDiv + ' > li').removeClass( "load" );
-            $( this ).addClass('load');
-            // $(KeyShotsNameDiv).text('loading...');
-            // Jump to ney key shot
-            mainPlayer.setCurrentTime(keyShot.time).then(function(second) {
-                LoadVideoShotSwitch(keyShot);
+                //if (!$( this ).hasClass( "here" )){ // don't do on .here class
+                var keyShot = videoCuePoints[$( this ).index()]; // object by numerical order from videoCuePoints data set
+                // Start load the Cue Point
+                $(KeyShotsDiv + ' > li').removeClass( "load" );
+                $( this ).addClass('load');
+                // $(KeyShotsNameDiv).text('loading...');
+                // Jump to ney key shot
+                mainPlayer.setCurrentTime(keyShot.time).then(function(second) {
+                    LoadVideoShotSwitch(keyShot);
                 });
-            //}
+                //}
+            });
+
+            // convert milliseconds to timecode
+            function msToTime(duration) {
+                var milliseconds = parseInt((duration%1000)/10) // parseInt
+                    , seconds = parseInt((duration/1000)%60) // parseInt
+                    , minutes = parseInt((duration/(1000*60))%60); // parseInt
+                /*, hours = parseInt((duration/(1000*60*60))%24);*/
+
+                /*hours = (hours < 10) ? '0' + hours : hours;*/
+                minutes = (minutes < 10) ? '0' + minutes : minutes;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                milliseconds = (milliseconds < 10) ? '0' + milliseconds : milliseconds;
+
+                return /*hours + ':' + */'<span class="prevFrame"></span> ' + minutes + ':' + seconds + '<span>:' + milliseconds + ' </span><span class="nextFrame"></span>';
+            }
+
+            // Time update + current que point recognition
+            mainPlayer.on('timeupdate', function(data) {
+
+                var seconds = data.seconds;
+                if (seconds < 0.2) {
+                    seconds = 0.1;
+                }
+                // Refresh timecode
+                // var timecode = msToTime(data.seconds * 1000); // get current time and convert to proper ms
+                var timecode = msToTime(Math.ceil(seconds * 10)*100); // get current time and convert to proper ms
+                $('div.TimeCode').html(timecode); // put recalculated timecode to DOM
+
+                // Looking for match each event in entire object of CuePoints
+                for ( i = 0; i < videoCuePoints.length; i++) {
+                    if (videoCuePoints[i].time >= data.seconds - 0 && videoCuePoints[i].time <= data.seconds + .8) {
+                        //console.log("!We got match on key " + videoCuePoints[i].time);
+
+                        // Check the presence of .here in current li [data-time]
+                        if ($(KeyShotsDiv + ' > li[data-time='+videoCuePoints[i].time+']').hasClass("here")) {
+                            // already has .here, do nothing
+                        } else {
+                            $(KeyShotsDiv + ' > li').removeClass( "here" ); // delete .here from all others
+                            $(KeyShotsDiv + ' > li[data-time='+videoCuePoints[i].time+']').addClass( "here" ); // add .here
+                            $(KeyShotsNameDiv).hide().fadeIn(400).html('<span style="color:#899ebb;">' + videoCuePoints[i].timecode + '</span><div class="keyShot"></div>' + videoCuePoints[i].data.ShotName); // load caption
+                        }
+                    }
+                }
+            });
         });
 
 
+        // prevFrame/nextFrame buttons
+        //---------------------------------------------------
         // looks like Vimeo.Player() can't hold values below 0.1s
         // object can give and accept only seconds starts from 0.11s
         // which timecode interprets as 00:00:02 and duplicates this with true 00:00:02
-
-        // We also have autoplay cycle problem, which starts video from the begining at near of the end
-
+        // We also have autoplay cycle problem, which starts video from the beginning at near of the end
 
         // set on nextFrame button
         var nextFrame = 'div#InformationWindow span.nextFrame';
@@ -533,50 +587,6 @@ function LoadVideoOnPage(VideoId) {
                     });
                 }
             });
-        });
-
-        // convert milliseconds to timecode
-        function msToTime(duration) {
-            var milliseconds = parseInt((duration%1000)/10) // parseInt
-                , seconds = parseInt((duration/1000)%60) // parseInt
-                , minutes = parseInt((duration/(1000*60))%60); // parseInt
-            /*, hours = parseInt((duration/(1000*60*60))%24);*/
-
-            /*hours = (hours < 10) ? '0' + hours : hours;*/
-            minutes = (minutes < 10) ? '0' + minutes : minutes;
-            seconds = (seconds < 10) ? '0' + seconds : seconds;
-            milliseconds = (milliseconds < 10) ? '0' + milliseconds : milliseconds;
-
-            return /*hours + ':' + */'<span class="prevFrame"></span> ' + minutes + ':' + seconds + '<span>:' + milliseconds + ' </span><span class="nextFrame"></span>';
-        }
-
-        // Time update + current que point recognition
-        mainPlayer.on('timeupdate', function(data) {
-
-            var seconds = data.seconds;
-            if (seconds < 0.2) {
-                seconds = 0.1;
-            }
-            // Refresh timecode
-            // var timecode = msToTime(data.seconds * 1000); // get current time and convert to proper ms
-            var timecode = msToTime(Math.ceil(seconds * 10)*100); // get current time and convert to proper ms
-            $('div.TimeCode').html(timecode); // put recalculated timecode to DOM
-
-            // Looking for match each event in entire object of CuePoints
-            for ( i = 0; i < videoCuePoints.length; i++) {
-                if (videoCuePoints[i].time >= data.seconds - 0 && videoCuePoints[i].time <= data.seconds + .8) {
-                    //console.log("!We got match on key " + videoCuePoints[i].time);
-
-                    // Check the presence of .here in current li [data-time]
-                    if ($(KeyShotsDiv + ' > li[data-time='+videoCuePoints[i].time+']').hasClass("here")) {
-                        // already has .here, do nothing
-                    } else {
-                        $(KeyShotsDiv + ' > li').removeClass( "here" ); // delete .here from all others
-                        $(KeyShotsDiv + ' > li[data-time='+videoCuePoints[i].time+']').addClass( "here" ); // add .here
-                        $(KeyShotsNameDiv).hide().fadeIn(400).html('<span style="color:#899ebb;">' + videoCuePoints[i].timecode + '</span><div class="keyShot"></div>' + videoCuePoints[i].data.ShotName); // load caption
-                    }
-                }
-            }
         });
 
     });
