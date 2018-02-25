@@ -167,7 +167,7 @@ class TvLabQuery
     // API QUERY https://api.vimeo.com/videos/174130132/comments
     // https://developer.vimeo.com/api/playground/videos/174130132/comments
     // add
-    public function getComments_for_VideoFromVimeo($Vimeo_Id) {
+    public function getCommentsForVideoFromVimeo($Vimeo_Id) {
         // THIS METHOD IS OUTDATED WITH OLD VIMEO API
 
         $vimeo = new phpVimeo(CONSUMER_KEY, CONSUMER_SECRET);
@@ -587,3 +587,12 @@ class TvLabQuery
         }
     }
 }
+
+/* TODO: New Model for Videos Tags
+SELECT Title, videos_id FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id;
+
+Count different tags in table
+SELECT Title, COUNT( Title ) FROM tags_arts GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50
+
+SELECT Title, videos_id, COUNT(Title) FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50;
+*/

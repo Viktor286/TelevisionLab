@@ -24,9 +24,10 @@ $( document ).ready(function() {
 
 });
 
-
 // Display Video On page load
 function LoadVideoOnPage(VideoId) {
+    // set the background gif
+    $('div#PreviewWindow').css('background-image', 'url(_global/img/loader_0.gif)');
 
     $.ajax('desktop/ajax/video.php', {
         success: function(response) {
@@ -34,6 +35,11 @@ function LoadVideoOnPage(VideoId) {
                 $(this).contents().find('body').addClass('Z');
             });
             $('#InformationWindow').hide().html(response).fadeIn(0);
+
+            // remove background image
+            setTimeout(function(){
+                $('div#PreviewWindow').css('background-image', 'none');
+            }, 1000);
         },
         data: {"VideoId": VideoId},
         cache: false
@@ -728,7 +734,7 @@ function ResetSet(tag) {
 
 $(document).ready(function(){
 
-    //Объявляем ключ-код запроса
+    // Check request filter code
     if (NowSet.match(/[\d\w]{12}/)) {
         var mQ = NowSet;
     }else {
@@ -740,7 +746,7 @@ $(document).ready(function(){
         $('#tpSearch').submit();
     }
 
-    //Проверяем, есть ли уже установленные chk на странице, если да - предварительно изменяем ключ-код mQ
+    // Check the 'chk' in form, if so -- changing filter code mQ
     if ($('#comp')[0].checked == true) {mQ = mQ.replace(/c0/, 'c1')};
     if ($('#3d')[0].checked == true) {mQ = mQ.replace(/d0/, 'd1')};
     if ($('#sim')[0].checked == true) {mQ = mQ.replace(/s0/, 's1')};
@@ -748,14 +754,12 @@ $(document).ready(function(){
     if ($('#stpm')[0].checked == true) {mQ = mQ.replace(/t0/, 't1')};
     if ($('#vid')[0].checked == true) {mQ = mQ.replace(/v0/, 'v1')};
 
-    //По нажатию на кнопку фильтра производим операции с mQ
     $('.styledCheckbox:has(#md)').on('click', function(){
         mQSetup();
     });
 
     $('.styledCheckbox:has(#comp)').on('click', function(){
         if ($('#comp').is(':checked'))
-        //если кнопка уже была активирован, меняем флаг на противоположный
         {if (!mQ.match(/c1/)){mQ = mQ.replace(/c0/, 'c1')};} else
         {if (!mQ.match(/c0/)){mQ = mQ.replace(/c1/, 'c0')};}
         mQSetup();
@@ -799,8 +803,7 @@ $(document).ready(function(){
 });
 
 
-
-// Autocomplete top bar input area
+// Auto complete top bar input area
 
 $(function(){
     var sampleTags = ['realism', 'abstract', 'minimalism', 'futurism', 'surrealism', 'contemporary', 'cinematic', 'Cartoon', 'Art', 'Beauty', 'Adventures', 'Story', 'Fantasy', 'Spiritual', 'Culture', 'Sport', 'Games', 'Enertament', 'Mans', 'Womens', 'Comedy', 'Show', 'Cinema', 'Fun', 'Weird', 'News', 'Info', 'Promo', 'Test', 'Science', 'Education', 'History', 'Political', 'Social', 'Nature', 'Health', 'Industry', 'Buisness', 'Finance', 'Services', 'Vehicles', 'Technology', 'Digital', 'CG', 'Crafts', 'War', 'Criminal'];

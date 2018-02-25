@@ -1,14 +1,4 @@
 <?
-
-/* TODO: New Model for ALL and Tags for videos
-SELECT Title, videos_id FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id;
-
-Count different tags in table
-SELECT Title, COUNT( Title ) FROM tags_arts GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50
-
-SELECT Title, videos_id, COUNT(Title) FROM tags_sa LEFT JOIN videos_has_tags_sa ON tags_sa.id = videos_has_tags_sa.tags_id GROUP BY 1 ORDER BY COUNT( Title ) DESC LIMIT 0 , 50;
-*/
-
 header('Cache-Control: no-store');
 
 /* Global elements */
@@ -19,11 +9,10 @@ require_once('_global/controllers/Forms.php');
 /* Local elements */
 require_once('desktop/controllers/Snippets.php');
 
-
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
-/*---------------- Processing the input data*/
+/*---------------- Inputs */
 
 $Http_query = str_replace("/%5B0%5D/", "[]", http_build_query($_GET, '', '&'));
 
@@ -40,8 +29,6 @@ $Input = array(
 extract( SecureVars( $Input ), EXTR_OVERWRITE );
 $Tags = strtolower($Tags);
 
-
-//CSS Variables to css/dynamic.php
 if ( empty ($_GET['video']) ) {$emptyVid = 1;} else {$emptyVid = 0;}
 $xCol = '319';
 
@@ -87,9 +74,8 @@ $xCol = '319';
     </head>
 <body>
 
-
 <script type="text/javascript">
-    var NowUrl = "<?= $Http_query; //Bring data from $_GET for farther json request to data.php ?>";
+    var NowUrl = "<?= $Http_query; ?>";
     var NowSet = "<?= $qSet; ?>";
     var NowVid = "<?= $VideoId; ?>";
     var NowTags ="<?= $Tags; ?>";
