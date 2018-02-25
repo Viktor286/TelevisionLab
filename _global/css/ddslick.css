@@ -37,9 +37,11 @@ border-top: none !important;
 
 
 .dd-option-image, .dd-selected-image {margin: -3px 10px 4px 4px !important; }
-.dd-option-text { font-style:normal !important; color: #dfdfdf !important;} 
+.dd-option-text { font-style:normal !important; color: #dfdfdf !important;}
 .dd-selected-text { font-style:normal !important; font-weight:normal !important; color: #dfdfdf !important; }
 .dd-option-description, .dd-selected-description { font-size:11px !important; color:#666 !important;}
 
 
-
+ul.dd-option {
+    border: none !important;
+}

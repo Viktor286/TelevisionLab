@@ -24,7 +24,7 @@ require_once 'controllers/ScreenFadeMsg.php';
 require_once 'controllers/InOut.php';
 require_once 'controllers/GetRemoteImage.php';
 
-require_once 'lang/add_module_rus.php';
+require_once 'lang/add_module_eng.php';
 
 $Input = array(
     "getTitle" => $_POST['title'],
@@ -92,10 +92,10 @@ $HeadLayoutSet = array(
     'css' => array (
         '/_global/css/reset.css',
         '/_global/css/general.css',
-        '/_global/css/add.css',
         '/_global/css/ddslick.css',
         //'/_global/css/fonts-google-opensans.css',
-        'google_fonts'
+        'google_fonts',
+        '/add/css/add.css'
     ),
 
     'js' => array (
@@ -104,7 +104,6 @@ $HeadLayoutSet = array(
         '/_global/js/jquery-ui.js',
         '/_global/js/jquery.ddslick.min.js',
         '/add/js/scripts.js',
-        '/add/js/get-form-elements.php',
         '/add/js/others.js',
     ),
 
@@ -119,6 +118,13 @@ insertHead ($HeadLayoutSet, '../_global/views/HeadTpl.php');
 <script type="text/javascript">
     var getRating = <? if (isset ($getRating)) {echo $getRating;} else {echo '17000';} ?>;
     var getTempo = <? if (isset ($getTempo)) {echo $getTempo;} else {echo '85';} ?>;
+
+    $(document).ready(function() {
+        $('#broadcast').ddslick('select', {
+            index: <? if (isset ($getBroadcast_Type)) {echo $getBroadcast_Type;} else {echo 0;} ?>
+        });
+    });
+
 </script>
 
 
@@ -166,11 +172,28 @@ if ($ps == "(1)setCode") {
         }
     } else {
 
-    echo "<div style='text-align: center; margin: 50px auto 0; width: 400px;'>You need to log in to post this video<br />";
-
-    include("views/not_logged_in.php");
-
-    echo "</div>";
+//    echo "<div style='text-align: center; margin: 50px auto 0; width: 400px;'>You need to log in to post this video<br />";
+//    include("views/not_logged_in.php");
+    $v = $q->getVideoCreditsAPI($Vimeo_Id);
+    $OutId = $v->OutId;
+    $OutHost = $v->OutHost;
+    $Title = $v->Title;
+    $Likes = $v->Likes;
+    $Desc = $v->Desc;
+    $CreateDate = $v->CreateDate;
+    $Tags = $v->Tags;
+    $TagList = $v->TagList;
+    $CastList = $v->CastList;
+    $Duration = $v->Duration;
+    $Brand = $v->Brand;
+    $ImgSmall= $v->ImgSmall;
+    $Img = $v->Img;
+    $Width = $v->Width;
+    $Height = $v->Height;
+    $MainUserLocation = $v->MainUserLocation;
+    $Year = $v->Year;
+    include('views/view_input.php');
+//    echo "</div>";
 
     }
 

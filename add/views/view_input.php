@@ -4,6 +4,7 @@
         <div class="Input_Form">
             <div class="AddCanvas">
                 <form method="post" autocomplete="off">
+
                     <table>
                         <tr>
                             <td width="50"></td>
@@ -11,9 +12,9 @@
 
                                 <? echo '<div class="UserTitle">';
                                 if (isset($UserName)) {
-                                    echo 'Вы авторизованы как  <span style="color:white">'.$UserName."</span>";
+                                    echo 'You are logged in as  <span style="color:white">'.$UserName."</span>";
                                 } else {
-                                    echo 'Вы не сможе сохранить видео в базу без <a href="add/">авторизации.</a>';
+                                    echo 'You can not save the video to the database without <a href="add/">authorization.</a>';
                                 }
                                 echo "</div>"; ?>
 
@@ -26,23 +27,12 @@
                                 <a class="bt_back" href="add/"></a>
                                 <a class="bt_download" href="http://sfrom.net/https://vimeo.com/<?= $Vimeo_Id; ?>" target="_blank"></a>
                                 <?
-
-                                // Вычисление scal'a высоты при ширине 500:
+                                // Calculating scale of height for width of 500:
                                 $FrameRatio = $Width/$Height;
-
                                 if ($FrameRatio < 1.6 && $FrameRatio >= 1) {$RelWidth = 400;} elseif ($FrameRatio < 1) {$RelWidth = 150;} else {$RelWidth = 540;}
                                 $RelHeight = round (($RelWidth/($FrameRatio)));
-
-                                //Складываем новый код vimeo
                                 $NewVimeoEmbed = '<iframe src="//player.vimeo.com/video/'.$OutId.'?title=0&amp;byline=0&amp;portrait=0&amp;color=e78b2f" width="'.$RelWidth.'" height="'.$RelHeight.'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-
-                                // Складываем старый код vimeo на случай конфликта при первой передаче GET
-                                // $OldVimeoEmbed = '<object width="'.$RelWidth.'" height="'.$RelHeight.'"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id='.$OutId.'&amp;force_embed=1&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id='.$OutId.'&amp;force_embed=1&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="'.$RelWidth.'" height="'.$RelHeight.'"></embed></object>';
-
-                                //Условия при новом старом флаге
                                 echo '<div class="VideoBlock">'.$NewVimeoEmbed.'</div>';
-
-
                                 ?>
                                 <div class="sep_v"></div>
                                 <div id="tabs-container">
@@ -101,7 +91,8 @@
                                 <? if (strlen($Desc) > 1) echo '<div class="Description"><h2>'.$nme_Related_Description.'</h2><pre>'.$Desc.'</pre></div>'; ?>
                                 <? if (strlen($Desc) > 100) echo '<div class="ExpandDesc"></div>'; ?>
                             </td>
-                            <td width="650" data-title="primary" class="primary">
+                            <td width="650" data-title="primary" class="primary flags">
+
                                 <a class="bt_help" href="_global/img/collection_classes.png"></a>
                                 <div class="CanvasLine<? if (!Check_Title($getTitle) and empty($Title)) {echo '  input_error';} ?>">
                                     <div class="Content"><?= $nme_Title ?>
@@ -128,12 +119,9 @@
                                     </div>
                                 </div>
 
-                                <div class="sep_h"></div></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td data-title="flags" class="flags"><div class="CanvasLine">
+                                <div class="sep_h"></div>
+
+                                <div class="CanvasLine" style="margin-top: 30px;">
                                     <div class="Header"><?= $nme_Broadcast_Type ?></div>
                                     <div class="Content">
 
@@ -156,9 +144,9 @@
                                             <option value="5">0</option>
                                             <option value="6">0</option>
                                         </select>
-
                                     </div>
                                 </div>
+
                                 <div class="CanvasLine<? if (!Check_Digits($getMotion_Type)) {echo ' input_error';} ?>">
                                     <div class="Header"><?= $nme_Motion_Type ?></div>
                                     <div class="Content">
@@ -184,6 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="CanvasLine">
                                     <div class="Header"><?= $nme_Internal_Rating ?>
                                         <div id="RatingDisplay"></div>
@@ -196,18 +185,20 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <? PlaceCSRFToken() ?><br />
+
                                 <div class="send">
-                                    <input type="submit" value="<? if ( basename(getcwd()) == "add" ) {echo $nme_Send_Video;} else {echo $nme_Save_Video;} ?>"/>
+                                    <input type="submit" value="<? if ( basename(getcwd()) == "add" ) {echo $nme_Send_Video;} else {echo $nme_Save_Video;} ?>"
+                                        <? if (!isset($UserName)) {
+                                            echo 'disabled';
+                                        } ?>
+                                    />
 
                                 </div>
                                 <input type="hidden" name="video" value="<? if (!isset ($getVideo)) {echo $Vimeo_Id;} else {echo $getVideo;} ?>">
+
                             </td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td colspan="2" data-title="final"></td>
                             <td>&nbsp;</td>
                         </tr>
                     </table>

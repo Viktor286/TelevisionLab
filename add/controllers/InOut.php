@@ -50,25 +50,19 @@ function POST_Setup_Video(){
 }
 
 
-//функция проверки заголовков
 function Check_Title ($get_data){
     if (preg_match ("/[^\s\w\(\)&А-яЁе.,-]/u", $get_data) or empty($get_data) or iconv_strlen($get_data, 'UTF-8') < 3) {return false; } else {return true;};
 };
 
 
-
-//улучшенная функция проверки кода вставки
 function Check_Valid_Id($get_data){
     if (preg_match('/(\d{4,15})/', $get_data)) {return true;}
     //if ( strpos('/(\d{4,15})/', $get_data) ) {return true;}
 };
 
 
-//функция проверки кода вставки
 function Check_embeded ($get_data){
-    if (
-        empty($get_data) ||
-        iconv_strlen($get_data, 'UTF-8') < 15)
+    if (empty($get_data) || iconv_strlen($get_data, 'UTF-8') < 15)
     {return false;} else {
         if (preg_match ("/<iframe.*player\.vimeo\.com\/video\/(\d{4,15})/", $get_data)) {return true;}
         if (preg_match ("/vimeo\.com\/(\d{4,15})/", $get_data)) {return true;}
@@ -76,23 +70,17 @@ function Check_embeded ($get_data){
 };
 
 
-//функция проверки урлов
 function Check_URL ($get_data){
     if (!filter_var($get_data, FILTER_VALIDATE_URL) or empty($get_data) or iconv_strlen($get_data, 'UTF-8') < 3) {return false; } else {return true;};
 };
 
 
-
-//функция проверки цифровых данных
 function Check_Digits ($get_data){
-    if (!is_array($get_data)) {$get_data = array($get_data);} // Если переменная не массив, назначаем её таковой
-    $Amount = count ($get_data); //пересчет объектов в массиве
+    if (!is_array($get_data)) {$get_data = array($get_data);}
+    $Amount = count ($get_data);
     $counter = 0;
-    for ($x=0; $x<$Amount; $x++) { // каждый объект массива прорабатываем отдельно в цикле
-
+    for ($x=0; $x<$Amount; $x++) {
         if (preg_match ("/[^\d]/", $get_data[$x]) or iconv_strlen($get_data[$x], 'UTF-8') > 15) {} else {$counter++;};
-
     };
     if ($Amount == $counter) {return true;} else {return false;}
-
 };

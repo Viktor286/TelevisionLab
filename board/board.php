@@ -56,7 +56,30 @@ if (!empty ($InputUser)) {
         // do somethig
     }
 
-} else { die(); }
+} else {
+
+    // Test the right name of sections or die
+    if ( !in_array( $Section, $SectionList ) )  {echo "no such section"; die();}
+
+    // User Info Model
+    $UserQuery = 'SELECT * FROM u186876_tvarts.users WHERE user_name = "JustViktor"';
+    $result = $q->Query($UserQuery);
+
+    // If there is no such User, kill the page
+    if ($result->num_rows != 1) { die(); } else {
+        //Extract User variables
+        while ( $row = $result->fetch_assoc() ) {
+
+            $UserName = $row['user_name'];
+            $UserEmail = $row['user_email'];
+            $Role = $row['Role'];
+            $Activity = $row['Activity'];
+            $Added = $row['Added'];
+            $Edit = $row['Edit'];
+        }
+    }
+
+}
 
 
 //------------------------------------ SNIPPET <HTML> STARTS -->

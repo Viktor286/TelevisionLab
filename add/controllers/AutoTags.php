@@ -1,6 +1,6 @@
 <?
 
-//Подготовка теговой системы, пока статические данные
+// Static data for demo
 
 $Tag_SA_List = 'Art, Beauty, Adventures, Story, Fantasy, Spiritual, Culture, Sport, Games, Enertament, Mans, Womens, Comedy, Show, Cinema, Fun, Weird, News, Info, Promo, Test, Science, Education, History, Political, Social, Holiday, Nature, Health, Industry, Buisness, Finance, Services, Vehicles, Technology, Digital, CG, Crafts, War, Criminal, Sexual stuff';
 	
@@ -11,8 +11,7 @@ $Tag_Music_List = 'neutral, electronic, hardcore, jazz, blues, classic, Acoustic
 $Tag_Arts_List	 = 'Realism, Abstract, Minimalism, Futurism, Sci-Fi, Pop-art, Surrealism, Contemporary, Cinematic, Cartoon, Collage, Retouch, Draw, Photography, Print, Typography, Maquette, Sculpt, Geometric, Materials, Construct, Micrographics';
 
 
-
-//Подготовка тэглистов для тэг-системы
+// Tag system's lists
 $Tag_SA_List_arr = explode(", ", $Tag_SA_List);
 $Tag_Fashion_List_arr = explode(", ", $Tag_Fashion_List);
 $Tag_Music_List_arr = explode(", ", $Tag_Music_List);
@@ -43,7 +42,5 @@ $Tag_SA_List = preg_replace("/, $/", "", $Tag_SA_List);
 $Tag_Fashion_List = preg_replace("/, $/", "", $Tag_Fashion_List);
 $Tag_Music_List = preg_replace("/, $/", "", $Tag_Music_List);
 $Tag_Arts_List = preg_replace("/, $/", "", $Tag_Arts_List);
-
-
 
 ?>

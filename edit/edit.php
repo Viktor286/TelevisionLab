@@ -26,7 +26,7 @@ require_once '../add/controllers/ScreenFadeMsg.php';
 require_once '../add/controllers/InOut.php';
 require_once '../add/controllers/GetRemoteImage.php';
 
-require_once '../add/lang/add_module_rus.php';
+require_once '../add/lang/add_module_eng.php';
 
 if ( !$q->setAuthUser() ) { unset( $AuthUser ); die; }
 

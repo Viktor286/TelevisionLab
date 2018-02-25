@@ -24,14 +24,14 @@
         ';
         
     } else {
-        echo '<p style="font-size:11px">Вы не сможе сохранить видео в базу без авторизации. <br /> <span style="color:grey">При этом вы можете указать ссылку на видео и пройти далее в ознакомительных целях.</span></p><p>&nbsp;</p>';
+        echo '<p style="font-size:11px">You can not save the video to the database without authorization. <br /> <span style="color:grey">But, you still can specify a link to the video (or just an ID) and go further for demo purposes.</span></p><p>&nbsp;</p>';
         include("not_logged_in.php");
     }
     ?>
 
     </div>
 
-    <div style="text-align:center;"><? if ($isVideoExist == 1) {echo 'Такое видео уже есть в базе';}; ?></div>
+    <div style="text-align:center;"><? if ($isVideoExist == 1) {echo 'This video is already in the database';}; ?></div>
 
     <div style="margin:0 auto; width:1096px; display:none;" id="HowItWorks-Img"><img src="_global/img/scheme.png" /></div>
         <!--

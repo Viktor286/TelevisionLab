@@ -60,7 +60,7 @@ div.tpSearch ul.tpSearch_field {width: auto; height:40px; background: #27292a;
 }
 
 
-.tagit-autocomplete.ui-widget-content { z-index:50 !important; border:1px red dashed !important;}
+.tagit-autocomplete.ui-widget-content { z-index:50 !important; border:1px solid #2c2c2c !important;}
 .ui-helper-hidden-accessible {}
 
 

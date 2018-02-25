@@ -1,105 +1,98 @@
 
-/* -------- div class="ExpandDesc   AutoExpand System */
-
-
-
 $(document).ready(function() {
 
-	var StartHeight = $('div.Description pre').height();
-	if ($('div.Description pre').height() >= 160)
-	{
-		$('div.Description pre').height(160);
-		var State = "closed";
-		
-		$( 'div.ExpandDesc' ).click(function() {
-			
-			if (State == "closed"){
-				
-			$('div.Description pre').animate({
-					height: StartHeight,
-					class: 'ExpandDescUp'
-					}, 500, function() {
-					// Animation complete.
-					State = "open";
-				});
-			} else {
-			$('div.Description pre').animate({
-					height: 160
-
-					}, 500, function() {
-					// Animation complete.
-					State = "closed";
-				});
-			}
-		});
-		
-	} else {$( 'div.ExpandDesc' ).hide();}
+    // ddslick drop down menu init
+    $('#broadcast').ddslick({
+        width: 400,
+        height: null,
+        onSelected: function(selectedData){
+            var sIndx = selectedData.selectedIndex;
+            $('#broadcastHidden option[value=' + sIndx + ']').prop("selected", true);
+        }
+    });
 
 
-});
+    // Epand description with animation drop down slide
+    var StartHeight = $('div.Description pre').height();
+    if ($('div.Description pre').height() >= 160)
+    {
+        $('div.Description pre').height(160);
+        var State = "closed";
+
+        $( 'div.ExpandDesc' ).click(function() {
+            if (State == "closed"){
+                $('div.Description pre').animate({
+                    height: StartHeight,
+                    class: 'ExpandDescUp'
+                }, 500, function() {
+                    // Animation complete.
+                    State = "open";
+                });
+            } else {
+                $('div.Description pre').animate({
+                    height: 160
+                }, 500, function() {
+                    // Animation complete.
+                    State = "closed";
+                });
+            }
+        });
+    } else {$( 'div.ExpandDesc' ).hide();}
 
 
+    /* --------    AutoTagSystem */
 
-/* --------    AutoTagSystem */
+    $('span.tagInsertSa').on("click",function(){
 
+        var state = $('textarea#sa').val();
+        var tag = $( this ).text();
 
-$(document).ready(function() {
-	$('span.tagInsertSa').on("click",function(){
-
-		var state = $('textarea#sa').val();
-		var tag = $( this ).text();
-
-		if (!state.match(new RegExp(tag, "i")) ) 
-			{
-				if (state.length == 0) {
-				$('textarea#sa').val( tag );
-					}else{
-				$('textarea#sa').val( state + ", " + tag );
-					}
-			}
+        if (!state.match(new RegExp(tag, "i")) )
+        {
+            if (state.length == 0) {
+                $('textarea#sa').val( tag );
+            }else{
+                $('textarea#sa').val( state + ", " + tag );
+            }
+        }
 
         //$( this ).fadeOut(300)
         $( this ).css({"border-color": "#3d5e8e", "color": "#4D4D4D"})
-		});
+    });
 
-});
 
-$(document).ready(function() {
-	$('span.tagInsertFashion').on("click",function(){
-		var state = $('textarea#fashion').val();
-		var tag = $( this ).text();
+    $('span.tagInsertFashion').on("click",function(){
+        var state = $('textarea#fashion').val();
+        var tag = $( this ).text();
 
-		if (!state.match(new RegExp(tag, "i")) ) 
-			{
-				if (state.length == 0) {
-				$('textarea#fashion').val( tag );
-					}else{
-				$('textarea#fashion').val( state + ", " + tag );
-					}
-			}
+        if (!state.match(new RegExp(tag, "i")) )
+        {
+            if (state.length == 0) {
+                $('textarea#fashion').val( tag );
+            }else{
+                $('textarea#fashion').val( state + ", " + tag );
+            }
+        }
         $( this ).css("border-color", "#3d5e8e")
 
-		});
-});
+    });
 
 
-$(document).ready(function() {
-	$('span.tagInsertMusic').on("click",function(){
-		var state = $('textarea#music').val();
-		var tag = $( this ).text();
-		if (!state.match(new RegExp(tag, "i")) ) 
-			{
-				if (state.length == 0) {
-				$('textarea#music').val( tag );
-					}else{
-				$('textarea#music').val( state + ", " + tag );
-					}
-			}
+    $('span.tagInsertMusic').on("click",function(){
+        var state = $('textarea#music').val();
+        var tag = $( this ).text();
+        if (!state.match(new RegExp(tag, "i")) )
+        {
+            if (state.length == 0) {
+                $('textarea#music').val( tag );
+            }else{
+                $('textarea#music').val( state + ", " + tag );
+            }
+        }
         $( this ).css("border-color", "#3d5e8e")
-		});
-});
+    });
 
-$(document).ready(function() {
+
 	$('span.tagInsertArts').on("click",function(){
 		var state = $('textarea#arts').val();
 		var tag = $( this ).text();
@@ -113,35 +106,23 @@ $(document).ready(function() {
 			}
         $( this ).css("border-color", "#3d5e8e")
 		});
-});
 
 
-$(document).ready(function() {
-	$('span.tagInsertTags').on("click",function(){
-		var state = $('textarea#tags').val();
-		var tag = $( this ).text();
-		if (!state.match(new RegExp(tag, "i")) ) 
-			{
-				if (state.length == 0) {
-				$('textarea#tags').val( tag );
-					}else{
-				$('textarea#tags').val( state + ", " + tag );
-					}
-			}
+    $('span.tagInsertTags').on("click",function(){
+        var state = $('textarea#tags').val();
+        var tag = $( this ).text();
+        if (!state.match(new RegExp(tag, "i")) )
+        {
+            if (state.length == 0) {
+                $('textarea#tags').val( tag );
+            }else{
+                $('textarea#tags').val( state + ", " + tag );
+            }
+        }
         $( this ).css("border-color", "#3d5e8e")
-		});
+    });
+
 });
-
-
-
-
-
-
-
-//$('#usernames').val( $('#usernames').val().replace('.html',''));
-
-
-
 
 /*!
  * ScrewDefaultButtons v2.0.6
@@ -167,11 +148,11 @@ $(document).ready(function() {
 				height: 40
 			});
 		});
- 
-
 
 /*
-slider widget
+
+
+Slider Widget
 http://jqueryui.com/slider/#rangemin
 -----------------#Rating */
 
@@ -234,7 +215,7 @@ function TempoComment(value) {
 	}
 
 
-
+/*----------------- #Rating and #Tempo */
 $(function() {
     $( "#Rating" ).slider({
       range: "min",
@@ -248,10 +229,7 @@ $(function() {
     });
 	
   });
-  
 
-/*----------------- #Tempo */
-  
 $(function() {
     $( "#Tempo" ).slider({
       range: "min",
@@ -267,46 +245,3 @@ $(function() {
     });
 
   });
- 
-
-  /* Indicators
-  
-largo (очень медленно), 45
-adagio (спокойно), 55
-andante (умеренно), 65
-moderato (средний темп), 85
-animato (оживленно), 110
-allegro (скоро), 130
-vivo (быстро, живо), 170
-presto (очень быстро) 190
-  
-  
-		if (ui.value > 60 && ui.value < 90) {
-		$( "#TempoComment" ).text( 'Dub/Reggae' );}
-		
-		if (ui.value > 90 && ui.value < 120) {
-		$( "#TempoComment" ).text( 'Downtempo/Chillout' );}
-		
-		if (ui.value > 120 && ui.value < 130) {
-		$( "#TempoComment" ).text( 'House' );}
-		
-		if (ui.value > 130 && ui.value < 135) {
-		$( "#TempoComment" ).text( 'Trance' );}
-		
-		if (ui.value > 135 && ui.value < 145) {
-		$( "#TempoComment" ).text( 'Dubstep' );}
-		
-		if (ui.value > 145 && ui.value < 155) {
-		$( "#TempoComment" ).text( 'Techno' );}
-		
-		if (ui.value > 155 && ui.value < 165) {
-		$( "#TempoComment" ).text( 'Jungle' );}
-		
-		if (ui.value > 165 && ui.value < 185) {
-		$( "#TempoComment" ).text( 'Drum and Bass' );}
-		
-		if (ui.value > 185 && ui.value < 200) {
-		$( "#TempoComment" ).text( 'Hardcore/Gabber' );}
-*/
-
-

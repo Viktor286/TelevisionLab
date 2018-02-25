@@ -220,40 +220,40 @@ function LoadVideoOnPage(VideoId) {
                 {
                     "time": videoCuePointsForDemo[0],
                     "data": {
-                        "ShotTag": "Nice",
-                        "ShotName": "Nice 3s shot" // this is "customKey": "customValue"
+                        "ShotTag": "KeyShot-1",
+                        "ShotName": "First key shot looks nice." // this is "customKey": "customValue"
                     },
                     "id": "videoCuePoint-0"
                 },
                 {
                     "time": videoCuePointsForDemo[1],
                     "data": {
-                        "ShotTag": "Great",
-                        "ShotName": "Great 8 too"
+                        "ShotTag": "ShotTag",
+                        "ShotName": "This one not bad too!"
                     },
                     "id": "videoCuePoint-1"
                 },
                 {
                     "time": videoCuePointsForDemo[2],
                     "data": {
-                        "ShotTag": "custom",
-                        "ShotName": "custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value custom 16 Value"
+                        "ShotTag": "CustomTag",
+                        "ShotName": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                     },
                     "id": "videoCuePoint-2"
                 },
                 {
                     "time": videoCuePointsForDemo[3],
                     "data": {
-                        "ShotTag": "Cool",
-                        "ShotName": "Cool 24 shoot"
+                        "ShotTag": "CoolTag",
+                        "ShotName": "Composition and color are worth to checkout."
                     },
                     "id": "videoCuePoint-3"
                 },
                 {
                     "time": videoCuePointsForDemo[4],
                     "data": {
-                        "ShotTag": "Far",
-                        "ShotName": "Far far 30 sec"
+                        "ShotTag": "LastKeyShot",
+                        "ShotName": "Well, this is just last key shot in this cue."
                     },
                     "id": "videoCuePoint-0"
                 }
