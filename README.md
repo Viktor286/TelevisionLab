@@ -1,28 +1,23 @@
 # Television Lab
-
 Television Lab is a prototype of an online motion graphics database.
 
-### Desktop module
-It has main "desktop" interface for searching motion graphics videos in its local database.
-Searching uses #keywords, video production type buttons.
+## Desktop module
+Television Lab has main "desktop" interface for searching motion graphics videos in its local database.<br/>
+Filtering uses hash-tag #keywords and video production type buttons.<br/>
 With main input search field, it is possible to search by year, artist, studio, and misc keywords.
 
-![screenshot](http://www.televisionlab.net/_global/img/demo/desktop.jpg)
+<a href="http://www.televisionlab.net/" target="_blank"><img src="_global/img/demo/desktop.jpg" /></a>
 
-### Contributor's feed
-There is prototype of personal feed of contribution users,
-which has sections for "Approved", "Stacked", "Review" videos and "Timeline".
+&nbsp;
+## Contributor's feed
+There is a prototype of personal feed for contribution users,<br/>
+which has sections for "Approved", "Stacked", "Review" videos and general "Timeline".
 
-http://www.televisionlab.net/board/
+<a href="http://www.televisionlab.net/board/" target="_blank"><img src="_global/img/demo/board.jpg" /></a>
 
-![screenshot](http://www.televisionlab.net/_global/img/demo/board.jpg)
+&nbsp;
+## Add module
+Users can suggest videos (and approve each other) from vimeo.com by "add" module, providing Vimeo video id code.<br/>
+"Add" module loads all main fields automatically and asks for new user's keywords.
 
-### Add module
-Users can suggest videos (and approve each other) from vimeo.com by "add" module, providing Vimeo video id code,
-it will load all main fields automatically and will wait for some keywords.
-
-http://www.televisionlab.net/add/?code=65801814
-
-![screenshot](http://www.televisionlab.net/_global/img/demo/add.jpg)
-
-
+<a href="http://www.televisionlab.net/add/?code=65801814" target="_blank"><img src="_global/img/demo/add.jpg" /></a>
