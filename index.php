@@ -51,7 +51,7 @@ $xCol = '319';
         <link rel="stylesheet" type="text/css" href="/_global/css/jquery.tagit.css" />
         <link rel="stylesheet" type="text/css" href="/_global/css/tagit.ui-zendesk.css" />
         <link rel="stylesheet" type="text/css" href="/_global/css/fonts-google-opensans.css" />
-        <link rel="stylesheet" type="text/css" href="/_global/css/balloon.css" />
+<!--        <link rel="stylesheet" type="text/css" href="/_global/css/balloon.css" />-->
 
         <link rel="stylesheet" type="text/css" href="/desktop/css/top_panel.css" />
         <link rel="stylesheet" type="text/css" href="/desktop/css/layout.css" />

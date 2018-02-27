@@ -39,7 +39,8 @@
                             );
 
                             foreach ( $PopularTags as $TagName) {
-                                echo '<a class="tag" href="javascript:void(0);" title="'.$TagName.'" onclick="ResetSet(\''.$TagName.'\'); return true">'.$TagName.'</a>'."\n";
+                                echo '<a class="advice-tag" href="javascript:void(0);" title="'.$TagName.'" onclick="ResetSet(\''.$TagName.'\'); return true;">'.$TagName.'</a>'."\n";
+//                                echo '<a class="tag" title="'.$TagName.'" data-tag="'.$TagName.'">'.$TagName.'</a>'."\n";
                             }
 
                         ?>

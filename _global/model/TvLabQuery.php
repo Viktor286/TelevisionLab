@@ -248,7 +248,8 @@ class TvLabQuery
 
         $ExtendedCastList = "";
         foreach ($CastList as $Name => $Role) {
-            $ExtendedCastList .= $Name." (".$Role."), ";
+            // $ExtendedCastList .= $Name." (".$Role."), ";
+            $ExtendedCastList .= $Name." ";
         }
         $export->CastList = $ExtendedCastList;
 

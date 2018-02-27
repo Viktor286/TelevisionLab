@@ -1,7 +1,4 @@
 
-
-
-
 /*  AdjustH1InfoOutput Line */
 $( document ).ready(function() {
 
@@ -721,7 +718,6 @@ function DropTypeOnClick() {
 }
 
 function ResetSet(tag) {
-    alert("ok")
     $("#singleFieldTags").tagit("removeAll");
     $("#singleFieldTags").tagit("createTag", tag);
     $('#set').val("c0d0s0a0t0v0");

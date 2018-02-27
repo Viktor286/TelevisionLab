@@ -220,7 +220,7 @@ div.item.board { border: 1px red dashed; width: 720px; margin: 0 auto 20px; posi
 
 div#InformationWindow > .left > span.Tags > a.tag,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag,
-div.NoResultAdvice > span.Tags > a.tag
+div.NoResultAdvice > span.Tags > a.advice-tag
 {
     border-color: #525050;
     margin: 0 5px 0 0;
@@ -234,19 +234,19 @@ div.NoResultAdvice > span.Tags > a.tag
 }
 div#InformationWindow > .left > span.Tags > a.tag:hover,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag:hover,
-div.NoResultAdvice > span.Tags > a.tag:hover
+div.NoResultAdvice > span.Tags > a.advice-tag:hover
 {
     border-color: #6387cb; cursor: pointer; background-color: #292929; color: #fff;
 }
 
 div#InformationWindow > .left > span.Tags > a.here,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.here,
-div.NoResultAdvice > span.Tags > a.here
+div.NoResultAdvice > span.Tags > a.advice-tag.here
 {
     border-color: #6387cb; color: #fff;
 }
 
-span.Tags span.tag, a.tag {
+span.Tags span.tag, a.tag, a.advice-tag {
     background-color: #191919;
     -moz-border-radius: 3px;
     border-radius: 3px;
