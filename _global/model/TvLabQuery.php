@@ -35,19 +35,25 @@ class TvLabQuery
     public $By_User;
 
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
 
     //Common query wrapper
-    public function Query($Query) {
+    public function Query($Query)
+    {
         $this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        if($this->mysql->connect_errno > 0){
+        if ($this->mysql->connect_errno > 0) {
             print ('Unable to connect to database [' . $this->mysql->connect_error . ']');
-        } else {$this->mysql->set_charset("utf8");}
+        } else {
+            $this->mysql->set_charset("utf8");
+        }
 
-        if(!$result = $this->mysql->query($Query)){die('Error [' . $this->mysql->error . ']');}
+        if (!$result = $this->mysql->query($Query)) {
+            die('Error [' . $this->mysql->error . ']');
+        }
 
         return $result;
         $result->close();
@@ -55,7 +61,8 @@ class TvLabQuery
 
 
     // global
-    public function setAuthUser() {
+    public function setAuthUser()
+    {
 
         global $AuthUser;
 
@@ -63,7 +70,7 @@ class TvLabQuery
         if (!empty($_SESSION['user_name']) and !empty($_SESSION['token'])) {
             $session_User = "";
             $Input = array("session_User" => $_SESSION['user_name']); //Prepare user_name from session
-            extract( SecureVars($Input), EXTR_OVERWRITE); //Output secure $session_User
+            extract(SecureVars($Input), EXTR_OVERWRITE); //Output secure $session_User
 
             //if user_name pass SecureVars() exam and stayed the same
             if ($_SESSION['user_name'] == $session_User) {
@@ -74,7 +81,9 @@ class TvLabQuery
 
                 if ($result->num_rows > 0) { //if user exist in db
 
-                    while ($row = mysqli_fetch_assoc($result)) { $Last_Time_Hold = $row['last_login_mt']; }
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $Last_Time_Hold = $row['last_login_mt'];
+                    }
 
                     //Test last token (word + tm) with word + last db tm
                     if ($_SESSION['token'] == md5(PREPEND_KEY . $Last_Time_Hold . APPEND_KEY)) {
@@ -84,17 +93,25 @@ class TvLabQuery
                         return true;
                     }
 
-                } else { return false; } //user not exist in db
+                } else {
+                    return false;
+                } //user not exist in db
 
-            } else { echo "user_name is not secure"; return false; } //user_name is not secure
+            } else {
+                echo "user_name is not secure";
+                return false;
+            } //user_name is not secure
 
-        } else { return false; }
+        } else {
+            return false;
+        }
 
     }
 
 
     // add
-    public function putVideo($UserName, $isStack) {
+    public function putVideo($UserName, $isStack)
+    {
         global $UserAdded, $getTitle, $OutId, $OutHost, $Img, $ImgSmall, $getAuthors, $getLocation, $getBrand, $getTv_Channel, $Likes, $getRating, $getCost, $getMotion_Type, $getBroadcast_Type, $getTempo, $getTags_SA, $getTags_Fashion, $getTags_Arts, $getTags_Music, $getTags_Others, $CreateDate, $getYear, $Duration, $Width, $Height, $dateNow, $UserName;
 
         $getTags_SA = strtolower($getTags_SA);
@@ -104,15 +121,15 @@ class TvLabQuery
         $getTags_Others = strtolower($getTags_Others);
 
         $insertQuery = "
-			INSERT INTO u186876_tvarts.contents".$isStack." (
+			INSERT INTO u186876_tvarts.contents" . $isStack . " (
 			Title, OutId, OutHost, Img, Img_Small, Authors, Location, Brand, Tv_Channel, Likes, Rating, Cost, Motion_Type, Broadcast_Type, Tempo, Tags_SA, Tags_Fashion, Tags_Arts, Tags_Music, Tags_Others, Date_Origin, Year, Duration, Width, Height, Date_Create, By_User) VALUES ('$getTitle', '$OutId', '$OutHost', '$Img', '$ImgSmall', '$getAuthors', '$getLocation', '$getBrand', '$getTv_Channel', '$Likes', '$getRating', '$getCost', '$getMotion_Type', '$getBroadcast_Type', '$getTempo', '$getTags_SA', '$getTags_Fashion', '$getTags_Arts', '$getTags_Music', '$getTags_Others', '$CreateDate', '$getYear', '$Duration', '$Width', '$Height', '$dateNow', '$UserName')";
 
         if ($this->Query($insertQuery)) {
 
             $_SESSION['user_added'] = ++$UserAdded;
-            $NewAddCountQuery = "UPDATE u186876_tvarts.users SET Added = ".$UserAdded." WHERE user_name = '".$UserName."'";
+            $NewAddCountQuery = "UPDATE u186876_tvarts.users SET Added = " . $UserAdded . " WHERE user_name = '" . $UserName . "'";
 
-            $LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'create', '$UserName', 'Create New', '$dateNow')";
+            $LogLineQuery = "INSERT INTO u186876_tvarts.contents" . $isStack . "_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'create', '$UserName', 'Create New', '$dateNow')";
 
             if ($this->Query($NewAddCountQuery) and $this->Query($LogLineQuery)) {
 
@@ -124,19 +141,20 @@ class TvLabQuery
 
 
     // edit
-    public function saveVideo() {
+    public function saveVideo()
+    {
         global $isStack, $getTitle, $getAuthors, $getLocation, $getBrand, $getTv_Channel, $getRating, $getMotion_Type, $getBroadcast_Type, $getTempo, $getTags_SA, $getTags_Fashion, $getTags_Arts, $getTags_Music, $getTags_Others, $getYear, $OutId, $UserName, $Log_Actions, $dateNow;
 
-        $insertQuery = 'UPDATE u186876_tvarts.contents'.$isStack.' SET Title = "'.$getTitle.'", Authors = "'.$getAuthors.'", Location = "'.$getLocation.'", Brand = "'.$getBrand.'", Tv_Channel = "'.$getTv_Channel.'", Rating = "'.$getRating.'", Motion_Type = "'.$getMotion_Type.'", Broadcast_Type = "'.$getBroadcast_Type.'", Tempo = "'.$getTempo.'", Tags_SA = "'.strtolower($getTags_SA).'", Tags_Fashion = "'.strtolower($getTags_Fashion).'", Tags_Arts = "'.strtolower($getTags_Arts).'", Tags_Music = "'.strtolower($getTags_Music).'", Tags_Others = "'.strtolower($getTags_Others).'", Year = "'.$getYear.'" WHERE OutId = "'.$OutId.'" ';
+        $insertQuery = 'UPDATE u186876_tvarts.contents' . $isStack . ' SET Title = "' . $getTitle . '", Authors = "' . $getAuthors . '", Location = "' . $getLocation . '", Brand = "' . $getBrand . '", Tv_Channel = "' . $getTv_Channel . '", Rating = "' . $getRating . '", Motion_Type = "' . $getMotion_Type . '", Broadcast_Type = "' . $getBroadcast_Type . '", Tempo = "' . $getTempo . '", Tags_SA = "' . strtolower($getTags_SA) . '", Tags_Fashion = "' . strtolower($getTags_Fashion) . '", Tags_Arts = "' . strtolower($getTags_Arts) . '", Tags_Music = "' . strtolower($getTags_Music) . '", Tags_Others = "' . strtolower($getTags_Others) . '", Year = "' . $getYear . '" WHERE OutId = "' . $OutId . '" ';
 
-        if($this->Query($insertQuery)) {
+        if ($this->Query($insertQuery)) {
 
             //Detect changes to $Log_Actions textline
-            DetectVideoChanges ();
+            DetectVideoChanges();
 
-            $LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'edit', '$UserName', '$Log_Actions', '$dateNow')";
+            $LogLineQuery = "INSERT INTO u186876_tvarts.contents" . $isStack . "_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$getTitle', 'edit', '$UserName', '$Log_Actions', '$dateNow')";
 
-            if ($this->Query($LogLineQuery)){
+            if ($this->Query($LogLineQuery)) {
 
                 unset ($_GET); //destroy array
                 return true;
@@ -146,14 +164,15 @@ class TvLabQuery
 
 
     // edit
-    public function deleteVideo() {
+    public function deleteVideo()
+    {
         global $OutId, $Title, $UserName, $isStack, $UserName, $dateNow;
 
-        $deleteQuery = "UPDATE u186876_tvarts.contents".$isStack." SET State = 0 WHERE OutId = ".$OutId;
+        $deleteQuery = "UPDATE u186876_tvarts.contents" . $isStack . " SET State = 0 WHERE OutId = " . $OutId;
 
         if ($this->Query($deleteQuery)) {
 
-            $LogLineQuery = "INSERT INTO u186876_tvarts.contents".$isStack."_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$Title', 'delete', '$UserName', 'Delete This', '$dateNow')";
+            $LogLineQuery = "INSERT INTO u186876_tvarts.contents" . $isStack . "_log (OutId, Title, Action, User, Changes, Date) VALUES ('$OutId', '$Title', 'delete', '$UserName', 'Delete This', '$dateNow')";
             if ($this->Query($LogLineQuery)) {
 
                 unset ($_GET); //destroy array
@@ -167,22 +186,23 @@ class TvLabQuery
     // API QUERY https://api.vimeo.com/videos/174130132/comments
     // https://developer.vimeo.com/api/playground/videos/174130132/comments
     // add
-    public function getCommentsForVideoFromVimeo($Vimeo_Id) {
+    public function getCommentsForVideoFromVimeo($Vimeo_Id)
+    {
         // THIS METHOD IS OUTDATED WITH OLD VIMEO API
 
         $vimeo = new phpVimeo(CONSUMER_KEY, CONSUMER_SECRET);
-        $vimeo->setToken(TOKEN,TOKEN_SECRET);
+        $vimeo->setToken(TOKEN, TOKEN_SECRET);
 
         // OLD API LINK https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.comments.getList
         $result = $vimeo->call('vimeo.videos.comments.getList', array('video_id' => $Vimeo_Id));
-        if($result->stat != 'ok') echo 'Нет подключения к vimeo, статус ('.$result->stat.')<br />';
+        if ($result->stat != 'ok') echo 'Нет подключения к vimeo, статус (' . $result->stat . ')<br />';
 
         $comments = $result->comments->comment;
 
         //print_r($comments);
 
         foreach ($comments as $comment) {
-            print "---> ".$comment->author->display_name.": -- ".$comment->text."<br />\n";
+            print "---> " . $comment->author->display_name . ": -- " . $comment->text . "<br />\n";
         }
         // echo $result->video[0]->title;
         // print_r($result->comments->comment);
@@ -190,13 +210,14 @@ class TvLabQuery
     }
 
     // add
-    public function getVideoCreditsAPI($Video_Id) {
+    public function getVideoCreditsAPI($Video_Id)
+    {
 
         /* Authentication parameters */
         $app_token = VIMEO_APP_TOKEN;
-        $api_vimeo_video_credits = 'https://api.vimeo.com/videos/'.$Video_Id.'/credits/';
-        $access_token = '?access_token='.$app_token;
-        $get_video_credits_url = $api_vimeo_video_credits.$access_token;
+        $api_vimeo_video_credits = 'https://api.vimeo.com/videos/' . $Video_Id . '/credits/';
+        $access_token = '?access_token=' . $app_token;
+        $get_video_credits_url = $api_vimeo_video_credits . $access_token;
 
         /* Make connection */
         $ch = curl_init();
@@ -235,11 +256,11 @@ class TvLabQuery
         $TagList = [];
         foreach ($Tags as $key => $value) {
             $Tag = $Tags[$key]->tag;
-            $TagList .= '<span class="tagInsertTags" data-num="'.$key.'">'.$Tag.'</span>, ';
+            $TagList .= '<span class="tagInsertTags" data-num="' . $key . '">' . $Tag . '</span>, ';
         }
         $export->TagList = $TagList;
 
-        $CastList= [];
+        $CastList = [];
         foreach ($Credits->data as $num) {
             $CastUserName = $num->name;
             $CastUserRole = $num->role;
@@ -249,7 +270,7 @@ class TvLabQuery
         $ExtendedCastList = "";
         foreach ($CastList as $Name => $Role) {
             // $ExtendedCastList .= $Name." (".$Role."), ";
-            $ExtendedCastList .= $Name." ";
+            $ExtendedCastList .= $Name . " ";
         }
         $export->CastList = $ExtendedCastList;
 
@@ -257,7 +278,8 @@ class TvLabQuery
     }
 
 
-    public function getVideoFromVimeo($Vimeo_Id) {
+    public function getVideoFromVimeo($Vimeo_Id)
+    {
 
         global
         $OutId,
@@ -279,12 +301,12 @@ class TvLabQuery
         $Year;
 
         $vimeo = new phpVimeo(CONSUMER_KEY, CONSUMER_SECRET);
-        $vimeo->setToken(TOKEN,TOKEN_SECRET);
+        $vimeo->setToken(TOKEN, TOKEN_SECRET);
 
         // this line will break down script if API doesn't find video by id
         $result = $vimeo->call('vimeo.videos.getInfo', array('video_id' => $Vimeo_Id));
 
-        if($result->stat != 'ok') echo 'No connection to vimeo, status ('.$result->stat.')<br />';
+        if ($result->stat != 'ok') echo 'No connection to vimeo, status (' . $result->stat . ')<br />';
 
         /* Some category features could be available
         https://developer.vimeo.com/apis/advanced/methods/vimeo.categories.getRelatedTags // Get a list of related tags for a category.
@@ -297,34 +319,34 @@ class TvLabQuery
         $Title = $result->video[0]->title;
         $Likes = $result->video[0]->number_of_likes;
         $Desc = $result->video[0]->description;
-        $CreateDate = $result->video[0]->upload_date; preg_match("/\d{4}/", $CreateDate, $Year); $Year = $Year[0];
+        $CreateDate = $result->video[0]->upload_date;
+        preg_match("/\d{4}/", $CreateDate, $Year);
+        $Year = $Year[0];
 
         $Tags = $result->video[0]->tags->tag;
         foreach ($Tags as $key => $value) {
             $Tag = $Tags[$key]->_content;
             $Tag = preg_replace("/[^\s\w\А-яЁе-]/u", "", $Tag);
-            $TagList .= '<span class="tagInsertTags" data-num="'.$key.'">'.$Tag.'</span>, ';
+            $TagList .= '<span class="tagInsertTags" data-num="' . $key . '">' . $Tag . '</span>, ';
         }
 
         $Cast = $result->video[0]->cast->member; // [display_name]
-        if (!empty($Cast['display_name']))
-        {
+        if (!empty($Cast['display_name'])) {
             $CastList = $Cast['display_name'];
             $UserId = $Cast['id'];
-        }else
-        {
+        } else {
             foreach ($Cast as $key => $value) {
-                $CastList .= $Cast[$key]->display_name.', ';
+                $CastList .= $Cast[$key]->display_name . ', ';
                 $UserId = $Cast[0]->id;
             }
 
         }
 
-        if( preg_match("/, $/", $TagList)) { //$TagList = preg_replace("/, $/", "", $TagList);
-            $TagList = chop( $TagList, ', \n');
+        if (preg_match("/, $/", $TagList)) { //$TagList = preg_replace("/, $/", "", $TagList);
+            $TagList = chop($TagList, ', \n');
         }
-        if( preg_match("/, $/", $CastList)) { //$CastList = preg_replace("/, $/", "", $CastList);
-            $CastList = chop( $CastList, ', \n');
+        if (preg_match("/, $/", $CastList)) { //$CastList = preg_replace("/, $/", "", $CastList);
+            $CastList = chop($CastList, ', \n');
         }
 
         $Duration = $result->video[0]->duration; //в секундах
@@ -342,21 +364,32 @@ class TvLabQuery
 
     // global
     // Gets Video info by Id with isStack setting, with flag VarState ([SetGlobals])
-    public function getVideo($VideoId, $isStack, $VarState) {
+    public function getVideo($VideoId, $isStack, $VarState)
+    {
 
         $this->mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        if($this->mysql->connect_errno > 0){
+        if ($this->mysql->connect_errno > 0) {
             print ('Unable to connect to database [' . $this->mysql->connect_error . ']');
-        } else {$this->mysql->set_charset("utf8");}
+        } else {
+            $this->mysql->set_charset("utf8");
+        }
 
-        $IdQuery = 'SELECT * FROM u186876_tvarts.contents'.$isStack.' WHERE OutId = '.$VideoId;
+        $IdQuery = 'SELECT * FROM u186876_tvarts.contents' . $isStack . ' WHERE OutId = ' . $VideoId;
 
-        if(!$result = $this->mysql->query($IdQuery)){die('Error [' . $this->mysql->error . ']');}
+        if (!$result = $this->mysql->query($IdQuery)) {
+            die('Error [' . $this->mysql->error . ']');
+        }
 
         if ($result->num_rows < 1) {
-            if ($isStack == "") {$isStack = "_stack";} else {$isStack = "";}
-            $IdQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE OutId = ".$VideoId;
-            if(!$result = $this->mysql->query($IdQuery)){die('Error [' . $this->mysql->error . ']');}
+            if ($isStack == "") {
+                $isStack = "_stack";
+            } else {
+                $isStack = "";
+            }
+            $IdQuery = "SELECT * FROM u186876_tvarts.contents" . $isStack . " WHERE OutId = " . $VideoId;
+            if (!$result = $this->mysql->query($IdQuery)) {
+                die('Error [' . $this->mysql->error . ']');
+            }
         }
 
         while ($row = $result->fetch_object()) {
@@ -393,54 +426,84 @@ class TvLabQuery
         $result->close();
 
         if ($VarState == "SetGlobals") {
-            global $Title; $Title = $this->Title;
-            global $OutId; $OutId = $this->OutId;
-            global $OutHost; $OutHost = $this->OutHost;
-            global $Img; $Img = $this->Img;
-            global $Img_Small; $Img_Small = $this->Img_Small;
-            global $Authors; $Authors = $this->Authors;
-            global $Authors_Aliases; $Authors_Aliases = $this->Authors_Aliases;
-            global $Location; $Location = $this->Location;
-            global $Brand; $Brand = $this->Brand;
-            global $Tv_Channel; $Tv_Channel = $this->Tv_Channel;
-            global $Likes; $Likes = $this->Likes;
-            global $Rating; $Rating = $this->Rating;
-            global $Cost; $Cost = $this->Cost;
-            global $Motion_Type; $Motion_Type = $this->Motion_Type;
-            global $Broadcast_Type; $Broadcast_Type = $this->Broadcast_Type;
-            global $Tempo; $Tempo = $this->Tempo;
-            global $Tags_SA; $Tags_SA = $this->Tags_SA;
-            global $Tags_Fashion; $Tags_Fashion = $this->Tags_Fashion;
-            global $Tags_Arts; $Tags_Arts = $this->Tags_Arts;
-            global $Tags_Music; $Tags_Music = $this->Tags_Music;
-            global $Tags_Others; $Tags_Others = $this->Tags_Others;
-            global $Date_Origin; $Date_Origin = $this->Date_Origin;
-            global $Year; $Year = $this->Year;
-            global $Duration; $Duration = $this->Duration;
-            global $Date_Create; $Date_Create = $this->Date_Create;
-            global $By_User; $By_User = $this->By_User;
-            global $Width; $Width = $this->Width;
-            global $Height; $Height = $this->Height;
-            global $State; $State = $this->State;
+            global $Title;
+            $Title = $this->Title;
+            global $OutId;
+            $OutId = $this->OutId;
+            global $OutHost;
+            $OutHost = $this->OutHost;
+            global $Img;
+            $Img = $this->Img;
+            global $Img_Small;
+            $Img_Small = $this->Img_Small;
+            global $Authors;
+            $Authors = $this->Authors;
+            global $Authors_Aliases;
+            $Authors_Aliases = $this->Authors_Aliases;
+            global $Location;
+            $Location = $this->Location;
+            global $Brand;
+            $Brand = $this->Brand;
+            global $Tv_Channel;
+            $Tv_Channel = $this->Tv_Channel;
+            global $Likes;
+            $Likes = $this->Likes;
+            global $Rating;
+            $Rating = $this->Rating;
+            global $Cost;
+            $Cost = $this->Cost;
+            global $Motion_Type;
+            $Motion_Type = $this->Motion_Type;
+            global $Broadcast_Type;
+            $Broadcast_Type = $this->Broadcast_Type;
+            global $Tempo;
+            $Tempo = $this->Tempo;
+            global $Tags_SA;
+            $Tags_SA = $this->Tags_SA;
+            global $Tags_Fashion;
+            $Tags_Fashion = $this->Tags_Fashion;
+            global $Tags_Arts;
+            $Tags_Arts = $this->Tags_Arts;
+            global $Tags_Music;
+            $Tags_Music = $this->Tags_Music;
+            global $Tags_Others;
+            $Tags_Others = $this->Tags_Others;
+            global $Date_Origin;
+            $Date_Origin = $this->Date_Origin;
+            global $Year;
+            $Year = $this->Year;
+            global $Duration;
+            $Duration = $this->Duration;
+            global $Date_Create;
+            $Date_Create = $this->Date_Create;
+            global $By_User;
+            $By_User = $this->By_User;
+            global $Width;
+            $Width = $this->Width;
+            global $Height;
+            $Height = $this->Height;
+            global $State;
+            $State = $this->State;
         }
     }
 
     // desktop
-    public function getCollection($getSet, $Mode, $Tags, $Page, $inPage, $Video){
+    public function getCollection($getSet, $Mode, $Tags, $Page, $inPage, $Video)
+    {
 
         global $specificQuery, $Collection, $TotalRows, $MaxPages, $Page, $Video, $isStack;
 
         //starting MySQL $specificQuery
-        $specificQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE";
+        $specificQuery = "SELECT * FROM u186876_tvarts.contents" . $isStack . " WHERE";
 
         //search keywords processing, adding query lines to $specificQuery
-        if ( isset($Tags) ) $this->searchKeywords($Tags);
+        if (isset($Tags)) $this->searchKeywords($Tags);
 
         //extract data from encrypt param set=c1d1s1a1t1v1
         $getSetArr = sscanf($getSet, "c%dd%ds%da%dt%dv%d");
 
         foreach ($getSetArr as $indexNum => $boolKey) {
-            if ( $boolKey == "1" ) {
+            if ($boolKey == "1") {
                 $getMtype[] = $indexNum;
             }
         }
@@ -453,31 +516,35 @@ class TvLabQuery
             }
         } else {
             if ($getMtype[0] >= 0) {
-                $getMtype_n = count ($getMtype);
-                for ($x=0; $x<$getMtype_n; $x++) {
-                    $specificQuery .= ' Motion_Type RLIKE '.$getMtype[$x].' AND';
+                $getMtype_n = count($getMtype);
+                for ($x = 0; $x < $getMtype_n; $x++) {
+                    $specificQuery .= ' Motion_Type RLIKE ' . $getMtype[$x] . ' AND';
                 };
             };
         }
 
         // Replace last AND in MySQL query
         // if( preg_match("/ AND$/", $specificQuery)) { $specificQuery = preg_replace("/ AND$/", "", $specificQuery); }
-        $specificQuery = chop( $specificQuery, ' AND\n');
+        $specificQuery = chop($specificQuery, ' AND\n');
 
-        if ($specificQuery == "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE") {
-            $specificQuery = "SELECT * FROM u186876_tvarts.contents".$isStack." WHERE State = 1";
+        if ($specificQuery == "SELECT * FROM u186876_tvarts.contents" . $isStack . " WHERE") {
+            $specificQuery = "SELECT * FROM u186876_tvarts.contents" . $isStack . " WHERE State = 1";
         }
 
         $specificQuery .= ' AND State = 1 ORDER BY id DESC';
 
-        $TotalRows = $this->Query( str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery) )->fetch_row();
+        $TotalRows = $this->Query(str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery))->fetch_row();
 
         //Getting max page on collection, setup the limit
         $MaxPages = ceil($TotalRows[0] / $inPage);
-        if ($Page == 0) {$PageIncr = 0;} else {$PageIncr = ($Page -1) * $inPage;}
+        if ($Page == 0) {
+            $PageIncr = 0;
+        } else {
+            $PageIncr = ($Page - 1) * $inPage;
+        }
 
         //Append offset, number of rows
-        $specificQuery .= ' LIMIT '.$PageIncr.','.$inPage.';';
+        $specificQuery .= ' LIMIT ' . $PageIncr . ',' . $inPage . ';';
 
         //Query for $inPage positions limit
         $Collection = $this->Query($specificQuery);
@@ -485,14 +552,18 @@ class TvLabQuery
     }
 
     // board
-    public function getBoardContent($Section, $inPage, $User) {
+    public function getBoardContent($Section, $inPage, $User)
+    {
 
         global $Collection, $TotalRows, $MaxPages, $Page;
 
         // Test for right user or die
-        $UserQuery = '(SELECT * FROM u186876_tvarts.users WHERE user_name = "'.$User.'")';
+        $UserQuery = '(SELECT * FROM u186876_tvarts.users WHERE user_name = "' . $User . '")';
         $result = $this->Query($UserQuery);
-        if ($result->num_rows != 1) { echo "no such user"; die(); }
+        if ($result->num_rows != 1) {
+            echo "no such user";
+            die();
+        }
 
         // Model base
         // $Timeline = "(SELECT * FROM u186876_tvarts.contents WHERE By_User = '$User' AND State = '1') UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User = '$User' AND State = '1') ORDER BY Date_Create"; // UNION (SELECT * FROM u186876_tvarts.contents_stack WHERE By_User =  "'.$User.'")';
@@ -503,76 +574,91 @@ class TvLabQuery
 
         // Logic of model
         switch ($Section) {
-            case "timeline": $specificQuery = $Timeline; break;
-            case "approved": $specificQuery = $Approved; break;
-            case "stacked": $specificQuery = $Stacked; break;
-            case "review": $specificQuery = $Review; break;
-            default: $specificQuery = $Timeline; break;
+            case "timeline":
+                $specificQuery = $Timeline;
+                break;
+            case "approved":
+                $specificQuery = $Approved;
+                break;
+            case "stacked":
+                $specificQuery = $Stacked;
+                break;
+            case "review":
+                $specificQuery = $Review;
+                break;
+            default:
+                $specificQuery = $Timeline;
+                break;
         }
 
-        $result = $this->Query( str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery) );
+        $result = $this->Query(str_replace("SELECT *", "SELECT COUNT(*)", $specificQuery));
 
         $TotalRows = 0;
-        while( $row = $result->fetch_assoc() ){
+        while ($row = $result->fetch_assoc()) {
             $TotalRows = $TotalRows + $row['COUNT(*)'];
         }
 
         $MaxPages = ceil($TotalRows / $inPage);
-        if ($Page == 0) {$PageIncr = 0;} else {$PageIncr = ($Page -1) * $inPage;}
+        if ($Page == 0) {
+            $PageIncr = 0;
+        } else {
+            $PageIncr = ($Page - 1) * $inPage;
+        }
 
         $specificQuery .= ' ORDER BY id DESC';
-        $specificQuery .= ' LIMIT '.$PageIncr.','.$inPage.';';
+        $specificQuery .= ' LIMIT ' . $PageIncr . ',' . $inPage . ';';
 
         $Collection = $this->Query($specificQuery);
 
     }
 
     // this is controller for desktop mixed with MySQL
-    public function searchKeywords ($SearchData) {
+    public function searchKeywords($SearchData)
+    {
 
         global $specificQuery;
 
-        if (iconv_strlen($SearchData, 'UTF-8') > 1){ //продолжаем работу, если данные в форме есть и они больше двух символов
+        if (iconv_strlen($SearchData, 'UTF-8') > 1) { //продолжаем работу, если данные в форме есть и они больше двух символов
 
             $SearchData = substr($SearchData, 0, 128);//обрезаем строку до 128 символов
             $SearchData = preg_replace("/[^\s\w.,-]/", "", $SearchData);//оставляем только буквы, цифры, пробелы
-            $SearchData = trim (preg_replace("/  +/", " ", $SearchData)); //убираем двойные и более пробелы, в т.ч. по краям
+            $SearchData = trim(preg_replace("/  +/", " ", $SearchData)); //убираем двойные и более пробелы, в т.ч. по краям
             $SearchWords = explode(" ", $SearchData); //разбиваем строку на отдельные слова, ориентируясь на пробелы
-            $SearchWords_n = count ($SearchWords); //считаем слова поиска и запускаем цикл
+            $SearchWords_n = count($SearchWords); //считаем слова поиска и запускаем цикл
 
-            $specificQuery = $specificQuery.' ('; // открываем скобки для вербального запроса
+            $specificQuery = $specificQuery . ' ('; // открываем скобки для вербального запроса
 
-            for ($x=0; $x<$SearchWords_n; $x++) {
+            for ($x = 0; $x < $SearchWords_n; $x++) {
 
-                if (iconv_strlen($SearchWords[$x], 'UTF-8') < 4){ //к словаи меньше 4-ти применяем строгое вхождение по слову
+                if (iconv_strlen($SearchWords[$x], 'UTF-8') < 4) { //к словаи меньше 4-ти применяем строгое вхождение по слову
                     //далее прибавляем строку запроса на 8 столбцов из БД, по одному слову на каждую.
-                    $specificQuery = $specificQuery.'
-				Title RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Authors RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Brand RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tv_Channel RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Location RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_SA RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Fashion RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]"OR
-				Tags_Arts RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Music RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Others RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Year RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR';
+                    $specificQuery = $specificQuery . '
+				Title RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Authors RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Brand RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tv_Channel RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Location RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_SA RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Fashion RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]"OR
+				Tags_Arts RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Music RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Others RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Year RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR';
 
                 } else { //к словам >= 4-ти применяем относительное (исправлено, тоже строгое) вхождение последовательности символов
 
-                    $specificQuery = $specificQuery.'
-				Title RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Authors RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Brand RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tv_Channel RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Location RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_SA RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Fashion RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Arts RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Music RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Tags_Others RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR
-				Year RLIKE "[[:<:]]'.$SearchWords[$x].'[[:>:]]" OR';
+                    $specificQuery = $specificQuery . '
+				Title RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Authors RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Brand RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tv_Channel RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Location RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_SA RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Fashion RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Arts RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Music RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Tags_Others RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR
+				Year RLIKE "[[:<:]]' . $SearchWords[$x] . '[[:>:]]" OR';
 
                     //альтернативный вариант формирования SQL запроса RLIKE "(\w{0,6})var(\w{0,6})"
                 };
@@ -580,7 +666,7 @@ class TvLabQuery
             };
 
             //закрываем скобки заменой последнего OR и ставим строгое условие с дальнейшими параметрами
-            if( preg_match("/ OR$/", $specificQuery)) {
+            if (preg_match("/ OR$/", $specificQuery)) {
                 $specificQuery = preg_replace("/ OR$/", " ) AND", $specificQuery);
             }
 

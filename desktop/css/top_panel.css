@@ -1,22 +1,57 @@
 /* ------ Desktop Top Panel ------ */
 
-div.TopPanelBox {position:fixed; height:91px; z-index: 5; width:100%; border: 0px coral dashed; min-width: 900px;}
-
-div.TopPanel { height:64px; background:#181818; width:100%; display: block;}
-div.TopPanelBorder { height:35px; background: url(../img/top-panel-border.png) repeat-x; border:0px red dashed;}
-
-div.TopPanelMargin{ width:100%; height:69px; display:block; margin:0 0 20px 0; border:0px #ffff00 dashed;}
-
-
-div.tpLogo {background: url(../img/logo.png) no-repeat; transition: background-image .2s ease-in-out; width:112px; height:41px; margin:0 0 0 20px; top:12px; position:relative; float:left;}
-
-
-div.tpLogo:hover {
-    background-image:url(../img/logo_hover.png);
+div.TopPanelBox {
+    position: fixed;
+    height: 91px;
+    z-index: 5;
+    width: 100%;
+    border: 0px coral dashed;
+    min-width: 900px;
 }
 
-div.tpLogo a { display:block; width:112px; height:41px; text-decoration:none; background: url(../img/logo_hover.png) no-repeat -999px;}
+div.TopPanel {
+    height: 64px;
+    background: #181818;
+    width: 100%;
+    display: block;
+}
 
+div.TopPanelBorder {
+    height: 35px;
+    background: url(../img/top-panel-border.png) repeat-x;
+    border: 0px red dashed;
+}
+
+div.TopPanelMargin {
+    width: 100%;
+    height: 69px;
+    display: block;
+    margin: 0 0 20px 0;
+    border: 0px #ffff00 dashed;
+}
+
+div.tpLogo {
+    background: url(../img/logo.png) no-repeat;
+    transition: background-image .2s ease-in-out;
+    width: 112px;
+    height: 41px;
+    margin: 0 0 0 20px;
+    top: 12px;
+    position: relative;
+    float: left;
+}
+
+div.tpLogo:hover {
+    background-image: url(../img/logo_hover.png);
+}
+
+div.tpLogo a {
+    display: block;
+    width: 112px;
+    height: 41px;
+    text-decoration: none;
+    background: url(../img/logo_hover.png) no-repeat -999px;
+}
 
 div.TopPanel > div.database_selector {
     display: block;
@@ -35,16 +70,38 @@ div.TopPanel > div.database_selector:hover {
 
 /* Search block */
 
-div.tpSearch {display:block; position:relative; border:0px red dashed; width: auto; float:left; top:15px; margin:0 0 0 22px; }
+div.tpSearch {
+    display: block;
+    position: relative;
+    border: 0px red dashed;
+    width: auto;
+    float: left;
+    top: 15px;
+    margin: 0 0 0 22px;
+}
 
-div.tpSearch_filters { display: block; float:left; width:400px; border:1px #181818 solid; position:relative; top:2px; margin: 0 0 0 15px;}
+div.tpSearch_filters {
+    display: block;
+    float: left;
+    width: 400px;
+    border: 1px #181818 solid;
+    position: relative;
+    top: 2px;
+    margin: 0 0 0 15px;
+}
 
-div.hideBeforeInit { display: none; }
+div.hideBeforeInit {
+    display: none;
+}
 
-div.tpSearch input.tpSearch_field {display:none;}
+div.tpSearch input.tpSearch_field {
+    display: none;
+}
 
-
-div.tpSearch ul.tpSearch_field {width: auto; height:40px; background: #27292a;
+div.tpSearch ul.tpSearch_field {
+    width: auto;
+    height: 40px;
+    background: #27292a;
     border: 0px solid #353535;
     color: #cacaca;
     font-size: 14px;
@@ -54,20 +111,33 @@ div.tpSearch ul.tpSearch_field {width: auto; height:40px; background: #27292a;
     line-height: 1;
     box-sizing: border-box;
     resize: none;
-    float:left;
-    margin:0 2px 0 0;
-    min-width:50px;
+    float: left;
+    margin: 0 2px 0 0;
+    min-width: 50px;
 }
 
+.tagit-autocomplete.ui-widget-content {
+    z-index: 50 !important;
+    border: 1px solid #2c2c2c !important;
+}
 
-.tagit-autocomplete.ui-widget-content { z-index:50 !important; border:1px solid #2c2c2c !important;}
-.ui-helper-hidden-accessible {}
+.ui-helper-hidden-accessible {
+}
 
+div.tpSearch input.tpSearch_Bt {
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: url(../img/ui_top_panel.png) no-repeat -240px 0;
+    float: left;
+}
 
-div.tpSearch input.tpSearch_Bt { border:0; width:40px; height:40px; background: url(../img/ui_top_panel.png) no-repeat -240px 0; float: left;}
-div.tpSearch input.tpSearch_Bt:hover {cursor: pointer; background: url(../img/ui_top_panel.png) no-repeat -240px -40px; }
+div.tpSearch input.tpSearch_Bt:hover {
+    cursor: pointer;
+    background: url(../img/ui_top_panel.png) no-repeat -240px -40px;
+}
+
 /*div.tpSearch input.tpSearch_Bt:active {cursor: pointer; background: url(../img/ui_top_panel.png) no-repeat 0 -80px; }*/
-
 
 div.TopPanel div.filters_icon_title_line {
     width: 129px;
@@ -104,32 +174,38 @@ div.TopPanel div.styledCheckbox {
 }
 
 /*-- Infoline Section --*/
-div.infoline { width:350px; display:block; margin: 15px 5px 0 5px; font-size: 11px; color:#666; float:left;}
+div.infoline {
+    width: 350px;
+    display: block;
+    margin: 15px 5px 0 5px;
+    font-size: 11px;
+    color: #666;
+    float: left;
+}
 
 /* if screen size gets wider than 900  test */
-@media screen and (max-width:1670px){
+@media screen and (max-width: 1670px) {
     div.infoline {
         /*display:block;*/
         display: none;
     }
 }
 
-
 /*-- Right Hand Buttons --*/
 
 div.TopPanel > div.help, div.TopPanel > div.goToBoard {
     display: block;
-    position:relative;
+    position: relative;
     float: right;
 }
 
 div.TopPanel > div.help {
-     top:19px;
-     margin:0 15px 0 0;
-     width: 30px;
-     height: 31px;
-     background: url(../img/ui_top_panel.png) -280px 0 no-repeat;
- }
+    top: 19px;
+    margin: 0 15px 0 0;
+    width: 30px;
+    height: 31px;
+    background: url(../img/ui_top_panel.png) -280px 0 no-repeat;
+}
 
 div.TopPanel > div.help:hover {
     cursor: pointer;
@@ -137,8 +213,8 @@ div.TopPanel > div.help:hover {
 }
 
 div.TopPanel > div.goToBoard {
-    top:13px;
-    margin:0 20px 0 0;
+    top: 13px;
+    margin: 0 20px 0 0;
     width: 42px;
     height: 42px;
     background: url(../img/ui_top_panel.png) -310px 0 no-repeat;

@@ -5,11 +5,11 @@ main#addVideo {
 main#addVideo > section {
     height: 100%;
 
-    display:-webkit-box; /*old prefixed for webkit*/
-    display:-moz-box; /*old prefixed for mozilla*/
-    display:-ms-flexbox; /*inbetween prefixed for ie*/
-    display:-webkit-flex; /*new prefixed for webkit*/
-    display:flex; /*new*/
+    display: -webkit-box; /*old prefixed for webkit*/
+    display: -moz-box; /*old prefixed for mozilla*/
+    display: -ms-flexbox; /*inbetween prefixed for ie*/
+    display: -webkit-flex; /*new prefixed for webkit*/
+    display: flex; /*new*/
 
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
@@ -40,21 +40,22 @@ main#addVideo > section > div.Input_Form {
 }
 
 main#addVideo > section > div#ghost {
-   /*border: 1px #d2ffa5 dashed;*/
+    /*border: 1px #d2ffa5 dashed;*/
     /*height: 5%;*/
 }
 
 div.AddCanvas {
-    border:0px red dashed;
-    width:1400px;
+    border: 0px red dashed;
+    width: 1400px;
     margin: 5vh auto 0;
-    color:#666;
+    color: #666;
 }
 
 div.AddCanvas table {
     width: 100%;
     /*border: 1px red dashed;*/
 }
+
 div.AddCanvas table tr td {
     /*border:1px yellow dashed;*/
 }
@@ -62,11 +63,12 @@ div.AddCanvas table tr td {
 div.TagOffer span {
     font-size: 14px;
     border: 1px solid #4b4a43;
-    padding:3px 7px;
+    padding: 3px 7px;
     margin: 2px;
     line-height: 220%;
     border-radius: 5px;
 }
+
 div.TagOffer span:hover {
     background: #4b4a43;
     color: #ffe6a3;

@@ -8,9 +8,9 @@ $Input = array(
     "emptyVid" => $_GET['ev'],
 );
 
-extract( SecureVars( $Input ), EXTR_OVERWRITE );
+extract(SecureVars($Input), EXTR_OVERWRITE);
 
-$yCol = round($xCol/ 1.78);
+$yCol = round($xCol / 1.78);
 
 ?>
 

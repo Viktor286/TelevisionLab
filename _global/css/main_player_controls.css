@@ -63,44 +63,43 @@ div#MPC > div#PlayPause.pause:disabled{
 
 /*PlayPause Biggest */
 
-div#MPC > div#PlayPause.pause{
+div#MPC > div#PlayPause.pause {
     width: 62px;
     height: 47px;
     margin-top: 3px;
     background-position: -436px 0;
 }
 
-div#MPC > div#PlayPause.play{
+div#MPC > div#PlayPause.play {
     width: 62px;
     height: 47px;
     margin-top: 3px;
     background-position: -374px 0;
 }
 
-div#MPC > div#PlayPause.play:hover{
+div#MPC > div#PlayPause.play:hover {
     background-position: -374px -47px;
 }
 
-div#MPC > div#PlayPause.pause:hover{
+div#MPC > div#PlayPause.pause:hover {
     background-position: -436px -47px;
 }
 
-div#MPC > div#PlayPause.play:active{
+div#MPC > div#PlayPause.play:active {
     background-position: -374px -94px;
 }
 
-div#MPC > div#PlayPause.pause:active{
+div#MPC > div#PlayPause.pause:active {
     background-position: -436px -94px;
 }
 
-div#MPC > div#PlayPause.play:disabled{
+div#MPC > div#PlayPause.play:disabled {
     background-position: -374px -141px;
 }
 
-div#MPC > div#PlayPause.pause:disabled{
+div#MPC > div#PlayPause.pause:disabled {
     background-position: -436px -141px;
 }
-
 
 /* AutoPlay buttons */
 div#MPC div.AutoPlay {
@@ -117,79 +116,75 @@ div#MPC div.AutoPlay.Next {
     background-position: -318px -40px;
 }
 
-
 /*-- Default Buttons */
-div#MPC > div#PrevVideo{
+div#MPC > div#PrevVideo {
     background-position: -206px 0;
 }
 
-div#MPC > div#PrevShot{
+div#MPC > div#PrevShot {
     background-position: -94px 0;
 }
 
-div#MPC > div#NextVideo{
+div#MPC > div#NextVideo {
     background-position: -262px 0;
 }
 
-div#MPC > div#NextShot{
+div#MPC > div#NextShot {
     background-position: -150px 0;
 
 }
 
-
 /* -- Hover Buttons */
-div#MPC > div#PrevVideo:hover{
+div#MPC > div#PrevVideo:hover {
     background-position: -206px -40px;
 }
 
-div#MPC > div#PrevShot:hover{
+div#MPC > div#PrevShot:hover {
     background-position: -94px -40px;
 }
 
-div#MPC > div#NextShot:hover{
+div#MPC > div#NextShot:hover {
     background-position: -150px -40px;
 
 }
 
-div#MPC > div#NextVideo:hover{
+div#MPC > div#NextVideo:hover {
     background-position: -262px -40px;
 }
 
-
 /* -- Pushed Buttons */
-div#MPC > div#PrevVideo:active{
+div#MPC > div#PrevVideo:active {
     background-position: -206px -80px;
 }
 
-div#MPC > div#PrevShot:active{
+div#MPC > div#PrevShot:active {
     background-position: -94px -80px;
 }
 
-div#MPC > div#NextShot:active{
+div#MPC > div#NextShot:active {
     background-position: -150px -80px;
 
 }
 
-div#MPC > div#NextVideo:active{
+div#MPC > div#NextVideo:active {
     background-position: -262px -80px;
 }
 
-
 /* -- Not Active Buttons */
-div#MPC > div#PrevVideo:disabled{
+div#MPC > div#PrevVideo:disabled {
     background-position: -206px -120px;
 }
 
-div#MPC > div#PrevShot:disabled, div#MPC > div#PrevShot.disabled{
+div#MPC > div#PrevShot:disabled, div#MPC > div#PrevShot.disabled {
     background-position: -94px -120px;
     cursor: default;
 }
 
-div#MPC > div#NextShot:disabled, div#MPC > div#NextShot.disabled{
+div#MPC > div#NextShot:disabled, div#MPC > div#NextShot.disabled {
     background-position: -150px -120px;
     cursor: default;
 }
 
-div#MPC > div#NextVideo:disabled{
+div#MPC > div#NextVideo:disabled {
     background-position: -262px -120px;
 }

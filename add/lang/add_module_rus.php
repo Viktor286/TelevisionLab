@@ -13,7 +13,7 @@ $nme_Tv_Channel = 'Телеканал';
 $nme_Broadcast_Type = 'Направление вещания';
 $nme_Motion_Type = 'Технология';
 $nme_Tempo = 'Темп (bpm)';
-$nme_Internal_Rating =  'Awesome meter';
+$nme_Internal_Rating = 'Awesome meter';
 
 $nme_By_User = 'Юзер-автор записи';
 $nme_Send_Video = 'Отправить видео';
@@ -85,8 +85,6 @@ $nme_err_NoImg = 'отсутствует картинка';
 $nme_err_NoTags = 'ни одного тега не заполнено';
 $nme_err_NoUser = 'юзер не авторизован';
 $nme_err_NoToken = 'токен не найден';
-
-
 
 
 ?>

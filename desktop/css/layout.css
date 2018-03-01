@@ -1,9 +1,15 @@
 /* ------ Desktop Layout ------ */
 
+div.FixedDisplay {
+    position: fixed;
+    width: 686px;
+    border: 0px yellow dashed;
+    clear: both;
+}
 
-div.FixedDisplay { position:fixed; width:686px; border:0px yellow dashed; clear:both; }
-
-#container { border:0px red dashed; }
+#container {
+    border: 0px red dashed;
+}
 
 div#PreviewWindow {
     width: 100%;
@@ -13,7 +19,8 @@ div#PreviewWindow {
     min-height: 378px;
 }
 
-div#PreviewWindow > div.box {}
+div#PreviewWindow > div.box {
+}
 
 div#PreviewWindow > div.box > iframe {
     position: absolute;
@@ -24,8 +31,12 @@ div#PreviewWindow > div.box > iframe {
     border-bottom: none;
 }
 
-
-body > main { border: 0px dashed red; display: table; width: 100%; min-width: 900px;}
+body > main {
+    border: 0px dashed red;
+    display: table;
+    width: 100%;
+    min-width: 900px;
+}
 
 main > div.Wr50 {
     display: table-cell;
@@ -39,106 +50,213 @@ main > div.Wr50 {
 
 }
 
-main > div#MainOutput { display: table-cell;  width: 55%;  height: 100%; float: right; }
+main > div#MainOutput {
+    display: table-cell;
+    width: 55%;
+    height: 100%;
+    float: right;
+}
 
-main > div.Wr50 > div.table { display: table; width: 100%; vertical-align: top; }
+main > div.Wr50 > div.table {
+    display: table;
+    width: 100%;
+    vertical-align: top;
+}
 
-main > div.Wr50 > div.table > aside#LeftPanel { display: table-cell; width: 217px; position: relative; vertical-align: top; }
+main > div.Wr50 > div.table > aside#LeftPanel {
+    display: table-cell;
+    width: 217px;
+    position: relative;
+    vertical-align: top;
+}
 
-main > div.Wr50 > div.table > aside#LeftPanel > div.Accordion {  margin: 0 10px 0 5px; display: none; }
+main > div.Wr50 > div.table > aside#LeftPanel > div.Accordion {
+    margin: 0 10px 0 5px;
+    display: none;
+}
 
-main > div.Wr50 > div.table > section#FixedDisplay { vertical-align: top; display: table-cell; width: auto; height: 100%; min-width: 300px; margin:0 0 0 0px;  position: relative; }
-
-
+main > div.Wr50 > div.table > section#FixedDisplay {
+    vertical-align: top;
+    display: table-cell;
+    width: auto;
+    height: 100%;
+    min-width: 300px;
+    margin: 0 0 0 0px;
+    position: relative;
+}
 
 /*----------------- @media screen  */
 
-
 @media screen and (min-width: 1900px) {
-    main > div.Wr50 {width: 50%; }
-    div#PreviewWindow { min-height: 500px; }
+    main > div.Wr50 {
+        width: 50%;
+    }
 
-    main > div#MainOutput {width: 50%;}
+    div#PreviewWindow {
+        min-height: 500px;
+    }
 
-    div#PreviewWindow { min-height: 430px; }
+    main > div#MainOutput {
+        width: 50%;
+    }
+
+    div#PreviewWindow {
+        min-height: 430px;
+    }
 }
-
 
 @media screen and (min-width: 2270px) {
-    main > div.Wr50 {width: 55%; }
-    div#PreviewWindow { min-height: 600px; }
+    main > div.Wr50 {
+        width: 55%;
+    }
 
-    main > div#MainOutput {width: 45%;}
+    div#PreviewWindow {
+        min-height: 600px;
+    }
+
+    main > div#MainOutput {
+        width: 45%;
+    }
 }
-
 
 @media screen and (min-width: 2450px) {
-    main > div.Wr50 {width: 58%; }
-    main > div#MainOutput {width: 42%;}
-    div#PreviewWindow { min-height: 680px;}
+    main > div.Wr50 {
+        width: 58%;
+    }
+
+    main > div#MainOutput {
+        width: 42%;
+    }
+
+    div#PreviewWindow {
+        min-height: 680px;
+    }
 }
 
-
-
-
 @media screen and (max-width: 2044px) {
-    main > div.Wr50 {width: 45%; }
-    main > div#MainOutput {width: 55%; }
+    main > div.Wr50 {
+        width: 45%;
+    }
+
+    main > div#MainOutput {
+        width: 55%;
+    }
 }
 
 @media screen and (max-width: 1900px) {
-    main > div.Wr50 {width: 60%; }
-    main > div#MainOutput {width: 40%; }
+    main > div.Wr50 {
+        width: 60%;
+    }
 
-    div#PreviewWindow { min-height: 500px; }
+    main > div#MainOutput {
+        width: 40%;
+    }
+
+    div#PreviewWindow {
+        min-height: 500px;
+    }
 }
 
 @media screen and (max-width: 1744px) {
-    main > div.Wr50 {width: 58%;}
-    main > div#MainOutput {width: 42%;}
+    main > div.Wr50 {
+        width: 58%;
+    }
+
+    main > div#MainOutput {
+        width: 42%;
+    }
 }
 
 @media screen and (max-width: 1662px) {
-    main > div.Wr50 {width: 56%;}
-    main > div#MainOutput {width: 44%;}
+    main > div.Wr50 {
+        width: 56%;
+    }
 
-    div#PreviewWindow { min-height: 400px; }
+    main > div#MainOutput {
+        width: 44%;
+    }
+
+    div#PreviewWindow {
+        min-height: 400px;
+    }
 }
 
 @media screen and (max-width: 1590px) {
-    main > div.Wr50 {width: 54%;}
-    main > div#MainOutput {width: 46%;}
+    main > div.Wr50 {
+        width: 54%;
+    }
+
+    main > div#MainOutput {
+        width: 46%;
+    }
 }
 
 @media screen and (max-width: 1520px) {
-    main > div.Wr50 {width: 52%;}
-    main > div#MainOutput {width: 48%;}
+    main > div.Wr50 {
+        width: 52%;
+    }
+
+    main > div#MainOutput {
+        width: 48%;
+    }
 }
 
 @media screen and (max-width: 1445px) {
-    main > div.Wr50 {width: 50%; }
-    main > div#MainOutput {width: 50%; }
+    main > div.Wr50 {
+        width: 50%;
+    }
+
+    main > div#MainOutput {
+        width: 50%;
+    }
 }
 
 @media screen and (max-width: 1389px) {
-    main > div.Wr50 {width: 70%;}
-    main > div#MainOutput {width: 30%;}
-    div#PreviewWindow { min-height: 400px; }
+    main > div.Wr50 {
+        width: 70%;
+    }
+
+    main > div#MainOutput {
+        width: 30%;
+    }
+
+    div#PreviewWindow {
+        min-height: 400px;
+    }
 }
 
 @media screen and (max-width: 1179px) {
-    main > div.Wr50 {width: 65%; }
-    main > div#MainOutput {width: 35%;}
-    div#PreviewWindow { min-height: 300px; }
+    main > div.Wr50 {
+        width: 65%;
+    }
+
+    main > div#MainOutput {
+        width: 35%;
+    }
+
+    div#PreviewWindow {
+        min-height: 300px;
+    }
 
 }
 
 @media screen and (max-width: 1017px) {
-    main > div.Wr50 {width: 60%; margin-left: 12px;}
-    main > div#MainOutput {width: 40%;}
-    main > div.Wr50 > div.table > aside#LeftPanel { display: none !important; }
+    main > div.Wr50 {
+        width: 60%;
+        margin-left: 12px;
+    }
+
+    main > div#MainOutput {
+        width: 40%;
+    }
+
+    main > div.Wr50 > div.table > aside#LeftPanel {
+        display: none !important;
+    }
 }
 
 @media screen and (max-width: 980px) {
-    main > div#MainOutput { margin-left: 15px; }
+    main > div#MainOutput {
+        margin-left: 15px;
+    }
 }

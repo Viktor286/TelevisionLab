@@ -14,7 +14,7 @@ $nme_Tv_Channel = 'TV channel';
 $nme_Broadcast_Type = 'Broadcast type';
 $nme_Motion_Type = 'Production type';
 $nme_Tempo = 'Tempo (bpm)';
-$nme_Internal_Rating =  'Awesome meter';
+$nme_Internal_Rating = 'Awesome meter';
 
 $nme_By_User = 'User sender';
 $nme_Send_Video = 'Send this video';

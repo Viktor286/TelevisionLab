@@ -8,7 +8,8 @@ class TvLab
     public function __construct()
     {
 
-        global $TimeStat; $TimeStat = microtime(true); // Start Time Statistics
+        global $TimeStat;
+        $TimeStat = microtime(true); // Start Time Statistics
 
         $this->CSP_Header(''); //'Report-Only' --- empty flag will turn on CPS rules
 
@@ -54,7 +55,7 @@ class TvLab
         if (isset ($_GET['logout'])) {
             $_SESSION = array(); //erase array
             session_destroy();
-            echo '<script type="text/javascript">window.history.pushState("", "", "'.SITE_URL.'"); location.reload(); </script>'; //to main page
+            echo '<script type="text/javascript">window.history.pushState("", "", "' . SITE_URL . '"); location.reload(); </script>'; //to main page
             exit();
         }
     }
@@ -90,14 +91,20 @@ class TvLab
 
             echo "Session_name: " . session_name() . "<br />";
             echo "Session_id: " . session_id() . "<br />";
-            echo "Sess_Token: " . $_SESSION['token']. "<br />&nbsp;<br />";
+            echo "Sess_Token: " . $_SESSION['token'] . "<br />&nbsp;<br />";
 
 
-            echo "<div>S_SESSION:<pre> "; print_r($_SESSION); echo "</pre></div>";
+            echo "<div>S_SESSION:<pre> ";
+            print_r($_SESSION);
+            echo "</pre></div>";
 
-            echo "<div>Sess_cookie_params:<pre> "; var_dump(session_get_cookie_params()); echo "</pre></div>";
+            echo "<div>Sess_cookie_params:<pre> ";
+            var_dump(session_get_cookie_params());
+            echo "</pre></div>";
 
-            echo '<div style="float:none;">S_COOKIE:<pre>'; print_r($_COOKIE); echo "</pre></div>";
+            echo '<div style="float:none;">S_COOKIE:<pre>';
+            print_r($_COOKIE);
+            echo "</pre></div>";
 
             echo '<div class="clear"></div>';
 
