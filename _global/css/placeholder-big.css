@@ -1,29 +1,33 @@
 ::-webkit-input-placeholder {
+    padding-left: 23px;
+
+    font-size: 18px;
     font-weight: 300;
     font-style: normal;
-    font-size: 18px;
-    padding-left: 23px;
 }
 
 ::-moz-placeholder {
+    padding-left: 23px;
+
+    font-size: 18px;
     font-weight: 300;
     font-style: normal;
-    font-size: 18px;
-    padding-left: 23px;
 }
 
 /* Firefox 19+ */
 :-moz-placeholder {
+    padding-left: 23px;
+
+    font-size: 18px;
     font-weight: 300;
     font-style: normal;
-    font-size: 18px;
-    padding-left: 23px;
 }
 
 /* Firefox 18- */
 :-ms-input-placeholder {
+    padding-left: 23px;
+
+    font-size: 18px;
     font-weight: 300;
     font-style: normal;
-    font-size: 18px;
-    padding-left: 23px;
 }

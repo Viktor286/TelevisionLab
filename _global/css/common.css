@@ -1,12 +1,14 @@
-
 body {
-    background: url(../img/black_denim_100.png) repeat #000 fixed;
-    color: white;
-    font-family: 'Open Sans', sans-serif;
     overflow: auto !important;
+
+    color: white;
+    background: url(../img/black_denim_100.png) repeat #000 fixed;
+
+    font-family: 'Open Sans', sans-serif;
 }
 
-html, body {
+html,
+body {
     /*
     max-width: 100%;
     overflow-x: hidden;
@@ -21,42 +23,54 @@ tr td {
     vertical-align: top;
 }
 
-textarea, input, select, ul#singleFieldTags {
-    background: #27292a;
-    border: 1px solid #353535;
-    color: #cacaca;
-    font-size: 14px;
-    opacity: .9;
+textarea,
+input,
+select,
+ul#singleFieldTags {
     display: block;
-    padding: 10px;
-    line-height: 1;
+
     box-sizing: border-box;
+    padding: 10px;
+
     resize: none;
+
+    opacity: .9;
+    color: #cacaca;
+    border: 1px solid #353535;
+    background: #27292a;
+
+    font-size: 14px;
+    line-height: 1;
 }
 
-textarea:focus, input:focus, select:focus, ul#singleFieldTags:focus {
+textarea:focus,
+input:focus,
+select:focus,
+ul#singleFieldTags:focus {
     outline: 0;
 }
 
 a {
-    color: #F90;
+    color: #f90;
 }
 
 a:hover {
-    color: #FC6;
+    color: #fc6;
 }
 
 .clear {
     clear: both;
 }
 
-input:focus, textarea:focus {
-    -webkit-animation: input_bg; /* Chrome, Safari, Opera */
-    animation: input_bg;
-    -ms-transition: all .250s ease;
+input:focus,
+textarea:focus {
     -webkit-transition: all .250s ease;
-    transition: all .250s ease;
-    background: #404244;
+        -ms-transition: all .250s ease;
+            transition: all .250s ease;
+    -webkit-animation: input_bg;
+            animation: input_bg;
+
+    background: #404244; /* Chrome, Safari, Opera */
 }
 
 /* Animation ---- input_bg ------ Chrome, Safari, Opera */
@@ -80,42 +94,50 @@ input:focus, textarea:focus {
 }
 
 /* input placeholder style */
-::-webkit-input-placeholder /* WebKit browsers */
-{
+::-webkit-input-placeholder /* WebKit browsers */ {
     color: #666;
+
     font-style: italic;
 }
 
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: #666;
+:-moz-placeholder {
     opacity: 1;
+    /* Mozilla Firefox 4 to 18 */
+    color: #666;
+
     font-style: italic;
 }
 
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #666;
+::-moz-placeholder {
     opacity: 1;
-    font-style: italic;
+    /* Mozilla Firefox 19+ */
+    color: #666;
 
+    font-style: italic;
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10+ */
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
     color: #666;
+
     font-style: italic;
 }
 
 div.debugCookie {
-    font-weight: 300;
-    font-size: 13px;
-    border: 1px solid #6387cb;
-    padding: 10px;
     width: 97%;
     margin: 0 0 10px 0;
+    padding: 10px;
+
+    border: 1px solid #6387cb;
+
+    font-size: 13px;
+    font-weight: 300;
 }
 
 div.debugCookie > div {
-    width: 33%;
     float: left;
+
+    width: 33%;
 }
 
 span.hashtag {

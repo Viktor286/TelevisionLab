@@ -2,87 +2,110 @@
 
 div.FixedDisplay {
     position: fixed;
-    width: 686px;
-    border: 0px yellow dashed;
+
     clear: both;
+
+    width: 686px;
+
+    border: 0 yellow dashed;
 }
 
 #container {
-    border: 0px red dashed;
+    border: 0 red dashed;
 }
 
 div#PreviewWindow {
-    width: 100%;
-    display: block;
-    background: url(../img/loader_0.gif) no-repeat center #27292a;
     position: relative;
+
+    display: block;
+
+    width: 100%;
     min-height: 378px;
+
+    background: url(../img/loader_0.gif) no-repeat center #27292a;
 }
 
-div#PreviewWindow > div.box {
-}
+
 
 div#PreviewWindow > div.box > iframe {
     position: absolute;
+
+    clear: both;
+
     width: 100%;
     height: 100%;
-    clear: both;
+
     border: 1px solid #2f2f2f;
     border-bottom: none;
 }
 
 body > main {
-    border: 0px dashed red;
     display: table;
+
     width: 100%;
     min-width: 900px;
+
+    border: 0 dashed red;
 }
 
 main > div.Wr50 {
-    display: table-cell;
-    width: 45%;
-    border: 0px dashed #ffee00;
-    min-height: 400px;
-    min-width: 530px;
-    /*position: relative;*/
     position: fixed;
-    vertical-align: top;
 
+    display: table-cell;
+
+    width: 45%;
+    min-width: 530px;
+    min-height: 400px;
+
+    vertical-align: top;
+    /*position: relative;*/
+
+    border: 0 dashed #fe0;
 }
 
 main > div#MainOutput {
     display: table-cell;
+    float: right;
+
     width: 55%;
     height: 100%;
-    float: right;
 }
 
 main > div.Wr50 > div.table {
     display: table;
+
     width: 100%;
+
     vertical-align: top;
 }
 
 main > div.Wr50 > div.table > aside#LeftPanel {
-    display: table-cell;
-    width: 217px;
     position: relative;
+
+    display: table-cell;
+
+    width: 217px;
+
     vertical-align: top;
 }
 
 main > div.Wr50 > div.table > aside#LeftPanel > div.Accordion {
-    margin: 0 10px 0 5px;
     display: none;
+
+    margin: 0 10px 0 5px;
 }
 
 main > div.Wr50 > div.table > section#FixedDisplay {
-    vertical-align: top;
-    display: table-cell;
-    width: auto;
-    height: 100%;
-    min-width: 300px;
-    margin: 0 0 0 0px;
     position: relative;
+
+    display: table-cell;
+
+    width: auto;
+    min-width: 300px;
+    height: 100%;
+    margin: 0 0 0 0;
+
+    vertical-align: top;
 }
 
 /*----------------- @media screen  */
@@ -237,7 +260,6 @@ main > div.Wr50 > div.table > section#FixedDisplay {
     div#PreviewWindow {
         min-height: 300px;
     }
-
 }
 
 @media screen and (max-width: 1017px) {

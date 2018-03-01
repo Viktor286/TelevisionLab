@@ -2,21 +2,26 @@
 
 div#MPC {
     display: block;
+
     width: 395px;
     height: 47px;
-    padding-left: 60px;
-    border: 0 red dashed;
     margin: 0 auto;
+    padding-left: 60px;
+
+    border: 0 red dashed;
 }
 
 div#MPC div {
+    float: left;
+    overflow: hidden;
+
     width: 56px;
     height: 40px;
-    background: url(../img/ui_video_player.png) no-repeat;
-    overflow: hidden;
-    float: left;
     margin: 7px 8px 0 0;
+
     cursor: pointer;
+
+    background: url(../img/ui_video_player.png) no-repeat;
 }
 
 /*
@@ -67,6 +72,7 @@ div#MPC > div#PlayPause.pause {
     width: 62px;
     height: 47px;
     margin-top: 3px;
+
     background-position: -436px 0;
 }
 
@@ -74,6 +80,7 @@ div#MPC > div#PlayPause.play {
     width: 62px;
     height: 47px;
     margin-top: 3px;
+
     background-position: -374px 0;
 }
 
@@ -109,7 +116,7 @@ div#MPC div.AutoPlay {
 }
 
 div#MPC div.AutoPlay.Cycle {
-    background-position: -318px -0px;
+    background-position: -318px -0;
 }
 
 div#MPC div.AutoPlay.Next {
@@ -131,7 +138,6 @@ div#MPC > div#NextVideo {
 
 div#MPC > div#NextShot {
     background-position: -150px 0;
-
 }
 
 /* -- Hover Buttons */
@@ -145,7 +151,6 @@ div#MPC > div#PrevShot:hover {
 
 div#MPC > div#NextShot:hover {
     background-position: -150px -40px;
-
 }
 
 div#MPC > div#NextVideo:hover {
@@ -163,7 +168,6 @@ div#MPC > div#PrevShot:active {
 
 div#MPC > div#NextShot:active {
     background-position: -150px -80px;
-
 }
 
 div#MPC > div#NextVideo:active {
@@ -175,14 +179,18 @@ div#MPC > div#PrevVideo:disabled {
     background-position: -206px -120px;
 }
 
-div#MPC > div#PrevShot:disabled, div#MPC > div#PrevShot.disabled {
-    background-position: -94px -120px;
+div#MPC > div#PrevShot:disabled,
+div#MPC > div#PrevShot.disabled {
     cursor: default;
+
+    background-position: -94px -120px;
 }
 
-div#MPC > div#NextShot:disabled, div#MPC > div#NextShot.disabled {
-    background-position: -150px -120px;
+div#MPC > div#NextShot:disabled,
+div#MPC > div#NextShot.disabled {
     cursor: default;
+
+    background-position: -150px -120px;
 }
 
 div#MPC > div#NextVideo:disabled {
