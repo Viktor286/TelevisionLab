@@ -6,9 +6,9 @@ function AdjustH1InfoOutput($getSet, $Mode, $tags) {
     $SetTitleLine = "";
 
     //Prepare chunks
-    $SetChunk = "<span class='TitlePrepend'>Production&nbsp;Type:</span>&nbsp;";
+    $SetChunk = "<span class='title-prepend'>Production&nbsp;Type:</span>&nbsp;";
 
-    $TagChunk = "<span class='TitlePrepend'>Keyword:</span>";
+    $TagChunk = "<span class='title-prepend'>Keyword:</span>";
 
 
     $isSetActive = 0;
@@ -24,7 +24,7 @@ function AdjustH1InfoOutput($getSet, $Mode, $tags) {
     if ( !isset($SetTitleLine) ) {$SetTitleLine = " All";}
 
 
-    if ($Mode == "on") {$OnlyWrap = "<span class='TitleOnly'> only&nbsp;(&nbsp;</span>"; $OnlyWrapClose = "<span class='TitleOnly'> )</span>";}
+    if ($Mode == "on") {$OnlyWrap = "<span class='title-only'> only&nbsp;(&nbsp;</span>"; $OnlyWrapClose = "<span class='title-only'> )</span>";}
 
     if ($tags != "") {
 
@@ -42,9 +42,9 @@ function AdjustH1InfoOutput($getSet, $Mode, $tags) {
 
     if ($isSetActive == 1 or $tags != "") {
         if ($isSetActive == 1 and $tags != "")
-        {$tagIndent = " <span class='TitlePrepend'>and</span>&nbsp;";}
+        {$tagIndent = " <span class='title-prepend'>and</span>&nbsp;";}
 
-        $OutputLine = '<h1 class="setInfo">' . $tagLine . $tagIndent . $SetChunk . $OnlyWrap . $SetTitleLine . $OnlyWrapClose . "</h1>";
+        $OutputLine = '<h1 class="state-info">' . $tagLine . $tagIndent . $SetChunk . $OnlyWrap . $SetTitleLine . $OnlyWrapClose . "</h1>";
     }
 
     //$x = SetTitle($qSet, $Mode); if ($x != "") {echo "<h1>".$x."</h1>";}

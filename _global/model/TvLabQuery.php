@@ -195,7 +195,7 @@ class TvLabQuery
 
         // OLD API LINK https://developer.vimeo.com/apis/advanced/methods/vimeo.videos.comments.getList
         $result = $vimeo->call('vimeo.videos.comments.getList', array('video_id' => $Vimeo_Id));
-        if ($result->stat != 'ok') echo 'Нет подключения к vimeo, статус (' . $result->stat . ')<br />';
+        if ($result->stat != 'ok') echo 'No connection to vimeo, статус (' . $result->stat . ')<br />';
 
         $comments = $result->comments->comment;
 
@@ -427,62 +427,63 @@ class TvLabQuery
 
         if ($VarState == "SetGlobals") {
             global $Title;
-            $Title = $this->Title;
             global $OutId;
-            $OutId = $this->OutId;
             global $OutHost;
-            $OutHost = $this->OutHost;
             global $Img;
-            $Img = $this->Img;
             global $Img_Small;
-            $Img_Small = $this->Img_Small;
             global $Authors;
-            $Authors = $this->Authors;
             global $Authors_Aliases;
-            $Authors_Aliases = $this->Authors_Aliases;
             global $Location;
-            $Location = $this->Location;
             global $Brand;
-            $Brand = $this->Brand;
             global $Tv_Channel;
-            $Tv_Channel = $this->Tv_Channel;
             global $Likes;
-            $Likes = $this->Likes;
             global $Rating;
-            $Rating = $this->Rating;
-            global $Cost;
-            $Cost = $this->Cost;
             global $Motion_Type;
-            $Motion_Type = $this->Motion_Type;
+            global $Cost;
             global $Broadcast_Type;
-            $Broadcast_Type = $this->Broadcast_Type;
             global $Tempo;
-            $Tempo = $this->Tempo;
             global $Tags_SA;
-            $Tags_SA = $this->Tags_SA;
             global $Tags_Fashion;
-            $Tags_Fashion = $this->Tags_Fashion;
             global $Tags_Arts;
-            $Tags_Arts = $this->Tags_Arts;
             global $Tags_Music;
-            $Tags_Music = $this->Tags_Music;
             global $Tags_Others;
-            $Tags_Others = $this->Tags_Others;
             global $Date_Origin;
-            $Date_Origin = $this->Date_Origin;
             global $Year;
-            $Year = $this->Year;
             global $Duration;
-            $Duration = $this->Duration;
             global $Date_Create;
-            $Date_Create = $this->Date_Create;
             global $By_User;
-            $By_User = $this->By_User;
             global $Width;
-            $Width = $this->Width;
             global $Height;
-            $Height = $this->Height;
             global $State;
+
+            $Title = $this->Title;
+            $OutId = $this->OutId;
+            $OutHost = $this->OutHost;
+            $Img = $this->Img;
+            $Img_Small = $this->Img_Small;
+            $Authors = $this->Authors;
+            $Authors_Aliases = $this->Authors_Aliases;
+            $Location = $this->Location;
+            $Brand = $this->Brand;
+            $Tv_Channel = $this->Tv_Channel;
+            $Likes = $this->Likes;
+            $Rating = $this->Rating;
+            $Cost = $this->Cost;
+            $Motion_Type = $this->Motion_Type;
+            $Broadcast_Type = $this->Broadcast_Type;
+            $Tempo = $this->Tempo;
+            $Tags_SA = $this->Tags_SA;
+            $Tags_Fashion = $this->Tags_Fashion;
+            $Tags_Arts = $this->Tags_Arts;
+            $Tags_Music = $this->Tags_Music;
+            $Tags_Others = $this->Tags_Others;
+            $Date_Origin = $this->Date_Origin;
+            $Year = $this->Year;
+            $Duration = $this->Duration;
+            $Date_Create = $this->Date_Create;
+            $By_User = $this->By_User;
+            $Width = $this->Width;
+            $Height = $this->Height;
             $State = $this->State;
         }
     }

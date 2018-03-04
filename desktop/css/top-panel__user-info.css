@@ -1,0 +1,142 @@
+
+/*------- Top Panel User Info Board ------*/
+
+table.PersonalInfo {
+    display: block;
+    float: right;
+
+    width: 400px;
+    height: 45px;
+    margin: 12px 90px 0 0;
+
+    border: 0 red dashed;
+}
+
+div.UserInfo {
+    display: block;
+    float: right;
+    overflow: hidden;
+
+    width: 195px;
+    height: 20px;
+
+    text-align: right;
+
+    color: white;
+    border: 0 blue dashed;
+
+    font-size: 16px;
+}
+
+div.UserInfo div.UserName {
+    display: inline-block;
+
+    max-width: 165px;
+
+    vertical-align: top !important;
+
+    border: 0 green dashed;
+}
+
+div.UserName a {
+    text-decoration: none;
+
+    color: #fff;
+}
+
+div.UserName a:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.UserLogout {
+    position: relative;
+
+    display: inline-block;
+
+    width: 19px;
+    height: 19px;
+    margin: 0 10px 0 0;
+
+    background: url(../img/bt_logout.png) no-repeat center;
+}
+
+div.Activity {
+    position: relative;
+
+    display: block;
+    float: right;
+
+    height: 18px;
+    margin: 4px 0 0 0;
+
+    color: #565656;
+    border: 0 red dashed;
+
+    font-size: 12px;
+}
+
+span.Ratio {
+    color: white;
+
+    font-size: 14px;
+}
+
+span.Sum {
+    color: white;
+
+    font-size: 18px;
+}
+
+div.UserStat {
+    display: block;
+    float: left;
+
+    width: 140px;
+    height: 20px;
+    margin: 0 0 0 10px;
+
+    color: #565656;
+    border: 0 red dashed;
+
+    font-size: 12px;
+}
+
+
+
+div.BoardSetup {
+    display: block;
+    float: none;
+    clear: both;
+
+    height: 20px;
+    margin: 0 0 0 10px;
+
+    cursor: pointer;
+    text-align: left;
+
+    border: 0 yellow dashed;
+}
+
+div.DownArr {
+    display: block;
+    float: right;
+
+    width: 33px;
+    height: 12px;
+    margin: 5px 0 0 0;
+
+    background: url(../img/bt_down_arr.png) no-repeat center;
+}
+
+div.BoardTitle {
+    display: block;
+    float: left;
+
+    width: 150px;
+
+    color: #565656;
+    border: 0 red dashed;
+
+    font-size: 20px;
+}

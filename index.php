@@ -44,23 +44,24 @@ $xCol = '319';
         <base href="http://www.televisionlab.net/"/>
         <!--[if IE]></base><![endif]-->
         <meta name="description" content="Motion Design and Broadcast Graphics database">
-
         <link rel="icon" href="favicon.ico"/>
 
         <link rel="stylesheet" type="text/css" href="/_global/css/reset.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/common.css"/>
-
-        <link rel="stylesheet" type="text/css" href="/_global/css/main_player_controls.css"/>
-
         <link rel="stylesheet" type="text/css" href="/_global/css/jquery.tagit.css"/>
         <link rel="stylesheet" type="text/css" href="/_global/css/tagit.ui-zendesk.css"/>
         <link rel="stylesheet" type="text/css" href="/_global/css/fonts-google-opensans.css"/>
         <!--        <link rel="stylesheet" type="text/css" href="/_global/css/balloon.css" />-->
 
-        <link rel="stylesheet" type="text/css" href="/desktop/css/top_panel.css"/>
+        <link rel="stylesheet" type="text/css" href="/_global/css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="/_global/css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="/_global/css/main_player_controls.css"/>
+
         <link rel="stylesheet" type="text/css" href="/desktop/css/layout.css"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/left-panel-accordion.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/no-result-block.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel__user-info.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel.css"/>
+
 
         <script type="text/javascript" src="/_global/js/compatibility.js"></script>
         <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>
@@ -72,7 +73,6 @@ $xCol = '319';
 
         <script type="text/javascript" src="/_global/js/scripts.js"></script>
         <script type="text/javascript" src="/desktop/js/scripts.js"></script>
-
         <script type="text/javascript" src="/desktop/js/player.js"></script>
 
         <? print '<link rel="stylesheet" type="text/css" href="/desktop/css/dynamic.php?xcol=' . $xCol . '&ev=' . $emptyVid . '" />' ?>
@@ -107,19 +107,19 @@ $xCol = '319';
 <? include 'desktop/views/top_panel.php'; ?>
 
     <main>
-        <div class="Wr50">
+        <div class="wr50">
             <div class="table">
-                <aside id="LeftPanel">
-                    <div class="Accordion">
+                <aside id="left-panel">
+                    <div class="accordion">
                         <? include 'desktop/controllers/tags_overview_left.php'; ?>
                 </aside>
-                <section id="FixedDisplay">
-                    <div id="PreviewWindow"></div>
-                    <div id="InformationWindow"></div>
+                <section id="fixed-display">
+                    <div id="preview-window"></div>
+                    <div id="video-info"></div>
                 </section>
             </div>
         </div>
-        <div id="MainOutput">
+        <div id="main-output">
             <? AdjustH1InfoOutput($qSet, $Mode, $Tags); ?>
             <? $TvLab->showDebugCookie(); ?>
             <div id="container"></div>

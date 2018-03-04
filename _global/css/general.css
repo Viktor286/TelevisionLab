@@ -13,8 +13,7 @@ tr td {
 
 textarea,
 input,
-select,
-ul#singleFieldTags {
+select {
     display: block;
 
     box-sizing: border-box;
@@ -43,42 +42,6 @@ span.tagit-label {
     color: white !important;
 
     font-weight: 300;
-}
-
-ul#singleFieldTags {
-    min-width: 200px;
-    max-width: 380px;
-    padding: 6px 10px 10px 10px !important;
-
-    cursor: text;
-}
-
-textarea:focus,
-input:focus,
-select:focus,
-ul#singleFieldTags:focus {
-    outline: 0;
-}
-
-ul#singleFieldTags:hover {
-    -webkit-transition: all .250s ease;
-        -ms-transition: all .250s ease;
-            transition: all .250s ease;
-    -webkit-animation: input_bg;
-            animation: input_bg;
-
-    background: #404244; /* Chrome, Safari, Opera */
-}
-
-input:focus,
-textarea:focus {
-    -webkit-transition: all .250s ease;
-        -ms-transition: all .250s ease;
-            transition: all .250s ease;
-    -webkit-animation: input_bg;
-            animation: input_bg;
-
-    background: #404244; /* Chrome, Safari, Opera */
 }
 
 a {
@@ -383,9 +346,13 @@ div.item a {
     border: none;
 }
 
-main > div#MainOutput > div#container > .item > .box > a > img {
+main > div#main-output > div#container > .item > .box > a > img {
     width: 100%;
     height: 100%;
+}
+
+.waterfall-container a.wf-load-video {
+    cursor: pointer;
 }
 
 div.item > .box {
@@ -493,11 +460,11 @@ div.wf-rating {
 /*div.item.here div.min-icons { top:151px; left: 11px;}*/
 /*div.item.here div.wf-rating { top:157px; left: 284px;}*/
 
-div.wf-rating > div.RateText {
+div.wf-rating > div.rate-text {
     margin: 6px 0 0 0;
 }
 
-div.wf-rating > div.RateText:first-letter {
+div.wf-rating > div.rate-text:first-letter {
     letter-spacing: .1px !important;
 
     color: #999;
@@ -544,7 +511,7 @@ div.item.board {
 /*------- Tags Styles Section
 ------*/
 
-div#InformationWindow > .left > span.Tags > a.tag,
+div#video-info > .left > span.Tags > a.tag,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag,
 div.NoResultAdvice > span.Tags > a.advice-tag {
     margin: 0 5px 0 0;
@@ -561,7 +528,7 @@ div.NoResultAdvice > span.Tags > a.advice-tag {
     line-height: 220%;
 }
 
-div#InformationWindow > .left > span.Tags > a.tag:hover,
+div#video-info > .left > span.Tags > a.tag:hover,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.tag:hover,
 div.NoResultAdvice > span.Tags > a.advice-tag:hover {
     cursor: pointer;
@@ -571,7 +538,7 @@ div.NoResultAdvice > span.Tags > a.advice-tag:hover {
     background-color: #292929;
 }
 
-div#InformationWindow > .left > span.Tags > a.here,
+div#video-info > .left > span.Tags > a.here,
 section.PostBox > article > div.wrapper > .info > .pad > span.Tags > a.here,
 div.NoResultAdvice > span.Tags > a.advice-tag.here {
     color: #fff;
@@ -593,7 +560,7 @@ a.advice-tag {
     font-size: 14px;
 }
 
-h1.setInfo > span.Tags span.tag {
+h1.state-info > span.Tags span.tag {
     border-color: #5e82b3;
 }
 
@@ -1450,14 +1417,14 @@ div.Team-Dashboard a.bt-LogOut-sml {
 
 /*-------        Post Box        ------*/
 section.PostBox a,
-div#InformationWindow a {
+div#video-info a {
     text-decoration: none;
 
     color: #fff;
 }
 
 section.PostBox a:hover,
-div#InformationWindow a:hover {
+div#video-info a:hover {
     color: #cdeaff;
 }
 
@@ -1584,9 +1551,9 @@ section.PostBox > article > div.wrapper > div.thumb > .wrapper > .main > iframe 
     /*display: none;*/
 }
 
-/*-------        InformationWindow        ------*/
+/*-------        video-info        ------*/
 
-div#InformationWindow {
+div#video-info {
     width: 100%;
     margin: 0 auto;
     padding: 15px 0 40px 0;
@@ -1598,17 +1565,10 @@ div#InformationWindow {
     font-weight: 300;
 }
 
-div#InformationWindow > div#InformationWindow {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-
-    border: none;
-    background: none;
-}
 
 /* trick for editing template */
 
-#InformationWindow > .left {
+#video-info > .left {
     float: none;
     overflow: auto;
 
@@ -1617,7 +1577,7 @@ div#InformationWindow > div#InformationWindow {
     /*border: 1px #468fe1 dashed;*/
 }
 
-#InformationWindow > .right {
+#video-info > .right {
     float: right;
 
     width: 28%;
@@ -1628,19 +1588,19 @@ div#InformationWindow > div#InformationWindow {
 }
 
 @media screen and (min-width: 2270px) {
-    #InformationWindow > .left {
+    #video-info > .left {
         width: 45%;
         /*border: 1px red dashed;*/
         margin-left: 15%;
     }
 
-    #InformationWindow > .right {
+    #video-info > .right {
         /*border: 1px #ff6984 dashed;*/
         width: 35%;
     }
 }
 
-div#InformationWindow > .left > div.Title,
+div#video-info > .left > div.Title,
 section.PostBox > article > div.wrapper > .info > .pad > h1 {
     display: block;
 
@@ -1657,7 +1617,7 @@ section.PostBox > article > div.wrapper > .info > .pad > h1 {
     /*border: 1px #ff7a95 dashed;*/
 }
 
-div#InformationWindow > .left > div.KeyShots {
+div#video-info > .left > div.KeyShots {
     display: block;
 
     margin: 16px 0 0 0;
@@ -1667,7 +1627,7 @@ div#InformationWindow > .left > div.KeyShots {
     font-size: 14px;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul {
+div#video-info > .left > div.KeyShots > ul {
     display: block;
     clear: both;
     /*border: 1px blue dashed;*/
@@ -1677,7 +1637,7 @@ div#InformationWindow > .left > div.KeyShots > ul {
     margin: 15px 0 0 0;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li {
+div#video-info > .left > div.KeyShots > ul > li {
     position: relative;
 
     display: block;
@@ -1734,18 +1694,18 @@ div#InformationWindow > .left > div.KeyShots > ul > li {
     }
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li:hover {
+div#video-info > .left > div.KeyShots > ul > li:hover {
     cursor: pointer;
 
     color: #b5d4f7;
     /*animation: KeyShotsTagHover .15s linear;*/
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li:hover:before {
+div#video-info > .left > div.KeyShots > ul > li:hover:before {
     background: url('../img/ui_video_player.png') -12px -194px;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li:before {
+div#video-info > .left > div.KeyShots > ul > li:before {
     z-index: 10;
 
     display: block;
@@ -1760,14 +1720,14 @@ div#InformationWindow > .left > div.KeyShots > ul > li:before {
     background: url('../img/ui_video_player.png') 0 -194px;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li.load {
+div#video-info > .left > div.KeyShots > ul > li.load {
     cursor: text;
     animation: KeyShotsTagStartLoad .1s linear;
 
     color: #ffe9b2;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li.load:before {
+div#video-info > .left > div.KeyShots > ul > li.load:before {
     z-index: 20;
 
     animation: KeyShotsTagFade .15s linear;
@@ -1775,7 +1735,7 @@ div#InformationWindow > .left > div.KeyShots > ul > li.load:before {
     background: url('../img/ui_video_player.png') -24px -194px;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li.here {
+div#video-info > .left > div.KeyShots > ul > li.here {
     cursor: pointer;
     animation: KeyShotsTagLoad .3s linear;
 
@@ -1783,7 +1743,7 @@ div#InformationWindow > .left > div.KeyShots > ul > li.here {
     border-bottom: 1px dashed #6da3e1;
 }
 
-div#InformationWindow > .left > div.KeyShots > ul > li.here:before {
+div#video-info > .left > div.KeyShots > ul > li.here:before {
     /*background: url('../../desktop/img/keyshot_bullet_here.gif');*/
     z-index: 30;
 
@@ -1792,7 +1752,7 @@ div#InformationWindow > .left > div.KeyShots > ul > li.here:before {
     background: url('../img/ui_video_player.png') -12px -194px;
 }
 
-div#InformationWindow > .left > div.KeyShots > div.ShotName {
+div#video-info > .left > div.KeyShots > div.ShotName {
     display: block;
 
     min-height: 16px;
@@ -1839,8 +1799,8 @@ div.TimeCode > span {
     color: #646464;
 }
 
-div#InformationWindow span.prevFrame,
-div#InformationWindow span.nextFrame {
+div#video-info span.prevFrame,
+div#video-info span.nextFrame {
     display: block;
     float: left;
 
@@ -1859,33 +1819,33 @@ div#InformationWindow span.nextFrame {
     }
 }
 
-div#InformationWindow span.prevFrame {
+div#video-info span.prevFrame {
     background: url('../img/ui_video_player.png') -94px -160px;
 }
 
-div#InformationWindow span.prevFrame:hover {
+div#video-info span.prevFrame:hover {
     background: url('../img/ui_video_player.png') -112px -160px;
 }
 
-div#InformationWindow span.prevFrame.loading {
+div#video-info span.prevFrame.loading {
     background: url('../img/ui_video_player.png') -130px -160px;
 }
 
-div#InformationWindow span.nextFrame {
+div#video-info span.nextFrame {
     float: right;
 
     background: url('../img/ui_video_player.png') -103px -160px;
 }
 
-div#InformationWindow span.nextFrame:hover {
+div#video-info span.nextFrame:hover {
     background: url('../img/ui_video_player.png') -121px -160px;
 }
 
-div#InformationWindow span.nextFrame.loading {
+div#video-info span.nextFrame.loading {
     background: url('../img/ui_video_player.png') -139px -160px;
 }
 
-div#InformationWindow > .left > div.KeyShots > div.ShotName div.keyShot {
+div#video-info > .left > div.KeyShots > div.ShotName div.keyShot {
     display: inline-block;
 
     width: 11px;
@@ -1902,7 +1862,7 @@ section.PostBox > article > div.wrapper > .info > .pad > h1 {
 }
 
 /*
-div#InformationWindow > div.timecode {
+div#video-info > div.timecode {
     width: 90px;
     height: 25px;
     color: #636363;
@@ -1911,7 +1871,7 @@ div#InformationWindow > div.timecode {
 }
 */
 
-div#InformationWindow > div.controlRow {
+div#video-info > div.video-info__controls {
     width: 100%;
     height: 60px;
     margin: 0 0 10px 0;
@@ -1921,7 +1881,7 @@ div#InformationWindow > div.controlRow {
     border: 0 red dashed;
 }
 
-div#InformationWindow > .left > span.Tags {
+div#video-info > .left > span.Tags {
     display: block;
 
     margin: 25px 0 0 0;
@@ -1933,7 +1893,7 @@ section.PostBox > article > div.wrapper > .info > .pad > span.Tags {
     margin: 20px 0 0 0;
 }
 
-#InformationWindow > .left > div.Rating,
+#video-info > .left > div.Rating,
 section.PostBox > article > div.wrapper > .info > .pad > div.Rating {
     display: table;
 
@@ -1948,7 +1908,7 @@ section.PostBox > article > div.wrapper > .info > .pad > div.Rating {
     margin: 18px 0 0 0;
 }
 
-#InformationWindow > .right > .Authors,
+#video-info > .right > .Authors,
 section.PostBox > article > div.wrapper > .info > .pad > .Authors {
     display: table;
 
@@ -1963,7 +1923,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Authors {
     margin: 12px 0 0 0;
 }
 
-#InformationWindow > .right > .Authors > .IconCol,
+#video-info > .right > .Authors > .IconCol,
 section.PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol {
     display: table-cell;
 
@@ -1974,7 +1934,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Authors > .IconCol {
     border: 0 red dashed;
 }
 
-#InformationWindow > .right > .Authors > .IconCol > div.UserIcon,
+#video-info > .right > .Authors > .IconCol > div.UserIcon,
 section.PostBox > article > div.wrapper > .info > .pad > .Authors > div.UserIcon {
     width: 22px;
     height: 20px;
@@ -1982,7 +1942,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Authors > div.UserIcon
     background: url('../img/ui_video_player.png') -46px -189px;
 }
 
-#InformationWindow > .right > .Authors > .Names,
+#video-info > .right > .Authors > .Names,
 section.PostBox > article > div.wrapper > .info > .pad > .Authors > .Names {
     display: table-cell;
 
@@ -2000,7 +1960,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Authors > .Names {
     font-size: 14px;
 }
 
-#InformationWindow > .right > .Location,
+#video-info > .right > .Location,
 section.PostBox > article > div.wrapper > .info > .pad > .Location {
     margin: 5px 0 0 0;
     padding: 0 10px 0 0;
@@ -2010,29 +1970,29 @@ section.PostBox > article > div.wrapper > .info > .pad > .Location {
     font-size: 12px;
 }
 
-#InformationWindow > .right > .Brand,
+#video-info > .right > .Brand,
 section.PostBox > article > div.wrapper > .info > .pad > .Brand {
     margin: 15px 0 5px 0;
 }
 
-#InformationWindow > .right > .Tv_Channel,
+#video-info > .right > .Tv_Channel,
 section.PostBox > article > div.wrapper > .info > .pad > .Tv_Channel {
     margin: 15px 0 0 0;
 }
 
-#InformationWindow > .right > .Motion_Type,
+#video-info > .right > .Motion_Type,
 section.PostBox > article > div.wrapper > .info > .pad > .Motion_Type {
     margin: 10px 0 0 0;
 }
 
-#InformationWindow > .right > .Broadcast_Type,
+#video-info > .right > .Broadcast_Type,
 section.PostBox > article > div.wrapper > .info > .pad > .Broadcast_Type {
     margin: 20px 0 0 0;
 
     font-size: 12px;
 }
 
-#InformationWindow > .right > .Motion_Type img.min-icon,
+#video-info > .right > .Motion_Type img.min-icon,
 section.PostBox > article > div.wrapper > .info > .pad > .Motion_Type img.min-icon {
     position: relative;
     top: 10px;
@@ -2045,7 +2005,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Motion_Type img.min-ic
     margin: -10px 4px 0 0;
 }
 
-#InformationWindow .min_cap,
+#video-info .min_cap,
 section.PostBox > article .min_cap {
     display: inline;
 
@@ -2054,7 +2014,7 @@ section.PostBox > article .min_cap {
     font-size: 12px;
 }
 
-#InformationWindow > .left > .Rating > .Num,
+#video-info > .left > .Rating > .Num,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num {
     display: table-cell;
 
@@ -2074,13 +2034,13 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num {
     line-height: 110%;
 }
 
-#InformationWindow > .left > .Rating > .Num > div.RateText,
-section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText {
+#video-info > .left > .Rating > .Num > div.rate-text,
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.rate-text {
     margin: 7px 10px 0;
 }
 
-#InformationWindow > .left > .Rating > .Num > div.RateText:first-letter,
-section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.RateText:first-letter {
+#video-info > .left > .Rating > .Num > div.rate-text:first-letter,
+section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.rate-text:first-letter {
     letter-spacing: .1px !important;
 
     color: #999;
@@ -2088,7 +2048,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .Num > div.Ra
     font-size: 14px;
 }
 
-#InformationWindow > .left > .Rating > .AwesomeRate,
+#video-info > .left > .Rating > .AwesomeRate,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate {
     position: relative;
 
@@ -2097,9 +2057,9 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
     border: 0 blue dashed;
 }
 
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
+#video-info > .left > .Rating > .AwesomeRate > .MeterGhost,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost,
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
+#video-info > .left > .Rating > .AwesomeRate > .MeterExist,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist {
     position: absolute;
 
@@ -2108,7 +2068,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
     margin: 5px 0 0 0;
 }
 
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterGhost,
+#video-info > .left > .Rating > .AwesomeRate > .MeterGhost,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost {
     z-index: 1;
 
@@ -2116,7 +2076,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
     background-size: cover;
 }
 
-#InformationWindow > .left > .Rating > .AwesomeRate > .MeterExist,
+#video-info > .left > .Rating > .AwesomeRate > .MeterExist,
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist {
     z-index: 2;
 

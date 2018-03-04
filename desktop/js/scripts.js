@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     //-- Remove tag on x click
-    $("div#MainOutput > h1.setInfo > span.Tags > span.tag span.x-close")
+    $("div#main-output > h1.state-info > span.Tags > span.tag span.x-close")
         .on("click", function (event) {
 
             //Recognize tag text
@@ -11,34 +11,52 @@ $(document).ready(function () {
             TagText = TagText.replace("# ", "");
 
             // Remove tag
-            $("#singleFieldTags").tagit("removeTagByLabel", TagText);
+            $("ul.top-panel__search-field").tagit("removeTagByLabel", TagText);
             // Remove div tag
             $(this).parent().fadeOut(200, function () {
                 TagText.remove();
             });
             // Submit with delay
             setTimeout(function () {
-                $('#tpSearch').submit();
+                $('#top-panel__search').submit();
             }, 100);
         });
 
+    // Video display tag click event
+    $(document).on('click','a.tag',function( event ){
+        event.preventDefault();
+        var tag = $(event.target).data('tag');
+        $("ul.top-panel__search-field").tagit("removeAll");
+        $("ul.top-panel__search-field").tagit("createTag", tag);
+        $('#top-panel__search').submit();
+    });
+
+
+
 });
+
+
+
+
+
 
 // Display Video On page load
 function LoadVideoOnPage(VideoId) {
     // set the background gif
-    $('div#PreviewWindow').css('background-image', 'url(_global/img/loader_0.gif)');
+    $('div#preview-window').css('background-image', 'url(_global/img/loader_0.gif)');
 
     $.ajax('desktop/ajax/video.php', {
         success: function (response) {
-            $('#PreviewWindow').html('<div class="box"><iframe src="//player.vimeo.com/video/' + VideoId + '?title=0&byline=0&portrait=0&autoplay=1"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>').load(function (e) {
+
+            $('#preview-window').html('<div class="box"><iframe src="//player.vimeo.com/video/' + VideoId + '?title=0&byline=0&portrait=0&autoplay=1"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>').load(function (e) {
                 $(this).contents().find('body').addClass('Z');
             });
-            $('#InformationWindow').hide().html(response).fadeIn(0);
+
+            $('#video-info').hide().html(response).fadeIn(0);
 
             // remove background image
             setTimeout(function () {
-                $('div#PreviewWindow').css('background-image', 'none');
+                $('div#preview-window').css('background-image', 'none');
             }, 1000);
         },
         data: {"VideoId": VideoId},
@@ -323,8 +341,8 @@ function LoadVideoOnPage(VideoId) {
                 thisIndex = 0,
                 absDiffArr = [];
 
-            var KeyShotsDiv = 'div#InformationWindow > .left > div.KeyShots > ul';
-            var KeyShotsNameDiv = 'div#InformationWindow > .left > div.KeyShots > div.ShotName > span';
+            var KeyShotsDiv = 'div#video-info > .left > div.KeyShots > ul';
+            var KeyShotsNameDiv = 'div#video-info > .left > div.KeyShots > div.ShotName > span';
 
             // div#NextShot controller
             $(document).on('click', 'div#MPC div#NextShot', function (event) {
@@ -436,7 +454,7 @@ function LoadVideoOnPage(VideoId) {
 
             // Set the first ShotName in videoCuePoints and set all the LI
             $(KeyShotsNameDiv).html('<span style="color:#878787;">' + videoCuePoints.length + ' shot points...</span>');
-            // $('div#InformationWindow > .left > div.KeyShots > div.ShotName').hide();
+            // $('div#video-info > .left > div.KeyShots > div.ShotName').hide();
 
             // Set the LI elements
             for (i = 0; i < videoCuePoints.length; i++) {
@@ -523,7 +541,7 @@ function LoadVideoOnPage(VideoId) {
         // We also have autoplay cycle problem, which starts video from the beginning at near of the end
 
         // set on nextFrame button
-        var nextFrame = 'div#InformationWindow span.nextFrame';
+        var nextFrame = 'div#video-info span.nextFrame';
         $(document).on('click', nextFrame, function (event) {
             mainPlayer.getCurrentTime().then(function (seconds) {
                 // define very start (zero time) of playback
@@ -565,7 +583,7 @@ function LoadVideoOnPage(VideoId) {
         });
 
         // set on prevFrame button
-        var prevFrame = 'div#InformationWindow span.prevFrame';
+        var prevFrame = 'div#video-info span.prevFrame';
         $(document).on('click', prevFrame, function (event) {
             mainPlayer.getCurrentTime().then(function (seconds) {
                 // define very start (zero time) of playback
@@ -598,6 +616,7 @@ function LoadVideoOnPage(VideoId) {
     });
 
 }
+
 
 
 function urlVideo(param) {
@@ -664,10 +683,10 @@ function LoadVideoOnClick(id, thisObj) {
 $(document).on('click', 'a.tag-item', function (event) {
     event.preventDefault();
     var tag = $(event.target).data('tag');
-    $("#singleFieldTags").tagit("removeAll");
-    $("#singleFieldTags").tagit("createTag", tag);
+    $("ul.top-panel__search-field").tagit("removeAll");
+    $("ul.top-panel__search-field").tagit("createTag", tag);
     $('input#InputVideo').val(""); //Drop displayed video to ""
-    $('#tpSearch').submit();
+    $('#top-panel__search').submit();
 });
 
 // *Tags overview Tag "here" highlight when entire document ready
@@ -679,15 +698,15 @@ $(document).ready(function () {
 });
 
 $(function () {
-    $("aside#LeftPanel div.Accordion").accordion({
+    $("aside#left-panel div.accordion").accordion({
         collapsible: true,
         active: menuState,
         heightStyle: "content",
         create: function (event, ui) {
-            $('aside#LeftPanel div.Accordion').css("display", "block")
+            $('aside#left-panel div.accordion').css("display", "block")
         },
         activate: function (event, ui) {
-            var TagMenuActive = $("aside#LeftPanel div.Accordion").accordion("option", "active");
+            var TagMenuActive = $("aside#left-panel div.accordion").accordion("option", "active");
             document.cookie = "TagMenuState=" + TagMenuActive;
         }
     });
@@ -829,20 +848,20 @@ $(function () {
         height: 40
     });
 
-    $('.hideBeforeInit').css("display", "block");
+    $('.top-panel__search-filters_fixwrap').css("display", "block");
 });
 
 // Other Filter bar func
 function DropTypeOnClick() {
     $('input#set').val("c0d0s0a0t0v0");
-    $('#tpSearch').submit();
+    $('#top-panel__search').submit();
 }
 
 function ResetSet(tag) {
-    $("#singleFieldTags").tagit("removeAll");
-    $("#singleFieldTags").tagit("createTag", tag);
+    $("ul.top-panel__search-field").tagit("removeAll");
+    $("ul.top-panel__search-field").tagit("createTag", tag);
     $('#set').val("c0d0s0a0t0v0");
-    $('#tpSearch').submit();
+    $('#top-panel__search').submit();
 }
 
 
@@ -860,7 +879,7 @@ $(document).ready(function () {
 
     function mQSetup() {
         $('#set').val(mQ);
-        $('#tpSearch').submit();
+        $('#top-panel__search').submit();
     }
 
     // Check the 'chk' in form, if so -- changing filter code mQ
@@ -994,24 +1013,19 @@ $(function () {
     //-------------------------------
     // Single field
     //-------------------------------
-    $('#singleFieldTags').tagit({
+    $('ul.top-panel__search-field').tagit({
         showAutocompleteOnFocus: false,
         autocomplete: {delay: 0, minLength: 0},
         tagLimit: 3,
         availableTags: sampleTags,
         singleField: true,
-        singleFieldNode: $('#mySingleField'),
+        singleFieldNode: $('input.top-panel__search-field'),
         afterTagRemoved: function (evt, ui) {
-            //document.getElementById("tpSearch").submit();
+            //document.getElementById("top-panel__search").submit();
         }
 
     });
 
-    // singleFieldTags2 is an INPUT element, rather than a UL as in the other
-    // examples, so it automatically defaults to singleField.
-    $('#singleFieldTags2').tagit({
-        availableTags: sampleTags
-    });
 
     //-------------------------------
     // Preloading data in markup
@@ -1089,3 +1103,9 @@ $(function () {
     });
 
 });
+
+
+
+
+
+

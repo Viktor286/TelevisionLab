@@ -1,28 +1,24 @@
-<div class="TopPanelBox">
-    <div class="TopPanel">
-        <div class="tpLogo">
+<div class="top-panel-box">
+    <div class="top-panel">
+        <div class="top-panel__logo">
             <?
             // if (isset($VideoId)) {echo '<a href="?video='.$VideoId.'"></a>';} else {echo '<a href="/"></a>';}
             echo '<a href="/"></a>';
             ?>
         </div>
-        <div class="database_selector"
+        <div class="top-panel__db-state-icon"
              data-balloon="The current selected database is connected for demonstration purposes."
              data-balloon-pos="down" data-balloon-length="medium"></div>
-        <form method="get" id="tpSearch">
-            <div class="tpSearch">
-                <input type="text" name="tags" class="tpSearch_field" id="mySingleField" value="<? if (isset($Tags)) {
-                    echo $Tags;
-                } ?>">
-                <ul id="singleFieldTags" class="tpSearch_field"></ul>
-                <input type="hidden" name="video" id="InputVideo" value="<? if (isset($VideoId)) {
-                    echo $VideoId;
-                }; ?>">
-                <input type="submit" value="" class="tpSearch_Bt"/>
+        <form method="get" id="top-panel__search">
+
+            <div class="top-panel__input-wrap">
+                <input type="text" name="tags" class="top-panel__search-field" value="<? if (isset($Tags)) { echo $Tags;} ?>">
+                <ul class="top-panel__search-field"></ul>
+                <input type="submit" value="" class="top-panel__search-btn"/>
             </div>
 
-            <div class="tpSearch_filters">
-                <div class="hideBeforeInit">
+            <div class="top-panel__search-filters">
+                <div class="top-panel__search-filters_fixwrap">
                     <div class="filters_icon_title_line"></div>
                     <div class="filters_icon_left"></div>
                     <input type="checkbox" class="cbx" data-sdb-image="url('_global/img/bt40_compositing.png')"
@@ -46,12 +42,12 @@
             </div>
         </form>
 
-        <div class="infoline">Television Lab is a prototype of an online motion graphics database. For more information
+        <div class="top-panel__infoline">Television Lab is a prototype of an online motion graphics database. For more information
             or for participation please contact with just.viktor@gmail.com
         </div>
         <!--<div class="add_bt"><a href="/add"><img src="_global/img/add.png" title="<? /* echo $VideoCount */ ?>"></a></div>-->
-        <div class="goToBoard"></div>
-        <div class="help"></div>
+        <div class="top-panel__to-board-btn"></div>
+        <div class="top-panel__help"></div>
 
         <?
         // Panel LoggedInfo
@@ -75,6 +71,6 @@
         }
         ?>
     </div>
-    <div class="TopPanelBorder"></div>
+    <div class="top-panel-border"></div>
 </div>
-<div class="TopPanelMargin"></div>
+<div class="top-panel-margin"></div>

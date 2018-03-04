@@ -1,6 +1,4 @@
-<div id="InformationWindow">
-    <!--<div class="timecode">00094</div>-->
-    <div class="controlRow">
+    <div class="video-info__controls">
         <div id="MPC" class="MainPlayerControls">
             <div id="PrevVideo"></div>
             <div id="PrevShot"></div>
@@ -25,7 +23,6 @@
 
     <div class="block left">
             <div class="Title"><?= $Title ?></div>
-            <div class="clear"></div>
             <div class="KeyShots">
                 <ul><!-- js generated --></ul>
                 <div class="TimeCode"><span class="prevFrame"></span>00:00<span>:00</span><span class="nextFrame"></span></div>
@@ -41,8 +38,3 @@
                 </div>
             </div>
     </div>
-
-    <div class="clear"></div>
-</div>
-<!--'.$Date_Create.'-->
-<!--'.$By_User.'-->

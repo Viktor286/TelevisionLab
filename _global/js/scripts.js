@@ -21,18 +21,7 @@ function indexOfMin(arr) {
     return minIndex;
 }
 
-// Video display tag click event
-// (similar to desktop/js/scripts.js Accordion Left Panel (Tags overview))
-$(document).on('click','a.tag',function( event ){
-    event.preventDefault();
 
-    var tag = $(event.target).data('tag');
-    $("#singleFieldTags").tagit("removeAll");
-    $("#singleFieldTags").tagit("createTag", tag);
-    $('input#InputVideo').val(""); //Drop displayed video to ""
-    $('#tpSearch').submit();
-
-});
 
 
 // Video display Tag here highlight when entire document ready
