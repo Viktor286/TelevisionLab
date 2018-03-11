@@ -29,12 +29,7 @@ $Input = array(
 extract(SecureVars($Input), EXTR_OVERWRITE);
 $Tags = strtolower($Tags);
 
-if (empty ($_GET['video'])) {
-    $emptyVid = 1;
-} else {
-    $emptyVid = 0;
-}
-$xCol = '319';
+empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
 
 ?>
     <!DOCTYPE html>
@@ -50,7 +45,6 @@ $xCol = '319';
         <link rel="stylesheet" type="text/css" href="/_global/css/jquery.tagit.css"/>
         <link rel="stylesheet" type="text/css" href="/_global/css/tagit.ui-zendesk.css"/>
         <link rel="stylesheet" type="text/css" href="/_global/css/fonts-google-opensans.css"/>
-        <!--        <link rel="stylesheet" type="text/css" href="/_global/css/balloon.css" />-->
 
         <link rel="stylesheet" type="text/css" href="/_global/css/general.css"/>
         <link rel="stylesheet" type="text/css" href="/_global/css/common.css"/>
@@ -62,7 +56,6 @@ $xCol = '319';
         <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel__user-info.css"/>
         <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel.css"/>
 
-
         <script type="text/javascript" src="/_global/js/compatibility.js"></script>
         <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="/_global/js/handlebars.js"></script>
@@ -71,33 +64,27 @@ $xCol = '319';
         <script type="text/javascript" src="/_global/js/tag-it.js"></script>
         <script type="text/javascript" src="/_global/js/vimeo.api.player.js"></script>
 
-        <script type="text/javascript" src="/_global/js/scripts.js"></script>
-        <script type="text/javascript" src="/desktop/js/scripts.js"></script>
-        <script type="text/javascript" src="/desktop/js/player.js"></script>
-
-        <? print '<link rel="stylesheet" type="text/css" href="/desktop/css/dynamic.php?xcol=' . $xCol . '&ev=' . $emptyVid . '" />' ?>
+        <script type="text/javascript" src="/desktop/js/app.js" defer></script>
     </head>
 <body>
 
     <script type="text/javascript">
-        var NowUrl = "<?= $Http_query; ?>";
-        var NowSet = "<?= $qSet; ?>";
-        var NowVid = "<?= $VideoId; ?>";
-        var NowTags = "<?= $Tags; ?>";
-        var menuState = <? if (isset($MenuState)) {
-            echo $MenuState;
-        } else {
-            echo "0";
-        } ?>;
-        var AutoPlayState = <? if (isset($AutoPlayState)) {
-            echo $AutoPlayState;
-        } else {
-            echo "0";
-        } ?>;
-        var xCol = <?= $xCol; ?>;
-        <? if (isset($VideoId)) {
-            echo 'LoadVideoOnPage(' . $VideoId . ');';
-        } ?>
+        'use strict';
+
+        window.tvLab = {
+            nowUrl : "<?= $Http_query; ?>",
+            nowSet : "<?= $qSet; ?>",
+            nowVid : "<?= $VideoId; ?>",
+            nowTags : "<?= $Tags; ?>",
+            menuState : <? echo((isset($MenuState)) ? $MenuState : 0); ?>,
+            autoPlayState : <? echo((isset($AutoPlayState)) ? $AutoPlayState : 0); ?>
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            <? echo((isset($VideoId)) ? 'window.loadVideoOnPage(' . $VideoId . ');' : ''); ?>
+
+        });
+
     </script>
 
     <script type="text/x-handlebars-template" id="waterfall-tpl">
@@ -112,6 +99,7 @@ $xCol = '319';
                 <aside id="left-panel">
                     <div class="accordion">
                         <? include 'desktop/controllers/tags_overview_left.php'; ?>
+                    </div>
                 </aside>
                 <section id="fixed-display">
                     <div id="preview-window"></div>

@@ -1,5 +1,6 @@
 <?php
 
+# require_once('/_global/config/private/db.php');
 // Cache system for "tags overview" module
 $cache_mode = 1; // on/off
 $cache_file = 'desktop/cache/tags_overview.html';
@@ -7,8 +8,8 @@ $cache_file = 'desktop/cache/tags_overview.html';
 $time_range = $d1 = 86400; // $d30 = 2592000; $d20 = 1728000; $d10 = 864000; $d7 = 604800; $d5 = 432000; $d4 = 345600; $d3 = 259200; $1 = 86400; $d0 = 0;
 $time_shift = time() - $time_range;
 
-
-if (file_exists( $cache_file ) and $cache_mode == 1 and filemtime($cache_file) > $time_shift) {
+if (True) {
+# if (file_exists( $cache_file ) and $cache_mode == 1 and filemtime($cache_file) > $time_shift) {
 
     print '<!-- cached '.gmdate("Y-m-d H:i:s", filemtime($cache_file)).' time shift '.gmdate("Y-m-d H:i:s", $time_shift).' -->';
     include "$cache_file";
@@ -18,7 +19,7 @@ if (file_exists( $cache_file ) and $cache_mode == 1 and filemtime($cache_file) >
     ob_start();
     /* !!!!!! remove this and refactor used function to BasicQuery */
     function BasicQuery_mod($Query) {
-        $mysql = new mysqli("127.0.0.1", "root", "Showmetheroot", "television_lab");
+        $mysql = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         if($mysql->connect_errno > 0){
             print ('Unable to connect to database [' . $mysql->connect_error . ']');
         } else {$mysql->set_charset("utf8");}

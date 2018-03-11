@@ -1,47 +1,255 @@
-/*  AdjustH1InfoOutput Line */
-$(document).ready(function () {
+!function () {
+    'use strict';
 
-    //-- Remove tag on x click
-    $("div#main-output > h1.state-info > span.Tags > span.tag span.x-close")
-        .on("click", function (event) {
+    tvLab.checkAlert = function(text) {
+        alert(text);
+    };
 
-            //Recognize tag text
-            var TagText = $(this).parent().text();
-            TagText = TagText.replace("⨯", "");
-            TagText = TagText.replace("# ", "");
+    tvLab.indexOfMin = function(arr) {
+        if (arr.length === 0) {
+            return -1; // this will return on empty array
+        }
 
-            // Remove tag
-            $("ul.top-panel__search-field").tagit("removeTagByLabel", TagText);
-            // Remove div tag
-            $(this).parent().fadeOut(200, function () {
-                TagText.remove();
-            });
-            // Submit with delay
-            setTimeout(function () {
-                $('#top-panel__search').submit();
-            }, 100);
-        });
+        var min = arr[0];
+        var minIndex = 0;
 
-    // Video display tag click event
-    $(document).on('click','a.tag',function( event ){
-        event.preventDefault();
-        var tag = $(event.target).data('tag');
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] < min) {
+                minIndex = i;
+                min = arr[i];
+            }
+        }
+
+        return minIndex;
+    };
+
+    tvLab.isEmpty = function(str) {
+        return ( !str || 0 === str.length );
+    };
+
+    tvLab.dropTypeOnClick = function() {
+        // Drops filters state and reloads
+        $('input#set').val("c0d0s0a0t0v0");
+        $('#top-panel__search').submit();
+    };
+
+    tvLab.resetSet = function(tag) {
+        // Drops filters state, reloads, select new tag
         $("ul.top-panel__search-field").tagit("removeAll");
         $("ul.top-panel__search-field").tagit("createTag", tag);
+        $('#set').val("c0d0s0a0t0v0");
         $('#top-panel__search').submit();
+    };
+
+    tvLab.urlVideo = function(param) {
+        // Select new video input param
+
+        var url = tvLab.nowUrl;
+        var Rgx = /(video=)(\d*)/;
+
+        if (typeof param !== 'undefined') {
+
+            if (!url.match(Rgx)) {
+                url = url + '&' + "video=" + param;
+            }
+
+            var newUrl = url.replace(Rgx, "$1" + param);
+            window.history.pushState("", "", "?" + newUrl);
+            tvLab.nowUrl = newUrl;
+            return newUrl;
+
+        } else {
+
+            //--Shows URLs video param
+            var Rslt = "";
+            if (Rslt = url.match(Rgx)) {
+                if (!tvLab.isEmpty(Rslt[2])) {
+                    return Rslt[2];
+                } else {
+                    return undefined;
+                }
+            }
+        }
+
+    };
+
+    tvLab.loadVideoOnClick = function(id, thisObj) {
+        // Load Video On Click + some actions on this event
+        // Update Video Input param
+        tvLab.urlVideo(id);
+
+        // Update Video Input param
+        $('input#InputVideo').val(id);
+
+        // Update Logo Button
+        //$('.tpLogo').html('<a href="?video=' + id + '"></a>');
+
+        // Update Item Box Here class
+        $("div.item.here").removeClass("here");
+        $(thisObj).parent().parent().addClass("here");
+
+        //Load Video
+        window.loadVideoOnPage(id);
+    };
+
+    $(document).ready(function () {
+
+        /**
+         * Video display Tag here highlight when entire document ready */
+
+        var tags_arr = tvLab.nowTags.split(' ');
+        $.each(tags_arr, function( index, value ) {
+            $('a.tag-item[data-tag='+ value +']').addClass("here");
+        });
+
+
+        /**
+         * AdjustH1InfoOutput Line */
+        //-- Remove tag on x click
+        $("div#main-output > h1.state-info > span.Tags > span.tag span.x-close")
+            .on("click", function (event) {
+
+                // Recognize tag text
+                var TagText = $(this).parent().text();
+                TagText = TagText.replace("⨯", "");
+                TagText = TagText.replace("# ", "");
+
+                // Remove tag
+                $("ul.top-panel__search-field").tagit("removeTagByLabel", TagText);
+
+                // Remove div tag
+                $(this).parent().fadeOut(200, function () {
+                    TagText.remove();
+                });
+                // Submit with delay
+                setTimeout(function () {
+                    $('#top-panel__search').submit();
+                }, 100);
+            });
+
+
+        /**
+         * Video display tag click event */
+
+        $(document).on('click','a.tag',function( event ){
+            event.preventDefault();
+            var tag = $(event.target).data('tag');
+            $("ul.top-panel__search-field").tagit("removeAll");
+            $("ul.top-panel__search-field").tagit("createTag", tag);
+            $('#top-panel__search').submit();
+        });
+
+        // Tags overview Tag click event
+        $(document).on('click', 'a.tag-item', function (event) {
+            event.preventDefault();
+            var tag = $(event.target).data('tag');
+            $("ul.top-panel__search-field").tagit("removeAll");
+            $("ul.top-panel__search-field").tagit("createTag", tag);
+            // $('input#InputVideo').val(""); // Drop displayed video to ""
+            $('#top-panel__search').submit();
+        });
+
+
+        /**
+         *  Accordion Left Panel with Tags overview
+         *  Tag "here" highlighted with entire document */
+
+        $.each(tvLab.nowTags.split(' '), function (index, value) {
+            $('a.tag-item[data-tag=' + value + ']').addClass("here");
+        });
+
+        $("aside#left-panel div.accordion").accordion({
+            collapsible: true,
+            active: tvLab.menuState,
+            heightStyle: "content",
+            create: function (event, ui) {
+                $('aside#left-panel div.accordion').css("display", "block")
+            },
+            activate: function (event, ui) {
+                var tagMenuActive = $("aside#left-panel div.accordion").accordion("option", "active");
+                document.cookie = "TagMenuState=" + tagMenuActive;
+            }
+        });
+
+    }); // End of document.ready
+
+}();
+
+
+//------------------------------------------------------------------------------------
+// Television Lab Player link with waterfall output grid: prev/next video ability
+!function () {
+    'use strict';
+
+    // References for Vimeo Player API
+    // https://github.com/vimeo/player.js
+
+    tvLab.setAutoPlayUI = function(type) { // "Cycle" or "Next"
+        var AutoPlayButton = $("div#MPC div.AutoPlay");
+        if (type === "Next") {
+            AutoPlayButton.removeClass("Cycle");
+            AutoPlayButton.addClass("Next");
+        } else if (type === "Cycle") {
+            AutoPlayButton.removeClass("Next");
+            AutoPlayButton.addClass("Cycle");
+        }
+    };
+
+    tvLab.videoGoAndPlay = function(state) {
+        var this_Vid_Obj = $("#container.waterfall-container div.item.here");
+        var first_Vid_Obj = $("#container.waterfall-container").children().first();
+
+        var next_Vid_Obj = this_Vid_Obj.next();
+        var prev_Vid_Obj = this_Vid_Obj.prev();
+        var next_Vid_Id = next_Vid_Obj.data("id");
+        var prev_Vid_Id = prev_Vid_Obj.data("id");
+
+        if (state === "Next") {
+            if (typeof next_Vid_Id !== 'undefined') {
+                this_Vid_Obj.removeClass("here");
+                next_Vid_Obj.addClass("here");
+                window.loadVideoOnPage(next_Vid_Id);
+            } else {
+                // If no data-id then drop .here class to the first element
+                this_Vid_Obj.removeClass("here");
+                first_Vid_Obj.addClass("here");
+                window.loadVideoOnPage(first_Vid_Obj.data("id"));
+            }
+        }
+
+        if (state === "Prev") {
+            if (typeof prev_Vid_Id !== 'undefined') {
+                this_Vid_Obj.removeClass("here");
+                prev_Vid_Obj.addClass("here");
+                window.loadVideoOnPage(prev_Vid_Id);
+            } else {
+                // If no data-id then drop .here class to the first element
+                this_Vid_Obj.removeClass("here");
+                first_Vid_Obj.addClass("here");
+                window.loadVideoOnPage(first_Vid_Obj.data("id"));
+            }
+        }
+    };
+
+    /* Timecode based on setTimeout and getCurrentTime() */
+    $(document).on('click', 'div#MPC div#NextVideo', function (event) {
+        event.preventDefault();
+        tvLab.videoGoAndPlay("Next");
     });
 
+    $(document).on('click', 'div#MPC div#PrevVideo', function (event) {
+        event.preventDefault();
+        tvLab.videoGoAndPlay("Prev");
+    });
+
+}();
 
 
-});
-
-
-
-
-
-
+//------------------------------------------------------------------------------------
 // Display Video On page load
-function LoadVideoOnPage(VideoId) {
+window.loadVideoOnPage = function(VideoId) {
+    'use strict';
+
     // set the background gif
     $('div#preview-window').css('background-image', 'url(_global/img/loader_0.gif)');
 
@@ -63,11 +271,12 @@ function LoadVideoOnPage(VideoId) {
         cache: false
 
     }).done(function () {
+
         //-------- When Ajax Video Loaded
         // This will fire when video loaded
 
         // Highlight tags
-        var tags_arr = NowTags.split(' ');
+        var tags_arr = tvLab.nowTags.split(' ');
         $.each(tags_arr, function (index, value) {
             $('a.tag[data-tag=' + value + ']').addClass("here");
         });
@@ -101,7 +310,7 @@ function LoadVideoOnPage(VideoId) {
         });
 
         //------ Player play/pause Actions
-        function playPauseSwitch(paused_state) {
+        var playPauseSwitch = function (paused_state) {
             if (paused_state == true) {
                 // Pause was ON, switch to play
                 playPauseBt.removeClass("pause");
@@ -135,15 +344,15 @@ function LoadVideoOnPage(VideoId) {
             });
         });
 
-        // Init AutoPlay param and UI by getting AutoPlayState from cookie (php-cookie-pipe).
-        if (AutoPlayState == 1) {
-            SetAutoPlayUI("Next");
+        // Init AutoPlay param and UI by getting tvLab.autoPlayState from cookie (php-cookie-pipe).
+        if (tvLab.autoPlayState === 1) {
+            tvLab.setAutoPlayUI("Next");
             mainPlayer.setLoop(false);
-            //console.log("init AutoPlayState == 1");
+            //console.log("init tvLab.autoPlayState == 1");
         } else {
-            SetAutoPlayUI("Cycle");
+            tvLab.setAutoPlayUI("Cycle");
             mainPlayer.setLoop(true);
-            //console.log("init AutoPlayState == 0");
+            //console.log("init tvLab.autoPlayState == 0");
         }
 
 
@@ -151,22 +360,22 @@ function LoadVideoOnPage(VideoId) {
         // AutoPlay button on.click Actions
         $(document).on('click', 'div#MPC div.AutoPlay', function (event) {
             event.preventDefault();
-            if (AutoPlayState == 1) {
-                // If AutoPlayState toggle was ON, then switch this back to 0, Cycle
+            if (tvLab.autoPlayState === 1) {
+                // If tvLab.autoPlayState toggle was ON, then switch this back to 0, Cycle
                 mainPlayer.setLoop(true).then(function (loop) { // Set player loop on
-                    SetAutoPlayUI("Cycle"); // Change UI
-                    AutoPlayState = 0; // Change UI state
-                    document.cookie = "AutoPlayState=" + AutoPlayState; // Change cookie state
+                    tvLab.setAutoPlayUI("Cycle"); // Change UI
+                    tvLab.autoPlayState = 0; // Change UI state
+                    document.cookie = "tvLab.autoPlayState=" + tvLab.autoPlayState; // Change cookie state
                     //console.log("Set loop on: player, UI, var, cookie.");
                 }).catch(function (error) {
                     console.log("an error occurred during mainPlayer.setLoop(true)");
                 });
             } else {
-                // If AutoPlayState toggle is ON, then switch this to Cycle
+                // If tvLab.autoPlayState toggle is ON, then switch this to Cycle
                 mainPlayer.setLoop(false).then(function (loop) { // Set player loop off
-                    SetAutoPlayUI("Next"); // Change UI
-                    AutoPlayState = 1; // Change UI state
-                    document.cookie = "AutoPlayState=" + AutoPlayState; // Change cookie state
+                    tvLab.setAutoPlayUI("Next"); // Change UI
+                    tvLab.autoPlayState = 1; // Change UI state
+                    document.cookie = "tvLab.autoPlayState=" + tvLab.autoPlayState; // Change cookie state
                     //console.log("Set loop off, autoplay on: player, UI, var, cookie.");
                 }).catch(function (error) {
                     console.log("an error occurred during mainPlayer.setLoop(true)");
@@ -177,7 +386,7 @@ function LoadVideoOnPage(VideoId) {
         //------ Auto Next Play Video Functionality
         mainPlayer.on('ended', function (data) { // This event fires only if loop is off
             // data is an object containing properties specific to that event
-            VideoGoAndPlay("Next");
+            tvLab.videoGoAndPlay("Next");
         });
 
 
@@ -191,12 +400,12 @@ function LoadVideoOnPage(VideoId) {
 
             // 2. Delete all existing CuePoints for loaded media
             if (cuePoints.length > 0) {
-                console.log('Some CuePoints already exist for loaded media.');
-                console.log('Deleting all existing CuePoints for loaded media');
+                // console.log('Some CuePoints already exist for loaded media.');
+                // console.log('Deleting all existing CuePoints for loaded media');
                 for (var i = 0; i < cuePoints.length; i++) {
 
                     mainPlayer.removeCuePoint(cuePoints[i].id).then(function (id) { // cuePoints = an array of cue point objects
-                        console.log('cue point ' + id + ' was removed successfully: ');
+                        // console.log('cue point ' + id + ' was removed successfully: ');
                     }).catch(function (error) {
                         switch (error.name) {
                             case 'UnsupportedError':
@@ -359,7 +568,7 @@ function LoadVideoOnPage(VideoId) {
                     for (i = 0; i < cuePointsIdList.length; i++) {
                         absDiffArr[i] = Math.abs(cuePointsIdList[i] - currentTime);
                     }
-                    nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
+                    nearestIndex = tvLab.indexOfMin(absDiffArr); // Get Index of nearest element
                     nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
 
                     // Compare currentTime and nearestCuePoint to define correct nextCuePoint.
@@ -411,7 +620,7 @@ function LoadVideoOnPage(VideoId) {
                     for (i = 0; i < cuePointsIdList.length; i++) {
                         absDiffArr[i] = Math.abs(cuePointsIdList[i] - currentTime);
                     }
-                    nearestIndex = indexOfMin(absDiffArr); // Get Index of nearest element
+                    nearestIndex = tvLab.indexOfMin(absDiffArr); // Get Index of nearest element
                     nearestCuePoint = cuePointsIdList[nearestIndex]; // Get nearest CuePoint through this Index
 
                     // Compare currentTime and nearestCuePoint to define correct prevCuePoint.
@@ -461,7 +670,7 @@ function LoadVideoOnPage(VideoId) {
                 $(KeyShotsDiv).append('<li data-time="' + videoCuePoints[i].time + '">' + videoCuePoints[i].data.ShotTag + '</li>');
             }
 
-            function LoadVideoShotSwitch(keyShot) { // keyShot = object by numerical order from videoCuePoints data set
+            var LoadVideoShotSwitch = function(keyShot) { // keyShot = object by numerical order from videoCuePoints data set
                 // Write Shot Name in state text block
                 // remove old .here
                 $(KeyShotsDiv + ' > li.here').removeClass("here");
@@ -488,7 +697,7 @@ function LoadVideoOnPage(VideoId) {
             });
 
             // convert milliseconds to timecode
-            function msToTime(duration) {
+            var msToTime = function (duration) {
                 var milliseconds = parseInt((duration % 1000) / 10) // parseInt
                     , seconds = parseInt((duration / 1000) % 60) // parseInt
                     , minutes = parseInt((duration / (1000 * 60)) % 60); // parseInt
@@ -545,8 +754,8 @@ function LoadVideoOnPage(VideoId) {
         $(document).on('click', nextFrame, function (event) {
             mainPlayer.getCurrentTime().then(function (seconds) {
                 // define very start (zero time) of playback
-                console.log('Seconds init as ' + seconds);
-                if (seconds == 0 || seconds < 0.11) { // this is hack to convert all unsupported results by player < 1.1 values to 0.2 and adjust current time to the same round value
+                // console.log('Seconds init as ' + seconds);
+                if (seconds === 0 || seconds < 0.11) { // this is hack to convert all unsupported results by player < 1.1 values to 0.2 and adjust current time to the same round value
                     mainPlayer.pause(); // init pause first time for further condition
                     mainPlayer.setCurrentTime(0.11); // looks like Vimeo.Player(iframe); can't hold below 0.1s
                 } else {
@@ -556,11 +765,11 @@ function LoadVideoOnPage(VideoId) {
                     var videoDuration = 0.0;
                     mainPlayer.getDuration().then(function (duration) { // duration = the duration of the video in seconds
                         videoDuration = duration;
-                        console.log('videoDuration init is ' + duration);
+                        // console.log('videoDuration init is ' + duration);
                     });
 
                     mainPlayer.getPaused().then(function (paused) {
-                        if (paused == true) {
+                        if (paused === true) {
                             // perform the time jump
                             // Set loading indicator class
                             var sInc = (parseFloat(seconds.toFixed(1)) + 0.1).toFixed(1);
@@ -587,13 +796,13 @@ function LoadVideoOnPage(VideoId) {
         $(document).on('click', prevFrame, function (event) {
             mainPlayer.getCurrentTime().then(function (seconds) {
                 // define very start (zero time) of playback
-                console.log('Seconds init as ' + seconds);
-                if (seconds == 0 || seconds <= 0.11) { // this is hack to prevent zero result that duplicates others < 1.1 values (unsupported by player) (those looks the same for timecode)
+                // console.log('Seconds init as ' + seconds);
+                if (seconds === 0 || seconds <= 0.11) { // this is hack to prevent zero result that duplicates others < 1.1 values (unsupported by player) (those looks the same for timecode)
                     return true;
                 } else {
                     // If player already on pause -- perform time jump
                     mainPlayer.getPaused().then(function (paused) {
-                        if (paused == true) {
+                        if (paused === true) {
                             // perform the time jump
                             // Set loading indicator class
 
@@ -604,7 +813,7 @@ function LoadVideoOnPage(VideoId) {
                             } else {
                                 mainPlayer.setCurrentTime(0.11); // return to default working minimal value
                             }
-                            console.log('Result as ' + seconds);
+                            // console.log('Result as ' + seconds);
                         } else {
                             mainPlayer.pause();
                         }
@@ -615,110 +824,14 @@ function LoadVideoOnPage(VideoId) {
 
     });
 
-}
-
-
-
-function urlVideo(param) {
-
-    var Url = NowUrl;
-    var prmStr = "video=";
-    var Rgx = /(video=)(\d*)/;
-
-
-    if (typeof param != 'undefined') {
-
-        if (!Url.match(Rgx)) {
-            Url = Url + '&' + prmStr + param;
-        }
-
-        var NewUrl = Url.replace(Rgx, "$1" + param);
-
-        window.history.pushState("", "", "?" + NewUrl);
-
-        NowUrl = NewUrl;
-        return NewUrl;
-
-    } else {
-        //--Shows URLs video param
-        var Rslt = "";
-        if (Rslt = Url.match(Rgx)) {
-            if (!isEmpty(Rslt[2])) {
-                return Rslt[2];
-            } else {
-                return undefined;
-            }
-        }
-    }
-}
+};
 
 
 //------------------------------------------------------------------------------------
-// Load Video On Click + some actions on this event
-
-function LoadVideoOnClick(id, thisObj) {
-
-    //Update Video Input param
-    urlVideo(id);
-
-    //Update Video Input param
-    $('input#InputVideo').val(id);
-
-    //Update Logo Button
-    //$('.tpLogo').html('<a href="?video=' + id + '"></a>');
-
-    //Update Item Box Here class
-    $("div.item.here").removeClass("here");
-    $(thisObj).parent().parent().addClass("here");
-
-    //Load Video
-    LoadVideoOnPage(id);
-}
-
-
-//------------------------------------------------------------------------------------
-// Accordion Left Panel (*Tags overview)
-
-// *Tags overview Tag click event
-$(document).on('click', 'a.tag-item', function (event) {
-    event.preventDefault();
-    var tag = $(event.target).data('tag');
-    $("ul.top-panel__search-field").tagit("removeAll");
-    $("ul.top-panel__search-field").tagit("createTag", tag);
-    $('input#InputVideo').val(""); //Drop displayed video to ""
-    $('#top-panel__search').submit();
-});
-
-// *Tags overview Tag "here" highlight when entire document ready
-$(document).ready(function () {
-    var tags_arr = NowTags.split(' ');
-    $.each(tags_arr, function (index, value) {
-        $('a.tag-item[data-tag=' + value + ']').addClass("here");
-    });
-});
-
-$(function () {
-    $("aside#left-panel div.accordion").accordion({
-        collapsible: true,
-        active: menuState,
-        heightStyle: "content",
-        create: function (event, ui) {
-            $('aside#left-panel div.accordion').css("display", "block")
-        },
-        activate: function (event, ui) {
-            var TagMenuActive = $("aside#left-panel div.accordion").accordion("option", "active");
-            document.cookie = "TagMenuState=" + TagMenuActive;
-        }
-    });
-});
-
-
-//------------------------------------------------------------------------------------
-// Filter Bar Buttons
-
-/* ScrewDefaultButtons v2.0.6 Adjustments -------------------------*/
+// Filter Bar ScrewDefaultButtons v2.0.6 Adjustments
 
 (function (e, t, n, r) {
+    'use strict';
     var i = {
         init: function (t) {
             var n = e.extend({image: null, width: 50, height: 50, disabled: !1}, t);
@@ -836,6 +949,7 @@ $(function () {
 })(jQuery);
 
 $(function () {
+    'use strict';
     $('input:radio').screwDefaultButtons({
         image: 'url("img/radioSmall.jpg")',
         width: 40,
@@ -851,65 +965,32 @@ $(function () {
     $('.top-panel__search-filters_fixwrap').css("display", "block");
 });
 
-// Other Filter bar func
-function DropTypeOnClick() {
-    $('input#set').val("c0d0s0a0t0v0");
-    $('#top-panel__search').submit();
-}
-
-function ResetSet(tag) {
-    $("ul.top-panel__search-field").tagit("removeAll");
-    $("ul.top-panel__search-field").tagit("createTag", tag);
-    $('#set').val("c0d0s0a0t0v0");
-    $('#top-panel__search').submit();
-}
-
 
 //------------------------------------------------------------------------------------
 // Filter Buttons Assemble
 
 $(document).ready(function () {
+    'use strict';
+    var mQ;
 
     // Check request filter code
-    if (NowSet.match(/[\d\w]{12}/)) {
-        var mQ = NowSet;
-    } else {
-        var mQ = "c0d0s0a0t0v0";
-    }
+    tvLab.nowSet.match(/[\d\w]{12}/) ? mQ = tvLab.nowSet : mQ = "c0d0s0a0t0v0";
 
-    function mQSetup() {
+    var mqSetSubmit = function() {
         $('#set').val(mQ);
         $('#top-panel__search').submit();
-    }
+    };
 
     // Check the 'chk' in form, if so -- changing filter code mQ
-    if ($('#comp')[0].checked == true) {
-        mQ = mQ.replace(/c0/, 'c1')
-    }
-    ;
-    if ($('#3d')[0].checked == true) {
-        mQ = mQ.replace(/d0/, 'd1')
-    }
-    ;
-    if ($('#sim')[0].checked == true) {
-        mQ = mQ.replace(/s0/, 's1')
-    }
-    ;
-    if ($('#anim')[0].checked == true) {
-        mQ = mQ.replace(/a0/, 'a1')
-    }
-    ;
-    if ($('#stpm')[0].checked == true) {
-        mQ = mQ.replace(/t0/, 't1')
-    }
-    ;
-    if ($('#vid')[0].checked == true) {
-        mQ = mQ.replace(/v0/, 'v1')
-    }
-    ;
+    $('#comp')[0].checked === true ? mQ = mQ.replace(/c0/, 'c1') : null;
+    $('#3d')[0].checked === true ? mQ = mQ.replace(/d0/, 'd1') : null;
+    $('#sim')[0].checked === true ? mQ = mQ.replace(/s0/, 's1') : null;
+    $('#anim')[0].checked === true ? mQ = mQ.replace(/a0/, 'a1') : null;
+    $('#stpm')[0].checked === true ?  mQ = mQ.replace(/t0/, 't1') : null;
+    $('#vid')[0].checked === true ? mQ = mQ.replace(/v0/, 'v1') : null;
 
     $('.styledCheckbox:has(#md)').on('click', function () {
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#comp)').on('click', function () {
@@ -924,7 +1005,7 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#3d)').on('click', function () {
@@ -939,7 +1020,7 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#sim)').on('click', function () {
@@ -954,7 +1035,7 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#anim)').on('click', function () {
@@ -969,7 +1050,7 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#stpm)').on('click', function () {
@@ -984,7 +1065,7 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
     $('.styledCheckbox:has(#vid)').on('click', function () {
@@ -999,15 +1080,17 @@ $(document).ready(function () {
             }
             ;
         }
-        mQSetup();
+        mqSetSubmit();
     });
 
 });
 
 
+//------------------------------------------------------------------------------------
 // Auto complete top bar input area
 
 $(function () {
+    'use strict';
     var sampleTags = ['realism', 'abstract', 'minimalism', 'futurism', 'surrealism', 'contemporary', 'cinematic', 'Cartoon', 'Art', 'Beauty', 'Adventures', 'Story', 'Fantasy', 'Spiritual', 'Culture', 'Sport', 'Games', 'Enertament', 'Mans', 'Womens', 'Comedy', 'Show', 'Cinema', 'Fun', 'Weird', 'News', 'Info', 'Promo', 'Test', 'Science', 'Education', 'History', 'Political', 'Social', 'Nature', 'Health', 'Industry', 'Buisness', 'Finance', 'Services', 'Vehicles', 'Technology', 'Digital', 'CG', 'Crafts', 'War', 'Criminal'];
 
     //-------------------------------

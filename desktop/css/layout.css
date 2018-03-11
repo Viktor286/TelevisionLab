@@ -282,3 +282,5 @@ main > div.wr50 > div.table > section#fixed-display {
         margin-left: 15px;
     }
 }
+
+div.waterfall-container div.item, div.waterfall-container div.item .box { width: 319px; height: 179px; }
