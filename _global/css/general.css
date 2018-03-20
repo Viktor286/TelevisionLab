@@ -2,7 +2,7 @@ body {
     overflow: auto !important;
 
     color: white;
-    background: url(../img/black_denim_100.png) repeat #000 fixed;
+    background: url(/_global/img/black_denim_100.png) repeat #000 fixed;
 
     font-family: 'Open Sans', sans-serif;
 }
@@ -70,7 +70,7 @@ div.IntroTag {
     height: 202px;
     margin: 90px auto 10px;
 
-    background: url(../img/intro_tag.jpg) no-repeat;
+    background: url(/_global/img/intro_tag.jpg) no-repeat;
 }
 
 div.IntroTag div {
@@ -117,11 +117,11 @@ div.IntroTag input.SendVideo {
     cursor: pointer;
 
     border: none;
-    background: url(../img/bt_send_video_o.png) no-repeat;
+    background: url(/_global/img/bt_send_video_o.png) no-repeat;
 }
 
 div.IntroTag input.SendVideo:hover {
-    background: url(../img/bt_send_video_i.png) no-repeat;
+    background: url(/_global/img/bt_send_video_i.png) no-repeat;
 }
 
 div.tempLoginDiv {
@@ -269,7 +269,7 @@ a.EditButton {
     text-decoration: none;
 
     border: none;
-    background: url(../img/bt_edit.png) no-repeat;
+    background: url(/_global/img/bt_edit.png) no-repeat;
 }
 
 a.ApproveButton {
@@ -284,7 +284,7 @@ a.ApproveButton {
     text-decoration: none;
 
     border: none;
-    background: url(../img/bt_approve.png) no-repeat;
+    background: url(/_global/img/bt_approve.png) no-repeat;
 }
 
 div.ScreenFade {
@@ -607,23 +607,23 @@ div.VideoBlock iframe {
 }
 
 .tags-fashion {
-    background: url(../img/tags-fashion.png) no-repeat;
+    background: url(/_global/img/tags-fashion.png) no-repeat;
 }
 
 .tags-fine-arts {
-    background: url(../img/tags-fine-arts.png) no-repeat;
+    background: url(/_global/img/tags-fine-arts.png) no-repeat;
 }
 
 .tags-music {
-    background: url(../img/tags-music.png) no-repeat;
+    background: url(/_global/img/tags-music.png) no-repeat;
 }
 
 .tags-others {
-    background: url(../img/tags-others.png) no-repeat;
+    background: url(/_global/img/tags-others.png) no-repeat;
 }
 
 .tags-sphere {
-    background: url(../img/tags-sphere.png) no-repeat;
+    background: url(/_global/img/tags-sphere.png) no-repeat;
 }
 
 .bt_back,
@@ -644,31 +644,31 @@ div.VideoBlock iframe {
 .bt_back {
     margin: 0 0 0 -135px;
 
-    background: url(../img/bt_back_o.png) no-repeat;
+    background: url(/_global/img/bt_back_o.png) no-repeat;
 }
 
 .bt_back:hover {
-    background: url(../img/bt_back_i.png) no-repeat;
+    background: url(/_global/img/bt_back_i.png) no-repeat;
 }
 
 .bt_download {
     margin: 0 0 0 -52px;
 
-    background: url(../img/bt_download_o.png) no-repeat;
+    background: url(/_global/img/bt_download_o.png) no-repeat;
 }
 
 .bt_download:hover {
-    background: url(../img/bt_download_i.png) no-repeat;
+    background: url(/_global/img/bt_download_i.png) no-repeat;
 }
 
 .bt_help {
     margin: 0 0 0 580px;
 
-    background: url(../img/bt_help_o.png) no-repeat;
+    background: url(/_global/img/bt_help_o.png) no-repeat;
 }
 
 .bt_help:hover {
-    background: url(../img/bt_help_i.png) no-repeat;
+    background: url(/_global/img/bt_help_i.png) no-repeat;
 }
 
 a.delete {
@@ -702,7 +702,7 @@ div.Description {
     padding: 10px;
 
     border: 1px solid #353535;
-    background: url(../img/black_denim_50.png) repeat #000;
+    background: url(/_global/img/black_denim_50.png) repeat #000;
 }
 
 div.Description pre {
@@ -723,21 +723,21 @@ div.ExpandDesc {
     height: 22px;
 
     border: 1px solid #353535;
-    background: url(../img/readmore-down.png) no-repeat center #1c1c1d;
+    background: url(/_global/img/readmore-down.png) no-repeat center #1c1c1d;
 }
 
 div.ExpandDesc:hover {
     cursor: pointer;
 
-    background: url(../img/readmore-down-h.png) no-repeat center #313131;
+    background: url(/_global/img/readmore-down-h.png) no-repeat center #313131;
 }
 
 div.ExpandDescUp {
-    background: url(../img/readmore-up.png) no-repeat center #1c1c1d;
+    background: url(/_global/img/readmore-up.png) no-repeat center #1c1c1d;
 }
 
 div.ExpandDescUp:hover {
-    background: url(../img/readmore-up-h.png) no-repeat center #313131;
+    background: url(/_global/img/readmore-up-h.png) no-repeat center #313131;
 }
 
 div.sep_h {
@@ -747,7 +747,7 @@ div.sep_h {
     height: 2px;
     margin: 25px 0 15px;
 
-    background: url(../img/sep_h_560.png) no-repeat;
+    background: url(/_global/img/sep_h_560.png) no-repeat;
 }
 
 div.sep_v {
@@ -759,7 +759,7 @@ div.sep_v {
     height: 496px;
     margin: -160px 0 0 605px;
 
-    background: url(../img/sep_v.png) no-repeat;
+    background: url(/_global/img/sep_v.png) no-repeat;
 }
 
 .styledRadio {
@@ -913,7 +913,7 @@ div.send input {
     height: 32px;
     margin: 4px 0 0 -6px;
 
-    background: url(../img/tempo-scale.png) no-repeat;
+    background: url(/_global/img/tempo-scale.png) no-repeat;
 }
 
 .ui-slider {
@@ -921,7 +921,7 @@ div.send input {
 
     text-align: left; /*block all line*/
 
-    background: url(../img/slider-empty.png) repeat-x;
+    background: url(/_global/img/slider-empty.png) repeat-x;
 }
 
 .ui-slider .ui-slider-handle {
@@ -942,17 +942,17 @@ div.send input {
 
     border: 0;
     /*цвет до handle*/
-    background: url(../img/slider-blue.png) repeat-x 0 0;
+    background: url(/_global/img/slider-blue.png) repeat-x 0 0;
 
     font-size: .7em;
 }
 
 #Rating .ui-slider-range {
-    background: url(../img/awesom-meter.png) no-repeat;
+    background: url(/_global/img/awesom-meter.png) no-repeat;
 }
 
 #Tempo .ui-slider-range {
-    background: url(../img/slider-grey-50.png) repeat-x;
+    background: url(/_global/img/slider-grey-50.png) repeat-x;
 }
 
 /* For IE8 - See #6727 */
@@ -1003,7 +1003,7 @@ div.send input {
     margin: -12px 0 0 -25px !important;
 
     border: 0 red dashed;
-    background: url(../img/slider-knob-pro-i.png) no-repeat;
+    background: url(/_global/img/slider-knob-pro-i.png) no-repeat;
 }
 
 .ui-slider-handle:focus {
@@ -1054,7 +1054,7 @@ div.send input {
     height: 40px;
     margin: 0 -1px 0 0;
 
-    background: url(../img/tag_o.png) no-repeat;
+    background: url(/_global/img/tag_o.png) no-repeat;
 }
 
 .tabs-menu li a img {
@@ -1070,7 +1070,7 @@ div.send input {
     width: 93px;
     margin: 0 0 0 0;
 
-    background: url(../img/tag_i.png) no-repeat #1a1a1b;
+    background: url(/_global/img/tag_i.png) no-repeat #1a1a1b;
 }
 
 .tabs-menu li a {
@@ -1144,7 +1144,7 @@ div.Team-Fixed {
     width: 100%;
 
     border: 0 red dashed;
-    background: url(../img/black_denim.png) repeat #000;
+    background: url(/_global/img/black_denim.png) repeat #000;
 }
 
 .approved {
@@ -1329,11 +1329,11 @@ div.TD-Menu-bt-VideoInput input.SendVideo {
     cursor: pointer;
 
     border: none;
-    background: url(../img/bt_send_video_o_52.png) no-repeat;
+    background: url(/_global/img/bt_send_video_o_52.png) no-repeat;
 }
 
 div.TD-Menu-bt-VideoInput input.SendVideo:hover {
-    background: url(../img/bt_send_video_i_52.png) no-repeat;
+    background: url(/_global/img/bt_send_video_i_52.png) no-repeat;
 }
 
 div.TD-Menu-bt-VideoInput input.code:focus {
@@ -1384,7 +1384,7 @@ div.Team-Dashboard a.bt-ToTheMain {
     width: 40px;
     height: 40px;
 
-    background: url(../img/bt_to_the_main.png) no-repeat;
+    background: url(/_global/img/bt_to_the_main.png) no-repeat;
 }
 
 div.Team-Dashboard a.bt-LogIn-sml {
@@ -1398,7 +1398,7 @@ div.Team-Dashboard a.bt-LogIn-sml {
     width: 40px;
     height: 40px;
 
-    background: url(../img/bt_login_sml.png) no-repeat;
+    background: url(/_global/img/bt_login_sml.png) no-repeat;
 }
 
 div.Team-Dashboard a.bt-LogOut-sml {
@@ -1412,7 +1412,7 @@ div.Team-Dashboard a.bt-LogOut-sml {
     width: 40px;
     height: 40px;
 
-    background: url(../img/bt_logout_sml.png) no-repeat;
+    background: url(/_global/img/bt_logout_sml.png) no-repeat;
 }
 
 /*-------        Post Box        ------*/
@@ -1441,7 +1441,7 @@ section.PostBox {
 
 section.PostBox > div.DateTag {
     float: left;
-    /*background: url(../img/date-shdw.png) #202020 repeat-y right;*/
+    /*background: url(/_global/img/date-shdw.png) #202020 repeat-y right;*/
 
     width: 50px;
     height: 93px;
@@ -1487,7 +1487,7 @@ section.PostBox > article {
     margin: 0 0 0 0;
 
     border: 1px solid #2f2f2f;
-    background: url(../img/black_denim_50.png) repeat;
+    background: url(/_global/img/black_denim_50.png) repeat;
 }
 
 section.PostBox > article > div.wrapper {
@@ -1560,7 +1560,7 @@ div#video-info {
 
     border: 1px solid #2f2f2f;
     border-top: none;
-    background: url(../img/black_denim_50.png) repeat;
+    background: url(/_global/img/black_denim_50.png) repeat;
 
     font-weight: 300;
 }
@@ -1702,7 +1702,7 @@ div#video-info > .left > div.KeyShots > ul > li:hover {
 }
 
 div#video-info > .left > div.KeyShots > ul > li:hover:before {
-    background: url('../img/ui_video_player.png') -12px -194px;
+    background: url('/_global/img/ui_video_player.png') -12px -194px;
 }
 
 div#video-info > .left > div.KeyShots > ul > li:before {
@@ -1717,7 +1717,7 @@ div#video-info > .left > div.KeyShots > ul > li:before {
 
     content: ' ';
 
-    background: url('../img/ui_video_player.png') 0 -194px;
+    background: url('/_global/img/ui_video_player.png') 0 -194px;
 }
 
 div#video-info > .left > div.KeyShots > ul > li.load {
@@ -1732,7 +1732,7 @@ div#video-info > .left > div.KeyShots > ul > li.load:before {
 
     animation: KeyShotsTagFade .15s linear;
 
-    background: url('../img/ui_video_player.png') -24px -194px;
+    background: url('/_global/img/ui_video_player.png') -24px -194px;
 }
 
 div#video-info > .left > div.KeyShots > ul > li.here {
@@ -1744,12 +1744,12 @@ div#video-info > .left > div.KeyShots > ul > li.here {
 }
 
 div#video-info > .left > div.KeyShots > ul > li.here:before {
-    /*background: url('../../desktop/img/keyshot_bullet_here.gif');*/
+    /*background: url('/_global/../desktop/img/keyshot_bullet_here.gif');*/
     z-index: 30;
 
     animation: KeyShotsTagFade .15s linear;
 
-    background: url('../img/ui_video_player.png') -12px -194px;
+    background: url('/_global/img/ui_video_player.png') -12px -194px;
 }
 
 div#video-info > .left > div.KeyShots > div.ShotName {
@@ -1820,29 +1820,29 @@ div#video-info span.nextFrame {
 }
 
 div#video-info span.prevFrame {
-    background: url('../img/ui_video_player.png') -94px -160px;
+    background: url('/_global/img/ui_video_player.png') -94px -160px;
 }
 
 div#video-info span.prevFrame:hover {
-    background: url('../img/ui_video_player.png') -112px -160px;
+    background: url('/_global/img/ui_video_player.png') -112px -160px;
 }
 
 div#video-info span.prevFrame.loading {
-    background: url('../img/ui_video_player.png') -130px -160px;
+    background: url('/_global/img/ui_video_player.png') -130px -160px;
 }
 
 div#video-info span.nextFrame {
     float: right;
 
-    background: url('../img/ui_video_player.png') -103px -160px;
+    background: url('/_global/img/ui_video_player.png') -103px -160px;
 }
 
 div#video-info span.nextFrame:hover {
-    background: url('../img/ui_video_player.png') -121px -160px;
+    background: url('/_global/img/ui_video_player.png') -121px -160px;
 }
 
 div#video-info span.nextFrame.loading {
-    background: url('../img/ui_video_player.png') -139px -160px;
+    background: url('/_global/img/ui_video_player.png') -139px -160px;
 }
 
 div#video-info > .left > div.KeyShots > div.ShotName div.keyShot {
@@ -1852,7 +1852,7 @@ div#video-info > .left > div.KeyShots > div.ShotName div.keyShot {
     height: 11px;
     margin: 2px 4px 0 8px;
 
-    background: url('../img/ui_video_player.png') -12px -194px;
+    background: url('/_global/img/ui_video_player.png') -12px -194px;
 }
 
 section.PostBox > article > div.wrapper > .info > .pad > h1 {
@@ -1939,7 +1939,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Authors > div.UserIcon
     width: 22px;
     height: 20px;
 
-    background: url('../img/ui_video_player.png') -46px -189px;
+    background: url('/_global/img/ui_video_player.png') -46px -189px;
 }
 
 #video-info > .right > .Authors > .Names,
@@ -2072,7 +2072,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterGhost {
     z-index: 1;
 
-    background: url(../img/awesom-meter-sml-o.png) no-repeat;
+    background: url(/_global/img/awesom-meter-sml-o.png) no-repeat;
     background-size: cover;
 }
 
@@ -2080,7 +2080,7 @@ section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate 
 section.PostBox > article > div.wrapper > .info > .pad > .Rating > .AwesomeRate > .MeterExist {
     z-index: 2;
 
-    background: url(../img/awesom-meter-sml.png) no-repeat;
+    background: url(/_global/img/awesom-meter-sml.png) no-repeat;
     background-size: cover;
 }
 

@@ -58,7 +58,7 @@ a.UserLogout {
     height: 19px;
     margin: 0 10px 0 0;
 
-    background: url(../img/bt_logout.png) no-repeat center;
+    background: url(/desktop/img/bt_logout.png) no-repeat center;
 }
 
 div.Activity {
@@ -126,7 +126,7 @@ div.DownArr {
     height: 12px;
     margin: 5px 0 0 0;
 
-    background: url(../img/bt_down_arr.png) no-repeat center;
+    background: url(/desktop/img/bt_down_arr.png) no-repeat center;
 }
 
 div.BoardTitle {

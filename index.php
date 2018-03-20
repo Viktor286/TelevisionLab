@@ -40,21 +40,7 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
         <!--[if IE]></base><![endif]-->
         <meta name="description" content="Motion Design and Broadcast Graphics database">
         <link rel="icon" href="favicon.ico"/>
-
-        <link rel="stylesheet" type="text/css" href="/_global/css/reset.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/jquery.tagit.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/tagit.ui-zendesk.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/fonts-google-opensans.css"/>
-
-        <link rel="stylesheet" type="text/css" href="/_global/css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/common.css"/>
-        <link rel="stylesheet" type="text/css" href="/_global/css/main_player_controls.css"/>
-
-        <link rel="stylesheet" type="text/css" href="/desktop/css/layout.css"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/left-panel-accordion.css"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/no-result-block.css"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel__user-info.css"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/top-panel.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/bundle.min.css"/>
 
         <script type="text/javascript" src="/_global/js/compatibility.js"></script>
         <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>

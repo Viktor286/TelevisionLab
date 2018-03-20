@@ -2,7 +2,7 @@ body {
     overflow: auto !important;
 
     color: white;
-    background: url(../img/black_denim_100.png) repeat #000 fixed;
+    background: url(/_global/img/black_denim_100.png) repeat #000 fixed;
 
     font-family: 'Open Sans', sans-serif;
 }

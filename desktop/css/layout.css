@@ -22,7 +22,7 @@ div#preview-window {
     width: 100%;
     min-height: 378px;
 
-    background: url(../img/loader_0.gif) no-repeat center #27292a;
+    background: url(/desktop/img/loader_0.gif) no-repeat center #27292a;
 }
 
 

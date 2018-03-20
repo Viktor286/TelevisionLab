@@ -55,7 +55,7 @@ div.NoResultBlock div.NoResultMsg {
     margin: 60px auto 0;
 
     border: 0 red dashed;
-    background: url(../img/no-result-bender.jpg) no-repeat;
+    background: url(/desktop/img/no-result-bender.jpg) no-repeat;
 }
 
 div.NoResultBlock div.NoResultAdvice {

@@ -21,7 +21,7 @@ div#MPC div {
 
     cursor: pointer;
 
-    background: url(../img/ui_video_player.png) no-repeat;
+    background: url('/_global/img/ui_video_player.png') no-repeat;
 }
 
 /*

@@ -24,7 +24,7 @@ div.top-panel-border {
     height: 35px;
 
     border: 0 red dashed;
-    background: url(../img/top-panel-border.png) repeat-x;
+    background: url(/desktop/img/top-panel-border.png) repeat-x;
 }
 
 div.top-panel-margin {
@@ -49,11 +49,11 @@ div.top-panel__logo {
 
     transition: background-image .2s ease-in-out;
 
-    background: url(../img/logo.png) no-repeat;
+    background: url(/desktop/img/logo.png) no-repeat;
 }
 
 div.top-panel__logo:hover {
-    background-image: url(../img/logo_hover.png);
+    background-image: url(/desktop/img/logo_hover.png);
 }
 
 div.top-panel__logo a {
@@ -64,7 +64,7 @@ div.top-panel__logo a {
 
     text-decoration: none;
 
-    background: url(../img/logo_hover.png) no-repeat -999px;
+    background: url(/desktop/img/logo_hover.png) no-repeat -999px;
 }
 
 div.top-panel > div.top-panel__db-state-icon {
@@ -75,14 +75,14 @@ div.top-panel > div.top-panel__db-state-icon {
     height: 40px;
     margin: 15px 0 0 23px;
 
-    background: url(../img/ui_top_panel.png) -392px 0 no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -392px 0 no-repeat;
 }
 
 div.top-panel > div.top-panel__db-state-icon:hover {
     /*cursor: pointer;*/
     cursor: text;
 
-    background: url(../img/ui_top_panel.png) -392px -40px no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -392px -40px no-repeat;
 }
 
 /* Search block */
@@ -176,16 +176,16 @@ div.top-panel__input-wrap input.top-panel__search-btn {
     height: 40px;
 
     border: 0;
-    background: url(../img/ui_top_panel.png) no-repeat -240px 0;
+    background: url(/desktop/img/ui_top_panel.png) no-repeat -240px 0;
 }
 
 div.top-panel__input-wrap input.top-panel__search-btn:hover {
     cursor: pointer;
 
-    background: url(../img/ui_top_panel.png) no-repeat -240px -40px;
+    background: url(/desktop/img/ui_top_panel.png) no-repeat -240px -40px;
 }
 
-/*div.top-panel__input-wrap input.top-panel__search-btn:active {cursor: pointer; background: url(../img/ui_top_panel.png) no-repeat 0 -80px; }*/
+/*div.top-panel__input-wrap input.top-panel__search-btn:active {cursor: pointer; background: url(/desktop/img/ui_top_panel.png) no-repeat 0 -80px; }*/
 
 div.top-panel div.filters_icon_title_line {
     position: absolute;
@@ -196,13 +196,13 @@ div.top-panel div.filters_icon_title_line {
     height: 10px;
     margin: 0 0 0 15px;
 
-    background: url(../img/ui_top_panel.png) no-repeat -82px -164px;
+    background: url(/desktop/img/ui_top_panel.png) no-repeat -82px -164px;
 }
 
 div.top-panel div.filters_icon_title_line:hover {
     cursor: text;
 
-    background: url(../img/ui_top_panel.png) no-repeat -82px -173px;
+    background: url(/desktop/img/ui_top_panel.png) no-repeat -82px -173px;
     /*cursor: help;*/
 }
 
@@ -214,7 +214,7 @@ div.top-panel div.filters_icon_right {
     height: 49px;
     margin: 8px 7px 0 0;
 
-    background: url(../img/ui_top_panel.png) no-repeat -286px -64px;
+    background: url(/desktop/img/ui_top_panel.png) no-repeat -286px -64px;
 }
 
 div.top-panel div.filters_icon_right {
@@ -265,13 +265,13 @@ div.top-panel > div.top-panel__help {
     height: 31px;
     margin: 0 15px 0 0;
 
-    background: url(../img/ui_top_panel.png) -280px 0 no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -280px 0 no-repeat;
 }
 
 div.top-panel > div.top-panel__help:hover {
     cursor: pointer;
 
-    background: url(../img/ui_top_panel.png) -280px -31px no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -280px -31px no-repeat;
 }
 
 div.top-panel > div.top-panel__to-board-btn {
@@ -281,11 +281,11 @@ div.top-panel > div.top-panel__to-board-btn {
     height: 42px;
     margin: 0 20px 0 0;
 
-    background: url(../img/ui_top_panel.png) -310px 0 no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -310px 0 no-repeat;
 }
 
 div.top-panel > div.top-panel__to-board-btn:hover {
     cursor: pointer;
 
-    background: url(../img/ui_top_panel.png) -310px -42px no-repeat;
+    background: url(/desktop/img/ui_top_panel.png) -310px -42px no-repeat;
 }

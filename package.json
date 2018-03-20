@@ -1,0 +1,42 @@
+{
+  "name": "television-lab",
+  "version": "0.1.1",
+  "description": "Television Lab is a prototype of an online motion graphics database.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "8.1.0",
+    "del": "3.0.0",
+    "gulp": "4.0.0",
+    "gulp-clean-css": "3.9.3",
+    "gulp-concat": "2.6.1",
+    "gulp-csscomb": "3.0.8",
+    "gulp-postcss": "7.0.1",
+    "gulp-rename": "1.2.2",
+    "gulp-sourcemaps": "2.6.4",
+    "i": "0.3.6"
+  },
+  "scripts": {
+    "test": "gulp",
+    "start": "gulp build-Desktop",
+    "stop": "gulp build-Desktop",
+
+    "build_Desktop": "gulp build_Desktop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viktor286/TelevisionLab.git"
+  },
+  "keywords": [
+    "motion",
+    "graphics",
+    "online",
+    "database"
+  ],
+  "author": "Viktor286",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Viktor286/TelevisionLab/issues"
+  },
+  "homepage": "https://github.com/Viktor286/TelevisionLab#readme"
+}
