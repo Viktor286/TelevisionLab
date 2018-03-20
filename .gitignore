@@ -1,5 +1,6 @@
 .idea/
 .git/
+.ftppass
 _global/config/private/
 node_modules/
 package-lock.json
