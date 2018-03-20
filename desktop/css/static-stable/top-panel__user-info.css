@@ -1,4 +1,6 @@
+
 /*------- Top Panel User Info Board ------*/
+
 table.PersonalInfo {
     display: block;
     float: right;
@@ -9,6 +11,7 @@ table.PersonalInfo {
 
     border: 0 red dashed;
 }
+
 div.UserInfo {
     display: block;
     float: right;
@@ -24,6 +27,7 @@ div.UserInfo {
 
     font-size: 16px;
 }
+
 div.UserInfo div.UserName {
     display: inline-block;
 
@@ -33,15 +37,18 @@ div.UserInfo div.UserName {
 
     border: 0 green dashed;
 }
+
 div.UserName a {
     text-decoration: none;
 
     color: #fff;
 }
+
 div.UserName a:hover {
     cursor: pointer;
     text-decoration: none;
 }
+
 a.UserLogout {
     position: relative;
 
@@ -53,6 +60,7 @@ a.UserLogout {
 
     background: url(/desktop/img/bt_logout.png) no-repeat center;
 }
+
 div.Activity {
     position: relative;
 
@@ -67,16 +75,19 @@ div.Activity {
 
     font-size: 12px;
 }
+
 span.Ratio {
     color: white;
 
     font-size: 14px;
 }
+
 span.Sum {
     color: white;
 
     font-size: 18px;
 }
+
 div.UserStat {
     display: block;
     float: left;
@@ -90,6 +101,9 @@ div.UserStat {
 
     font-size: 12px;
 }
+
+
+
 div.BoardSetup {
     display: block;
     float: none;
@@ -103,6 +117,7 @@ div.BoardSetup {
 
     border: 0 yellow dashed;
 }
+
 div.DownArr {
     display: block;
     float: right;
@@ -113,6 +128,7 @@ div.DownArr {
 
     background: url(/desktop/img/bt_down_arr.png) no-repeat center;
 }
+
 div.BoardTitle {
     display: block;
     float: left;

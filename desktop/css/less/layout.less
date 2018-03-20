@@ -1,4 +1,5 @@
 /* ------ Desktop Layout ------ */
+
 div.fixed-display {
     position: fixed;
 
@@ -6,11 +7,13 @@ div.fixed-display {
 
     width: 686px;
 
-    border: 0 yellow dashed;
+    border: 0px yellow dashed;
 }
+
 #container {
-    border: 0 red dashed;
+    border: 0px red dashed;
 }
+
 div#preview-window {
     position: relative;
 
@@ -21,6 +24,9 @@ div#preview-window {
 
     background: url(/desktop/img/loader_0.gif) no-repeat center #27292a;
 }
+
+
+
 div#preview-window > div.box > iframe {
     position: absolute;
 
@@ -32,6 +38,7 @@ div#preview-window > div.box > iframe {
     border: 1px solid #2f2f2f;
     border-bottom: none;
 }
+
 body > main {
     display: table;
 
@@ -40,6 +47,7 @@ body > main {
 
     border: 0 dashed red;
 }
+
 main > div.wr50 {
     position: fixed;
 
@@ -54,6 +62,7 @@ main > div.wr50 {
 
     border: 0 dashed #fe0;
 }
+
 main > div#main-output {
     display: table-cell;
     float: right;
@@ -61,6 +70,7 @@ main > div#main-output {
     width: 55%;
     height: 100%;
 }
+
 main > div.wr50 > div.table {
     display: table;
 
@@ -68,6 +78,7 @@ main > div.wr50 > div.table {
 
     vertical-align: top;
 }
+
 main > div.wr50 > div.table > aside#left-panel {
     position: relative;
 
@@ -77,11 +88,13 @@ main > div.wr50 > div.table > aside#left-panel {
 
     vertical-align: top;
 }
+
 main > div.wr50 > div.table > aside#left-panel > div.accordion {
     display: none;
 
     margin: 0 10px 0 5px;
 }
+
 main > div.wr50 > div.table > section#fixed-display {
     position: relative;
 
@@ -94,146 +107,180 @@ main > div.wr50 > div.table > section#fixed-display {
 
     vertical-align: top;
 }
+
 /*----------------- @media screen  */
+
 @media screen and (min-width: 1900px) {
     main > div.wr50 {
         width: 50%;
     }
+
     div#preview-window {
         min-height: 500px;
     }
+
     main > div#main-output {
         width: 50%;
     }
+
     div#preview-window {
         min-height: 430px;
     }
 }
+
 @media screen and (min-width: 2270px) {
     main > div.wr50 {
         width: 55%;
     }
+
     div#preview-window {
         min-height: 600px;
     }
+
     main > div#main-output {
         width: 45%;
     }
 }
+
 @media screen and (min-width: 2450px) {
     main > div.wr50 {
         width: 58%;
     }
+
     main > div#main-output {
         width: 42%;
     }
+
     div#preview-window {
         min-height: 680px;
     }
 }
+
 @media screen and (max-width: 2044px) {
     main > div.wr50 {
         width: 45%;
     }
+
     main > div#main-output {
         width: 55%;
     }
 }
+
 @media screen and (max-width: 1900px) {
     main > div.wr50 {
         width: 60%;
     }
+
     main > div#main-output {
         width: 40%;
     }
+
     div#preview-window {
         min-height: 500px;
     }
 }
+
 @media screen and (max-width: 1744px) {
     main > div.wr50 {
         width: 58%;
     }
+
     main > div#main-output {
         width: 42%;
     }
 }
+
 @media screen and (max-width: 1662px) {
     main > div.wr50 {
         width: 56%;
     }
+
     main > div#main-output {
         width: 44%;
     }
+
     div#preview-window {
         min-height: 400px;
     }
 }
+
 @media screen and (max-width: 1590px) {
     main > div.wr50 {
         width: 54%;
     }
+
     main > div#main-output {
         width: 46%;
     }
 }
+
 @media screen and (max-width: 1520px) {
     main > div.wr50 {
         width: 52%;
     }
+
     main > div#main-output {
         width: 48%;
     }
 }
+
 @media screen and (max-width: 1445px) {
     main > div.wr50 {
         width: 50%;
     }
+
     main > div#main-output {
         width: 50%;
     }
 }
+
 @media screen and (max-width: 1389px) {
     main > div.wr50 {
         width: 70%;
     }
+
     main > div#main-output {
         width: 30%;
     }
+
     div#preview-window {
         min-height: 400px;
     }
 }
+
 @media screen and (max-width: 1179px) {
     main > div.wr50 {
         width: 65%;
     }
+
     main > div#main-output {
         width: 35%;
     }
+
     div#preview-window {
         min-height: 300px;
     }
 }
+
 @media screen and (max-width: 1017px) {
     main > div.wr50 {
         width: 60%;
         margin-left: 12px;
     }
+
     main > div#main-output {
         width: 40%;
     }
+
     main > div.wr50 > div.table > aside#left-panel {
         display: none !important;
     }
 }
+
 @media screen and (max-width: 980px) {
     main > div#main-output {
         margin-left: 15px;
     }
 }
-div.waterfall-container div.item ,
-div.waterfall-container div.item .box {
-    width: 319px;
-    height: 179px;
-}
+
+div.waterfall-container div.item, div.waterfall-container div.item .box { width: 319px; height: 179px; }

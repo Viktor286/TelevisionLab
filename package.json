@@ -6,22 +6,27 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "8.1.0",
+    "browser-sync": "2.23.6",
     "del": "3.0.0",
     "gulp": "4.0.0",
     "gulp-clean-css": "3.9.3",
     "gulp-concat": "2.6.1",
     "gulp-csscomb": "3.0.8",
+    "gulp-less": "4.0.0",
+    "gulp-newer": "1.4.0",
     "gulp-postcss": "7.0.1",
     "gulp-rename": "1.2.2",
+    "gulp-sftp": "0.1.5",
     "gulp-sourcemaps": "2.6.4",
     "i": "0.3.6"
   },
   "scripts": {
     "test": "gulp",
-    "start": "gulp build-Desktop",
-    "stop": "gulp build-Desktop",
-
-    "build_Desktop": "gulp build_Desktop"
+    "start": "gulp",
+    "stop": "gulp",
+    "build-desktop": "gulp build-desktop",
+    "watch-less-desktop": "gulp watch-less-desktop",
+    "sftp-deploy": "gulp sftp-deploy"
   },
   "repository": {
     "type": "git",

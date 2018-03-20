@@ -1,4 +1,5 @@
 /* ------ Desktop Top Panel ------ */
+
 div.top-panel-box {
     position: fixed;
     z-index: 5;
@@ -9,6 +10,7 @@ div.top-panel-box {
 
     border: 0 coral dashed;
 }
+
 div.top-panel {
     display: block;
 
@@ -17,12 +19,14 @@ div.top-panel {
 
     background: #181818;
 }
+
 div.top-panel-border {
     height: 35px;
 
     border: 0 red dashed;
     background: url(/desktop/img/top-panel-border.png) repeat-x;
 }
+
 div.top-panel-margin {
     display: block;
 
@@ -32,6 +36,7 @@ div.top-panel-margin {
 
     border: 0 #ff0 dashed;
 }
+
 div.top-panel__logo {
     position: relative;
     top: 12px;
@@ -46,9 +51,11 @@ div.top-panel__logo {
 
     background: url(/desktop/img/logo.png) no-repeat;
 }
+
 div.top-panel__logo:hover {
     background-image: url(/desktop/img/logo_hover.png);
 }
+
 div.top-panel__logo a {
     display: block;
 
@@ -59,6 +66,7 @@ div.top-panel__logo a {
 
     background: url(/desktop/img/logo_hover.png) no-repeat -999px;
 }
+
 div.top-panel > div.top-panel__db-state-icon {
     display: block;
     float: left;
@@ -69,13 +77,16 @@ div.top-panel > div.top-panel__db-state-icon {
 
     background: url(/desktop/img/ui_top_panel.png) -392px 0 no-repeat;
 }
+
 div.top-panel > div.top-panel__db-state-icon:hover {
     /*cursor: pointer;*/
     cursor: text;
 
     background: url(/desktop/img/ui_top_panel.png) -392px -40px no-repeat;
 }
+
 /* Search block */
+
 div.top-panel__input-wrap {
     position: relative;
     top: 15px;
@@ -88,6 +99,7 @@ div.top-panel__input-wrap {
 
     border: 0 red dashed;
 }
+
 div.top-panel__search-filters {
     position: relative;
     top: 2px;
@@ -100,12 +112,15 @@ div.top-panel__search-filters {
 
     border: 1px #181818 solid;
 }
+
 div.top-panel__search-filters_fixwrap {
     display: none;
 }
+
 div.top-panel__input-wrap input.top-panel__search-field {
     display: none;
 }
+
 div.top-panel__input-wrap ul.top-panel__search-field {
     display: block;
     float: left;
@@ -129,22 +144,31 @@ div.top-panel__input-wrap ul.top-panel__search-field {
     font-size: 14px;
     line-height: 1;
 }
+
+
+
 div.top-panel__input-wrap ul.top-panel__search-field:focus {
     outline: 0;
 }
+
 div.top-panel__input-wrap ul.top-panel__search-field:hover {
-    transition: all .250s ease;
+    -webkit-transition: all .250s ease;
+        -ms-transition: all .250s ease;
+            transition: all .250s ease;
     -webkit-animation: input_bg;
             animation: input_bg;
 
-    background: #404244;
-    /* Chrome, Safari, Opera */
+    background: #404244; /* Chrome, Safari, Opera */
 }
+
 .tagit-autocomplete.ui-widget-content {
     z-index: 50 !important;
 
     border: 1px solid #2c2c2c !important;
 }
+
+
+
 div.top-panel__input-wrap input.top-panel__search-btn {
     float: left;
 
@@ -154,12 +178,15 @@ div.top-panel__input-wrap input.top-panel__search-btn {
     border: 0;
     background: url(/desktop/img/ui_top_panel.png) no-repeat -240px 0;
 }
+
 div.top-panel__input-wrap input.top-panel__search-btn:hover {
     cursor: pointer;
 
     background: url(/desktop/img/ui_top_panel.png) no-repeat -240px -40px;
 }
+
 /*div.top-panel__input-wrap input.top-panel__search-btn:active {cursor: pointer; background: url(/desktop/img/ui_top_panel.png) no-repeat 0 -80px; }*/
+
 div.top-panel div.filters_icon_title_line {
     position: absolute;
 
@@ -171,13 +198,15 @@ div.top-panel div.filters_icon_title_line {
 
     background: url(/desktop/img/ui_top_panel.png) no-repeat -82px -164px;
 }
+
 div.top-panel div.filters_icon_title_line:hover {
     cursor: text;
 
     background: url(/desktop/img/ui_top_panel.png) no-repeat -82px -173px;
     /*cursor: help;*/
 }
-div.top-panel div.filters_icon_left ,
+
+div.top-panel div.filters_icon_left,
 div.top-panel div.filters_icon_right {
     float: left;
 
@@ -187,14 +216,17 @@ div.top-panel div.filters_icon_right {
 
     background: url(/desktop/img/ui_top_panel.png) no-repeat -286px -64px;
 }
+
 div.top-panel div.filters_icon_right {
     margin: 8px 0 0 0;
 
     background-position: -295px -64px;
 }
+
 div.top-panel div.styledCheckbox {
     margin-top: 12px;
 }
+
 /*-- top-panel__infoline Section --*/
 div.top-panel__infoline {
     display: block;
@@ -207,6 +239,7 @@ div.top-panel__infoline {
 
     font-size: 11px;
 }
+
 /* if screen size gets wider than 900  test */
 @media screen and (max-width: 1670px) {
     div.top-panel__infoline {
@@ -214,14 +247,17 @@ div.top-panel__infoline {
         display: none;
     }
 }
+
 /*-- Right Hand Buttons --*/
-div.top-panel > div.top-panel__help ,
+
+div.top-panel > div.top-panel__help,
 div.top-panel > div.top-panel__to-board-btn {
     position: relative;
 
     display: block;
     float: right;
 }
+
 div.top-panel > div.top-panel__help {
     top: 19px;
 
@@ -231,11 +267,13 @@ div.top-panel > div.top-panel__help {
 
     background: url(/desktop/img/ui_top_panel.png) -280px 0 no-repeat;
 }
+
 div.top-panel > div.top-panel__help:hover {
     cursor: pointer;
 
     background: url(/desktop/img/ui_top_panel.png) -280px -31px no-repeat;
 }
+
 div.top-panel > div.top-panel__to-board-btn {
     top: 13px;
 
@@ -245,6 +283,7 @@ div.top-panel > div.top-panel__to-board-btn {
 
     background: url(/desktop/img/ui_top_panel.png) -310px 0 no-repeat;
 }
+
 div.top-panel > div.top-panel__to-board-btn:hover {
     cursor: pointer;
 

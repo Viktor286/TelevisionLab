@@ -53,7 +53,6 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
         <script type="text/javascript" src="/desktop/js/app.js" defer></script>
     </head>
 <body>
-
     <script type="text/javascript">
         'use strict';
 
@@ -78,7 +77,6 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
     </script>
 
 <? include 'desktop/views/top_panel.php'; ?>
-
     <main>
         <div class="wr50">
             <div class="table">
@@ -99,7 +97,6 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
             <div id="container"></div>
         </div>
     </main>
-
 <? include 'desktop/js/waterfall.php'; ?>
 
 <? insertFooter('_global/views/FooterTpl.php'); ?>

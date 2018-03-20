@@ -1,6 +1,6 @@
 !function () {
     'use strict';
-
+ 
     tvLab.checkAlert = function(text) {
         alert(text);
     };
@@ -186,6 +186,7 @@
 
     tvLab.setAutoPlayUI = function(type) { // "Cycle" or "Next"
         var AutoPlayButton = $("div#MPC div.AutoPlay");
+
         if (type === "Next") {
             AutoPlayButton.removeClass("Cycle");
             AutoPlayButton.addClass("Next");
@@ -198,7 +199,6 @@
     tvLab.videoGoAndPlay = function(state) {
         var this_Vid_Obj = $("#container.waterfall-container div.item.here");
         var first_Vid_Obj = $("#container.waterfall-container").children().first();
-
         var next_Vid_Obj = this_Vid_Obj.next();
         var prev_Vid_Obj = this_Vid_Obj.prev();
         var next_Vid_Id = next_Vid_Obj.data("id");
@@ -281,7 +281,6 @@ window.loadVideoOnPage = function(VideoId) {
             $('a.tag[data-tag=' + value + ']').addClass("here");
         });
 
-
         // Play-Pause of top panel player
         var iframe = document.querySelector('iframe');
         var mainPlayer = new Vimeo.Player(iframe);
@@ -294,12 +293,11 @@ window.loadVideoOnPage = function(VideoId) {
          $('div.timecode').html("000" + data.seconds);
          });*/
 
-
         // Set On PlayPause Button Event
         $(document).on('click', 'div#MPC div#PlayPause', function (event) {
             event.preventDefault();
             mainPlayer.getPaused().then(function (paused) {
-                if (paused == true) {
+                if (paused === true) {
                     mainPlayer.play();
                 } else {
                     mainPlayer.pause();
@@ -311,7 +309,7 @@ window.loadVideoOnPage = function(VideoId) {
 
         //------ Player play/pause Actions
         var playPauseSwitch = function (paused_state) {
-            if (paused_state == true) {
+            if (paused_state === true) {
                 // Pause was ON, switch to play
                 playPauseBt.removeClass("pause");
                 playPauseBt.addClass("play");
