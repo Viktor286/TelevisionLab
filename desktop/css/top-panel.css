@@ -177,7 +177,7 @@ div.top-panel div.filters_icon_title_line:hover {
     background: url(/desktop/img/ui_top_panel.png) no-repeat -82px -173px;
     /*cursor: help;*/
 }
-div.top-panel div.filters_icon_left ,
+div.top-panel div.filters_icon_left,
 div.top-panel div.filters_icon_right {
     float: left;
 
@@ -215,7 +215,7 @@ div.top-panel__infoline {
     }
 }
 /*-- Right Hand Buttons --*/
-div.top-panel > div.top-panel__help ,
+div.top-panel > div.top-panel__help,
 div.top-panel > div.top-panel__to-board-btn {
     position: relative;
 

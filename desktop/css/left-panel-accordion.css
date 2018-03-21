@@ -6,15 +6,38 @@ aside#left-panel > div.ui-accordion > div.ui-accordion-content > div.indent {
 
     border: 0 dashed red;
 }
-div.ui-accordion-header {
-    clear: both;
+div.ui-accordion-content {
+    display: block;
 
-    height: 30px;
-    margin: 3px 0 5px 0 !important;
+    width: auto;
+    height: auto;
+    margin: 0 0 0 5px;
 
+    color: #ccc;
+    border: 0 blue dashed;
+    background: none;
+
+    font-size: 14px;
+    line-height: 125%;
+}
+div.ui-accordion-content a,
+div.ui-accordion-content span.here,
+div.ui-accordion-content a.here {
+    display: block;
+    float: left;
+
+    margin: 2px 3px 2px 0;
+    padding: 2px 4px;
+
+    text-decoration: none;
+    text-transform: capitalize;
+
+    color: #999;
     border: 1px solid #524c3d;
     border-radius: 3px;
-    background-color: #0f0f0f;
+    background-color: #191919;
+
+    font-weight: 300;
 }
 div.ui-accordion-header a {
     display: block;
@@ -28,14 +51,33 @@ div.ui-accordion-header a {
 
     font-weight: 300;
 }
-div.ui-accordion-header a:hover {
+div.ui-accordion-header-active a {
     color: white;
+}
+div.ui-accordion-content a:hover {
+    color: #fff;
+    border-color: #6387cb;
+}
+div.ui-accordion-content span.here,
+div.ui-accordion-content a.here {
+    color: #fff;
+    border-color: #6387cb;
+}
+div.ui-accordion-header {
+    clear: both;
+
+    height: 30px;
+    margin: 3px 0 5px 0 !important;
+
+    border: 1px solid #524c3d;
+    border-radius: 3px;
+    background-color: #0f0f0f;
 }
 div.ui-accordion-header-active {
     border: 1px solid #524c3d;
     background-color: #212121;
 }
-div.ui-accordion-header-active a {
+div.ui-accordion-header a:hover {
     color: white;
 }
 div.ui-accordion-header div.tag_title {
@@ -47,16 +89,16 @@ div.ui-accordion-header div.tag_title {
 
     font-size: 14px;
 }
-div.ui-accordion-header div.icn_sml_other ,
-div.ui-accordion-header div.icn_sml_art ,
-div.ui-accordion-header div.icn_sml_fashion ,
-div.ui-accordion-header div.icn_sml_sphere ,
-div.ui-accordion-header div.icn_sml_music ,
-div.ui-accordion-header div.icn_sml_worldmap ,
-div.ui-accordion-header div.icn_sml_authors ,
-div.ui-accordion-header div.icn_sml_artists ,
-div.ui-accordion-header div.icn_sml_year ,
-div.ui-accordion-header div.icn_sml_function_type ,
+div.ui-accordion-header div.icn_sml_other,
+div.ui-accordion-header div.icn_sml_art,
+div.ui-accordion-header div.icn_sml_fashion,
+div.ui-accordion-header div.icn_sml_sphere,
+div.ui-accordion-header div.icn_sml_music,
+div.ui-accordion-header div.icn_sml_worldmap,
+div.ui-accordion-header div.icn_sml_authors,
+div.ui-accordion-header div.icn_sml_artists,
+div.ui-accordion-header div.icn_sml_year,
+div.ui-accordion-header div.icn_sml_function_type,
 div.ui-accordion-header div.icn_sml_top_popular {
     display: block;
     float: left;
@@ -101,46 +143,4 @@ div.ui-accordion-header div.icn_sml_function_type {
 }
 div.ui-accordion-header div.icn_sml_top_popular {
     background-position: -300px 0;
-}
-div.ui-accordion-content {
-    display: block;
-
-    width: auto;
-    height: auto;
-    margin: 0 0 0 5px;
-
-    color: #ccc;
-    border: 0 blue dashed;
-    background: none;
-
-    font-size: 14px;
-    line-height: 125%;
-}
-div.ui-accordion-content a ,
-div.ui-accordion-content span.here ,
-div.ui-accordion-content a.here {
-    display: block;
-    float: left;
-
-    margin: 2px 3px 2px 0;
-    padding: 2px 4px;
-
-    text-decoration: none;
-    text-transform: capitalize;
-
-    color: #999;
-    border: 1px solid #524c3d;
-    border-radius: 3px;
-    background-color: #191919;
-
-    font-weight: 300;
-}
-div.ui-accordion-content a:hover {
-    color: #fff;
-    border-color: #6387cb;
-}
-div.ui-accordion-content span.here ,
-div.ui-accordion-content a.here {
-    color: #fff;
-    border-color: #6387cb;
 }

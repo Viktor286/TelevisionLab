@@ -99,9 +99,6 @@ main > div.wr50 > div.table > section#fixed-display {
     main > div.wr50 {
         width: 50%;
     }
-    div#preview-window {
-        min-height: 500px;
-    }
     main > div#main-output {
         width: 50%;
     }
@@ -232,7 +229,7 @@ main > div.wr50 > div.table > section#fixed-display {
         margin-left: 15px;
     }
 }
-div.waterfall-container div.item ,
+div.waterfall-container div.item,
 div.waterfall-container div.item .box {
     width: 319px;
     height: 179px;

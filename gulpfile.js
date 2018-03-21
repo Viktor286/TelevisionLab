@@ -1,19 +1,20 @@
 "use strict";
 
-let gulp = require('gulp');
-let csscomb = require('gulp-csscomb');
-let cleanCSS = require('gulp-clean-css');
-let rename = require('gulp-rename');
-let autoprefixer = require('autoprefixer');
-let postcss = require('gulp-postcss');
-let sourcemaps = require('gulp-sourcemaps');
-let del = require('del');
-let concat = require('gulp-concat');
-let path = require('path');
-let newer = require('gulp-newer');
-let less = require('gulp-less');
-let browserSync = require('browser-sync').create();
-let sftp = require('gulp-sftp');
+const gulp = require('gulp');
+const csscomb = require('gulp-csscomb');
+const cleanCSS = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+const sourcemaps = require('gulp-sourcemaps');
+const del = require('del');
+const concat = require('gulp-concat');
+const path = require('path');
+const newer = require('gulp-newer');
+const less = require('gulp-less');
+const browserSync = require('browser-sync').create();
+const gulpStylelint = require('gulp-stylelint');
+const debug = require('gulp-debug');
 
 function clean(str) {
     return del([str]);
@@ -31,6 +32,7 @@ gulp.task('default', function () {
  */
 
 gulp.task('sftp-deploy', function () {
+    const sftp = require('gulp-sftp');
     return gulp.src('./deploy-test/*')
         .pipe(sftp({
             host: 'u186876.ftp.masterhost.ru',
@@ -49,7 +51,7 @@ gulp.task('sftp-deploy', function () {
  *    npm run watch-less-desktop
  */
 
-const Desktop_Input_LessFiles = ['./desktop/css/less/**/*.less'];
+const Desktop_Input_LessFiles = ['./desktop/css/less/**/*.less', '!./desktop/css/less/elements.less'];
 const Desktop_FinalCssPath = './desktop/css/';
 
 const Desktop_Watch_OtherFiles = [
@@ -58,11 +60,22 @@ const Desktop_Watch_OtherFiles = [
 ];
 
 gulp.task('less-desktop', function () {
-    return gulp.src(Desktop_Input_LessFiles)
-        .pipe(newer(Desktop_FinalCssPath))
+    return gulp.src(Desktop_Input_LessFiles, {since: gulp.lastRun('less-desktop')})
+        .pipe(debug())
         .pipe(less())
-        .pipe(postcss([autoprefixer()]))
         .pipe(csscomb())
+        .pipe(postcss([autoprefixer()]))
+        .pipe(gulpStylelint({
+            // fix: true,
+            failAfterError: false,
+            reportOutputDir: 'desktop/css/reports/stylelint',
+            reporters: [
+                {formatter: 'string', console: true},
+                // {formatter: 'verbose', console: true},
+                // {formatter: 'json', save: 'report.json'},
+            ],
+            debug: true
+        }))
         .pipe(gulp.dest(Desktop_FinalCssPath));
 });
 
@@ -123,6 +136,8 @@ function Css_Bundle_Desktop() {
         './_global/css/main_player_controls.css',
 
         './desktop/css/*.css',
+
+        '!./desktop/css/bundle.min.css'
     ];
 
     const Desktop_Output_CssPath = './desktop/css/';
