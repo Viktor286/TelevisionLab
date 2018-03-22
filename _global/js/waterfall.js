@@ -1,6 +1,7 @@
 /*! waterfall - v0.1.72 - 2014-06-24
 * http://wlog.cn/waterfall/
 * Copyright (c) 2014 bingdian; Licensed MIT */
+
 /*global Handlebars: false, console: false */
 ;(function( $, window, document, undefined ) {
 

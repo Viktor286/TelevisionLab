@@ -19,6 +19,7 @@ const debug = require('gulp-debug');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
 const gulpif = require('gulp-if');
+const uglyfly = require('gulp-uglyfly');
 
 const notifyError = {
     errorHandler: notify.onError(function (err) {
@@ -31,13 +32,6 @@ const notifyError = {
 
 const production = process.env.NODE_ENV === 'production' || false;
 production ? console.log('\n-------->>>> production mode build <<<<--------\n') : null;
-
-// In development mode reset manifest files to non-hashed titles
-if (!production) {
-    const manifestFile = './desktop/css/manifest/bundle.css.json';
-    const nameToReset = 'bundle.min.css';
-    manifestOverwrite(manifestFile, nameToReset);
-}
 
 
 gulp.task('default', function () {
@@ -88,6 +82,13 @@ gulp.task('less-compile-desktop', function () {
 
 gulp.task('build-desktop-css', function () {
 
+    // In development mode reset manifest files to non-hashed titles
+    if (!production) {
+        const manifestFile = './desktop/css/manifest/bundle.css.json';
+        const nameToReset = 'bundle.min.css';
+        manifestOverwrite(manifestFile, nameToReset);
+    }
+
     return gulp.src([
         './_global/css/reset.css',
         './_global/css/jquery.tagit.css',
@@ -131,7 +132,7 @@ gulp.task('watch-less-and-build-desktop-css', function () {
         './desktop/css/*.css',
         './desktop/css/static/*.css',
         './index.php',
-        './desktop/js/app.js'
+        // './desktop/js/app.js'
     ]).on('change', browserSync.reload);
 
 });
@@ -139,6 +140,28 @@ gulp.task('watch-less-and-build-desktop-css', function () {
 
 gulp.task('production-desktop-css', gulp.series('less-compile-desktop', 'build-desktop-css'));
 
+
+gulp.task('build-vendors-js', function () {
+    return gulp.src([
+        './_global/js/compatibility.js',
+        './_global/js/jquery-1.11.0.min.js',
+        './_global/js/handlebars.js',
+        './_global/js/waterfall.js',
+        './_global/js/jquery-ui-custom.min.js',
+        './_global/js/tag-it.js',
+        './_global/js/vimeo.api.player.js',
+        './_global/js/screw-default-buttons.js'
+    ])
+        .pipe(debug())
+        .pipe(concat({path: 'vendors.js'}))
+        .pipe(uglyfly({mangle:true}))
+        .pipe(rev()) // revisioning
+        .pipe(gulp.dest('./desktop/js/'))
+        .pipe(rev.manifest('vendors.js.json')) // revisioning
+        .pipe(gulp.dest('./desktop/js/manifest/'))
+
+
+});
 
 function manifestOverwrite(targetFile, defaultName){
     let css_manifest = JSON.parse(fs.readFileSync(targetFile, 'utf8'));

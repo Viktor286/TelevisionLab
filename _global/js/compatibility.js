@@ -1,6 +1,3 @@
-/*this is just for IE MAIN tag*/
-/*document.createElement('main');*/
-
 /* Modernizr 2.8.3 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-borderradius-opacity-cssanimations-history-shiv-testprop-testallprops-prefixes-domprefixes
  */

@@ -9,8 +9,6 @@ require_once('_global/controllers/Forms.php');
 /* Local elements */
 require_once('desktop/controllers/Snippets.php');
 
-$bundleCss = json_decode(file_get_contents('desktop/css/manifest/bundle.css.json'), true);
-
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
@@ -32,6 +30,10 @@ $Tags = strtolower($Tags);
 
 empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
 
+$bundleCss = json_decode(file_get_contents('desktop/css/manifest/bundle.css.json'), true);
+$bundleJs = json_decode(file_get_contents('desktop/js/manifest/build.js.json'), true);
+$bundleJsVnd = json_decode(file_get_contents('desktop/js/manifest/vendors.js.json'), true);
+
 ?>
     <!DOCTYPE html>
     <html>
@@ -42,41 +44,16 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
         <meta name="description" content="Motion Design and Broadcast Graphics database">
         <link rel="icon" href="favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="/desktop/css/<?= $bundleCss['bundle.min.css'] ?>"/>
-
-        <script type="text/javascript" src="/_global/js/compatibility.js"></script>
-        <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="/_global/js/handlebars.js"></script>
-        <script type="text/javascript" src="/_global/js/waterfall.js"></script>
-        <script type="text/javascript" src="/_global/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/_global/js/tag-it.js"></script>
-        <script type="text/javascript" src="/_global/js/vimeo.api.player.js"></script>
-
-        <script type="text/javascript" src="/desktop/js/app.js" defer></script>
+        <script type="text/javascript" src="/desktop/js/<?= $bundleJsVnd['vendors.js'] ?>"></script>
+        <script type="text/javascript" src="/desktop/js/<?= $bundleJs['build']['js'] ?>"></script>
     </head>
 <body>
     <script type="text/javascript">
-        'use strict';
-
-        window.tvLab = {
-            nowUrl : "<?= $Http_query; ?>",
-            nowSet : "<?= $qSet; ?>",
-            nowVid : "<?= $VideoId; ?>",
-            nowTags : "<?= $Tags; ?>",
-            menuState : <? echo((isset($MenuState)) ? $MenuState : 0); ?>,
-            autoPlayState : <? echo((isset($AutoPlayState)) ? $AutoPlayState : 0); ?>
-        };
-
-        document.addEventListener('DOMContentLoaded', function () {
-            <? echo((isset($VideoId)) ? 'window.loadVideoOnPage(' . $VideoId . ');' : ''); ?>
-
-        });
-
+        'use strict'; window.tvLab={nowUrl:"<?= $Http_query; ?>",nowSet:"<?= $qSet; ?>",nowVid:"<?= $VideoId; ?>",nowTags:"<?= $Tags; ?>",menuState:<? echo((isset($MenuState)) ? $MenuState : 0); ?>,autoPlayState : <? echo((isset($AutoPlayState)) ? $AutoPlayState : 0); ?>};
     </script>
-
     <script type="text/x-handlebars-template" id="waterfall-tpl">
-        <? include 'desktop/views/waterfall_cell_tpl.php'; ?>
+<? include 'desktop/views/waterfall_cell_tpl.php'; ?>
     </script>
-
 <? include 'desktop/views/top_panel.php'; ?>
     <main>
         <div class="wr50">
@@ -98,6 +75,4 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
             <div id="container"></div>
         </div>
     </main>
-<? include 'desktop/js/waterfall.php'; ?>
-
 <? insertFooter('_global/views/FooterTpl.php'); ?>
