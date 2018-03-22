@@ -9,6 +9,8 @@ require_once('_global/controllers/Forms.php');
 /* Local elements */
 require_once('desktop/controllers/Snippets.php');
 
+$bundleCss = json_decode(file_get_contents('desktop/css/manifest/bundle.css.json'), true);
+
 $TvLab = new TvLab;
 $q = new TvLabQuery;
 
@@ -22,8 +24,7 @@ $Input = array(
     'Tags' => $_GET['tags'],
     'Mode' => $_GET['md'],
     'MenuState' => $_COOKIE['TagMenuState'],
-    'AutoPlayState' => $_COOKIE['AutoPlayState'],
-    'Http_query' => $Http_query // displayed here to see full list of inputs
+    'AutoPlayState' => $_COOKIE['AutoPlayState']
 );
 
 extract(SecureVars($Input), EXTR_OVERWRITE);
@@ -40,7 +41,7 @@ empty ($_GET['video']) ? $emptyVid = 1 : $emptyVid = 0 ;
         <!--[if IE]></base><![endif]-->
         <meta name="description" content="Motion Design and Broadcast Graphics database">
         <link rel="icon" href="favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="/desktop/css/bundle.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/desktop/css/<?= $bundleCss['bundle.min.css'] ?>"/>
 
         <script type="text/javascript" src="/_global/js/compatibility.js"></script>
         <script type="text/javascript" src="/_global/js/jquery-1.11.0.min.js"></script>

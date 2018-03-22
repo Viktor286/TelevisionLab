@@ -1,39 +1,54 @@
 "use strict";
 
 const gulp = require('gulp');
+const fs = require('fs');
 const csscomb = require('gulp-csscomb');
 const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const sourcemaps = require('gulp-sourcemaps');
-const del = require('del');
 const concat = require('gulp-concat');
 const path = require('path');
 const newer = require('gulp-newer');
 const less = require('gulp-less');
 const browserSync = require('browser-sync').create();
 const gulpStylelint = require('gulp-stylelint');
+const rev = require('gulp-rev');
 const debug = require('gulp-debug');
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
+const gulpif = require('gulp-if');
 
-function clean(str) {
-    return del([str]);
+const notifyError = {
+    errorHandler: notify.onError(function (err) {
+        return {
+            title: 'Notify',
+            message: err.message
+        };
+    })
+};
+
+const production = process.env.NODE_ENV === 'production' || false;
+production ? console.log('\n-------->>>> production mode build <<<<--------\n') : null;
+
+// In development mode reset manifest files to non-hashed titles
+if (!production) {
+    const manifestFile = './desktop/css/manifest/bundle.css.json';
+    const nameToReset = 'bundle.min.css';
+    manifestOverwrite(manifestFile, nameToReset);
 }
 
+
 gulp.task('default', function () {
-    console.log('--> default gulp launch...');
+    {
+    }
 });
 
 
-/**
- * --------- SFTP Deploy
- *
- *    npm run sftp-deploy
- */
-
 gulp.task('sftp-deploy', function () {
     const sftp = require('gulp-sftp');
-    return gulp.src('./deploy-test/*')
+    return gulp.src('./deploy-test/!*')
         .pipe(sftp({
             host: 'u186876.ftp.masterhost.ru',
             port: 22,
@@ -43,24 +58,11 @@ gulp.task('sftp-deploy', function () {
 });
 
 
-
-
-/**
- * --------- LESS for Desktop watch
- *
- *    npm run watch-less-desktop
- */
-
-const Desktop_Input_LessFiles = ['./desktop/css/less/**/*.less', '!./desktop/css/less/elements.less'];
-const Desktop_FinalCssPath = './desktop/css/';
-
-const Desktop_Watch_OtherFiles = [
-    './index.php',
-    './desktop/js/app.js'
-];
-
-gulp.task('less-desktop', function () {
-    return gulp.src(Desktop_Input_LessFiles, {since: gulp.lastRun('less-desktop')})
+gulp.task('less-compile-desktop', function () {
+    return gulp.src([
+        './desktop/css/less/**/*.less',
+        '!./desktop/css/less/elements.less'], {since: gulp.lastRun('less-compile-desktop')})
+        .pipe(plumber(notifyError))
         .pipe(debug())
         .pipe(less())
         .pipe(csscomb())
@@ -68,64 +70,25 @@ gulp.task('less-desktop', function () {
         .pipe(gulpStylelint({
             // fix: true,
             failAfterError: false,
-            reportOutputDir: 'desktop/css/reports/stylelint',
+            reportOutputDir: 'desktop/css/reports/stylelint/',
             reporters: [
                 {formatter: 'string', console: true},
-                // {formatter: 'verbose', console: true},
-                // {formatter: 'json', save: 'report.json'},
+                {formatter: 'json', save: 'report.json'},
             ],
             debug: true
         }))
-        .pipe(gulp.dest(Desktop_FinalCssPath));
+        .pipe(gulp.dest('./desktop/css/static/'));
+        // gulp.dest can combine destinations for stream file.dirname, file.basename etc.
+        // .pipe(gulp.dest(function (file) {
+        //     return file.dirname === './desktop/css/' ? './desktop/css/static/' :
+        //         file.dirname === './add/css/' ? './add/css/static/' : './gulp-default-path/';
+        // }));
 });
 
-gulp.task('watch-less-desktop', function () {
 
-    browserSync.init({
-        proxy: "http://www.televisionlab.net/"
-    });
+gulp.task('build-desktop-css', function () {
 
-    // Compile less + build bundle from result
-    gulp.watch(Desktop_Input_LessFiles, gulp.series('less-desktop', Css_Bundle_Desktop));
-
-    // Reload browserSync
-    gulp.watch(Desktop_FinalCssPath).on('change', browserSync.reload);
-    initAdditionalArrayToWatch(Desktop_Watch_OtherFiles);
-});
-
-function initAdditionalArrayToWatch(arr) {
-    // chokidar (with IDEA IDE? notepad++ acts good with this) has a bug with array param for input
-    // it fires 'add' event at first change, but after this emits 'unlink' and stops watch
-    // debug chokidar through gulp:
-    // gulp.watch(['./index.php', './desktop/js/app.js']).on('all', (evt,path) =>
-    //     console.log(`-- Watch log: '${evt}' launch from ${path}`)
-    // );
-    // chokidar makes this exact bug with separate installation of chokidar, outside of gulp.task()
-    arr.forEach((arr) => {
-
-        gulp.watch(arr).on('change', (evt) => {
-            browserSync.reload();
-            console.log(`-- Watch log: '${evt}' changed`);
-        });
-
-    });
-}
-
-
-
-
-/**
- * --------- CSS Desktop Build
- *
- *    npm run build-desktop
- */
-
-function Css_Bundle_Desktop() {
-    // More post-css
-    // https://github.com/postcss/postcss
-
-    const Desktop_Input_CssFiles = [
-
+    return gulp.src([
         './_global/css/reset.css',
         './_global/css/jquery.tagit.css',
         './_global/css/tagit.ui-zendesk.css',
@@ -135,30 +98,59 @@ function Css_Bundle_Desktop() {
         './_global/css/common.css',
         './_global/css/main_player_controls.css',
 
-        './desktop/css/*.css',
+        './desktop/css/static/*.css',
 
-        '!./desktop/css/bundle.min.css'
-    ];
-
-    const Desktop_Output_CssPath = './desktop/css/';
-    const Desktop_Output_CssTarget = 'bundle.min.css';
-
-    return gulp.src(Desktop_Input_CssFiles)
-    // .pipe(newer(Desktop_Output_CssPath))
+        '!./desktop/css/bundle.min.css' // exclude existing target itself from bundle
+    ])
         .pipe(sourcemaps.init())
-        // .pipe(postcss([autoprefixer()]))
-        // .pipe(csscomb())
-        .pipe(concat(Desktop_Output_CssTarget))
+        .pipe(concat({path: 'bundle.min.css', cwd: ''}))
         .pipe(cleanCSS({compatibility: 'ie8'}))
+
+        .pipe(gulpif(production, rev())) // revisioning
+
         .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest(Desktop_Output_CssPath))
+        .pipe(gulp.dest('./desktop/css/'))
+
+        .pipe(gulpif(production, rev.manifest('bundle.css.json'))) // revisioning
+        .pipe(gulpif(production, gulp.dest('./desktop/css/manifest/'))) // revisioning
+
+});
+
+
+gulp.task('watch-less-and-build-desktop-css', function () {
+
+    browserSync.init({
+        proxy: "http://www.televisionlab.net/"
+    });
+
+    gulp.watch([
+        './desktop/css/less/**/*.less',
+        '!./desktop/css/less/elements.less'], gulp.series('less-compile-desktop', 'build-desktop-css'));
+
+    gulp.watch([
+        './desktop/css/*.css',
+        './desktop/css/static/*.css',
+        './index.php',
+        './desktop/js/app.js'
+    ]).on('change', browserSync.reload);
+
+});
+
+
+gulp.task('production-desktop-css', gulp.series('less-compile-desktop', 'build-desktop-css'));
+
+
+function manifestOverwrite(targetFile, defaultName){
+    let css_manifest = JSON.parse(fs.readFileSync(targetFile, 'utf8'));
+    if (css_manifest[defaultName] !== defaultName) {
+        const content = JSON.stringify({[defaultName]: defaultName}, null, 4);
+
+        fs.writeFile(targetFile, content, 'utf8', function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("\n Reset to non-hashed filename in manifest " +
+                `\n ${targetFile} \n `);
+        });
+    }
 }
-
-const buildDesktop = gulp.series(
-    gulp.parallel(Css_Bundle_Desktop)
-);
-
-gulp.task('build-desktop', buildDesktop);
-
-
-
