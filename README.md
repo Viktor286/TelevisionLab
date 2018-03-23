@@ -1,5 +1,5 @@
 # Television Lab
-<a href="http://www.televisionlab.net/" target="_blank">www.televisionlab.net</a> is a prototype of an online motion graphics database.
+<a href="http://www.televisionlab.net/" target="_blank">www.televisionlab.net</a> is a prototype of an online motion graphics database written on Javascript and PHP5.
 
 ## Desktop module
 Television Lab has main "desktop" interface for searching motion graphics videos in its local database.<br/>
