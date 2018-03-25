@@ -99,9 +99,7 @@ gulp.task('build-desktop-css', function () {
         './_global/css/common.css',
         './_global/css/main_player_controls.css',
 
-        './desktop/css/static/*.css',
-
-        '!./desktop/css/bundle.min.css' // exclude existing target itself from bundle
+        './desktop/css/static/*.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concat({path: 'bundle.min.css', cwd: ''}))
@@ -132,7 +130,7 @@ gulp.task('watch-less-and-build-desktop-css', function () {
         './desktop/css/*.css',
         './desktop/css/static/*.css',
         './index.php',
-        // './desktop/js/app.js'
+        './desktop/js/*.js'
     ]).on('change', browserSync.reload);
 
 });
@@ -159,7 +157,6 @@ gulp.task('build-vendors-js', function () {
         .pipe(gulp.dest('./desktop/js/'))
         .pipe(rev.manifest('vendors.js.json')) // revisioning
         .pipe(gulp.dest('./desktop/js/manifest/'))
-
 
 });
 
